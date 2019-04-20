@@ -7,9 +7,8 @@
 ### 先把作業的環境設好
 
 1. **每個人的 repository 都不一樣**，[我的在這](https://github.com/Lidemy/mentor-program-3rd-yakim-shu)
-2. 先把作業 repo `fork` 下來 
-3. 再到自己的 repo 下載 ： `git clone https://github.com/yakim-shu/mentor-program-3rd-yakim-shu.git`
-4. 就看到桌面有一包 `mentor-program-3rd-yakim-shu` 資料夾啦
+2. 先把作業 repo `clone` 下來 
+3. 就看到桌面有一包 `mentor-program-3rd-yakim-shu` 資料夾啦
 
 ### 欸你在哪個伺服器
 

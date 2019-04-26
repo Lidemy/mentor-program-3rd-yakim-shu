@@ -1,10 +1,22 @@
-function join(str, concatStr) {
-  return concatStr;
+function join(arr, linkChar) {
+  let result = '';
+  const LENGTH_ARR = arr.length;
+  for (let i = 0; i < LENGTH_ARR; i += 1) {
+    result += i === LENGTH_ARR - 1 ? arr[i] : arr[i] + linkChar;
+  }
+  return result;
 }
 
 function repeat(str, times) {
-  return times;
+  let result = '';
+  for (let i = 0; i < times; i += 1) {
+    result += str;
+  }
+  return result;
 }
 
-console.log(join('a', '!'));
+console.log(join([1, 2, 3], ''));
+console.log(join(['a', 'b', 'c'], '!'));
+console.log(join(['a', 1, 'b', 2, 'c', 3], ','));
 console.log(repeat('a', 5));
+console.log(repeat('yoyo', 2));

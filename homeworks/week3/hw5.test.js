@@ -19,4 +19,7 @@ describe('hw5', () => {
   it('should return correct answer when a=99999999999 and b=99999999999999', () => {
     expect(add('99999999999', '99999999999999')).toBe('100099999999998');
   });
+  it('should return correct answer when a=0 and b=0', () => {
+    expect(add('1', '1')).toBe('2');
+  });
 });

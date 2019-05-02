@@ -10,4 +10,7 @@ describe('challenge', () => {
   it('should return correct answer when a=99999999 and b=9999999', () => {
     expect(times('99999999', '9999999')).toBe('999999890000001');
   });
+  it('should return correct answer when a=4278495702839457 and b=1', () => {
+    expect(times('4278495702839457', '1')).toBe('4278495702839457');
+  });
 });

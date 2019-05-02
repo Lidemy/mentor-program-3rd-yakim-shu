@@ -1,6 +1,5 @@
 function checkNum(str, length, index) {
-  let result = 0;
-  result = Number(str[length - index]);
+  let result = Number(str[length - index]);
   if (!result) result = 0;
   return result;
 }
@@ -10,7 +9,7 @@ function add(a, b) {
   let temp10 = 0;
   let ans = '';
   const Max = a.length > b.length ? a.length : b.length;
-  for (let i = 1; i <= Max + 1; i += 1) {
+  for (let i = 1; i <= Max; i += 1) {
     const targetA = checkNum(a, a.length, i);
     const targetB = checkNum(b, b.length, i);
 
@@ -23,9 +22,10 @@ function add(a, b) {
     }
     ans = temp + ans;
   }
-  ans = ans[0].replace('0', '') + ans.substr(1);
+  if (temp10) ans = `1${ans}`;
   return ans;
 }
+
 function times(a, b) {
   let ans = 0;
   let temp;
@@ -44,10 +44,4 @@ function times(a, b) {
   return ans;
 }
 
-// console.log(add('12312383813881381381', '129018313819319831'));
-// console.log(add('9882342346', '245678567832'));
-// console.log(add('123', '456'));
-// console.log(times('1352396', '78'));
-console.log(times('273487034', '274358') === '75033355674172');
-// console.log(times('11', '22'));
-module.exports = add;
+module.exports = times;

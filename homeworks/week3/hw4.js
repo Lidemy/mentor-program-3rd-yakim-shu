@@ -8,6 +8,4 @@ function isPalindromes(str) {
   }
   return true;
 }
-console.log(isPalindromes('apple'));
-console.log(isPalindromes('applppa'));
 module.exports = isPalindromes;

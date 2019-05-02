@@ -1,6 +1,5 @@
 function checkNum(str, length, index) {
-  let result = 0;
-  result = Number(str[length - index]);
+  let result = Number(str[length - index]);
   if (!result) result = 0;
   return result;
 }
@@ -22,9 +21,8 @@ function add(a, b) {
     }
     ans = temp + ans;
   }
+  if (temp10) ans = `1${ans}`;
   return ans;
 }
 
-console.log(add('12312383813881381381', '129018313819319831'));
-console.log(add('123', '456'));
 module.exports = add;

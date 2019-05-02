@@ -1,8 +1,8 @@
 function join(arr, linkChar) {
-  let result = '';
+  let result = arr[0];
   const LENGTH_ARR = arr.length;
-  for (let i = 0; i < LENGTH_ARR; i += 1) {
-    result += i === LENGTH_ARR - 1 ? arr[i] : arr[i] + linkChar;
+  for (let i = 1; i < LENGTH_ARR; i += 1) {
+    result += linkChar + arr[i];
   }
   return result;
 }

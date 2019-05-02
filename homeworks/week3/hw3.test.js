@@ -10,6 +10,12 @@ describe('hw3', () => {
   it('should return correct answer when n = 5', () => {
     expect(isPrime(5)).toBe(true);
   });
+  it('should return correct answer when n = 13', () => {
+    expect(isPrime(13)).toBe(true);
+  });
+  it('should return correct answer when n = 19', () => {
+    expect(isPrime(19)).toBe(true);
+  });
   it('should return correct answer when n = 30', () => {
     expect(isPrime(30)).toBe(false);
   });

@@ -16,7 +16,7 @@ function getJson(body) {
 }
 
 if (method === 'list') {
-  rp(`${baseUrl}?_limit=${num || 20}`) // 預設 20，有丟數字進去可以改值
+  rp(`${baseUrl}?_limit=${num}`)
     .then(htmlString => getJson(htmlString));
 }
 if (method === 'read') {

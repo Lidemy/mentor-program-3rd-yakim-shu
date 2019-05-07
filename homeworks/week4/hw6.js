@@ -38,7 +38,7 @@ const getItemEnd = () => {
 
 rp(options)
   .then((htmlString) => {
-    getId(htmlString);
+    getId(htmlString); // 抓遊戲 id
     rp(options)
       .then(body => getItemFront(body)) // 抓前 100 個
       .finally(() => getItemEnd()); // 抓後 100 個

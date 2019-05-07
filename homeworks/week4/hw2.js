@@ -2,8 +2,9 @@ const process = require('process');
 const rp = require('request-promise');
 
 const baseUrl = 'https://lidemy-book-store.herokuapp.com/books';
-const parameter = process.argv[2];
-const num = process.argv[3];
+const num = 20;
+const method = process.argv[2];
+const firstKey = process.argv[3];
 
 function getJson(body) {
   const json = JSON.parse(body);
@@ -14,11 +15,11 @@ function getJson(body) {
   }
 }
 
-if (parameter === 'list') {
+if (method === 'list') {
   rp(`${baseUrl}?_limit=${num || 20}`) // 預設 20，有丟數字進去可以改值
     .then(htmlString => getJson(htmlString));
 }
-if (parameter === 'read') {
-  rp(`${baseUrl}/${num}`)
+if (method === 'read') {
+  rp(`${baseUrl}/${firstKey}`)
     .then(htmlString => getJson(htmlString));
 }

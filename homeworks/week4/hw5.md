@@ -25,7 +25,7 @@
 - 會員登入
 - 社群嵌入
     - 分享、按讚按鈕、嵌入貼文、留言板、影音
-    - 例如：[Facebook Graphic](facebook graph api python)
+    - 例如：[Facebook Graphic](https://developers.facebook.com/docs/graph-api?locale=zh_TW)
 - 資料嵌入
     - 例如：[Yahoo 氣象](https://developer.yahoo.com/weather/)、[Google 地圖](https://developers.google.com/maps/documentation/timezone/start?hl=zh-tw)
     
@@ -119,7 +119,7 @@ curl -X GET "https://awesome-restaurant.com/restaurant?_limit=3"
 
 ```javascript
 const request = require('request');
-request(
+request.get(
   'https://awesome-restaurant.com/restaurant?_limit=3', (error, response, body) => {
     console.log(JSON.parse(body));
   },

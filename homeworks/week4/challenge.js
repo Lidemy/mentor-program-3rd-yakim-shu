@@ -1,10 +1,9 @@
-const rp = require('request-promise');
+const req = require('request');
 
 const token = '11gzim2pdteu8xr2p6qgotmuiur42i';
 const url = 'https://api.twitch.tv/helix/streams';
 const id = '21779'; // game_id of LOL
-const num = 100;
-let keyNext;
+const num = 5;
 
 const options = {
   url: `${url}?game_id=${id}&first=${num}`,
@@ -14,19 +13,18 @@ const options = {
   json: true, // auto transform to JSON
 };
 
-const printData = (body) => {
+function getData(body) {
   body.data.forEach(element => console.log(element.id, element.title));
-};
-const getItemFront = (body) => {
-  printData(body);
-  keyNext = body.pagination.cursor;
-};
-const getItemEnd = () => {
-  options.url = `${options.url}&after=${keyNext}`; // request url 加上更新過的 cursor
-  rp(options)
-    .then(body => printData(body));
-};
+  return body.pagination.cursor;
+}
 
-rp(options)
-  .then(body => getItemFront(body)) // 抓前 100 個
-  .finally(() => getItemEnd()); // 抓後 100 個
+function sendRequest(key) {
+  if (key) options.url = `${options.url}&after=${key}`; // 有拿到 key 就更新
+  return new Promise((resolve, reject) => {
+    req(options, (error, response, body) => {
+      if (error) reject(error);
+      else resolve(getData(body));
+    });
+  });
+}
+sendRequest().then(key => sendRequest(key));

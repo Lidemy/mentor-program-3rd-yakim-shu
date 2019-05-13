@@ -4,8 +4,8 @@ function checkNum(str, index) {
 function add(a, b) {
   let temp10 = 0;
   let ans = '';
-  const Max = a.length > b.length ? a.length : b.length;
-  for (let i = 1; i <= Max; i += 1) {
+  const max = a.length > b.length ? a.length : b.length;
+  for (let i = 1; i <= max; i += 1) {
     let temp = checkNum(a, i) + checkNum(b, i) + temp10;
     temp10 = temp > 9 ? 1 : 0;
     temp %= 10;

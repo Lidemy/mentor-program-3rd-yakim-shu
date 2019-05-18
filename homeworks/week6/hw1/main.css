@@ -1,0 +1,175 @@
+/*  ------------- 歸零 ------------- */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration:none;
+}
+body {
+  font-family: sans-serif, Verdana, Geneva, Tahoma;
+}
+/*  ------------- 通用 ------------- */
+a.btn {
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  background: #666;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
+  transition: all .3s;
+}
+a.btn:hover {
+  background: #555;
+}
+/* ------------- nav ------------- */
+nav { 
+  height: 50px;
+  background: #1F2835;
+}
+nav a, nav ul li{
+  display: inline-block;
+  height: 100%;
+  line-height: 50px;
+  color: #fff;
+  padding: 0 15px;
+}
+/* nav - logo  */
+nav a.logo {
+  font-size: 20px;
+}
+/* nav - ul  */
+nav ul {
+  display: inline-block;
+}
+nav ul li {
+  cursor: pointer;
+  color: #A3A5A7;
+}
+nav ul li:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ------------- header ------------- */
+header { 
+  background: #e6e9ed;
+}
+header .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding:50px 20px;
+}
+header h1 { 
+  font-size: 72px;
+  font-weight: normal;
+}
+header p { 
+  margin: 15px 0;
+  
+}
+header a.btn { 
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 28px;
+  font-size: 18px;
+  background: #0070ff;
+  color: #fff;
+}
+header a.btn:hover { 
+  background: #0060D5;
+}
+
+/* ------------- main ------------- */
+main { 
+}
+main .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding: 50px 20px;
+  overflow: auto;
+}
+main section {
+  float: left;
+  width: calc((100% / 3) - 20px);
+}
+main section + section{
+  margin-left:20px;
+}
+main section h2 {
+  font-size: 36px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+main section p {
+  margin-bottom: 20px;
+}
+main section a.btn {
+
+}
+
+/* ------------- footer ------------- */
+footer { 
+}
+footer .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding: 40px 20px;
+  border-top: 1px solid #e5e5e5;
+}
+footer p {
+  color: #666;
+  font-size: 12px;
+}
+
+/* ------------- RWD ------------- */
+/* pad - 768px */
+@media screen and (max-width: 768px){
+  header h1 { 
+    font-size: 50px;
+  } 
+  header a.btn { 
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+  } 
+  main .inner, header .inner {
+    padding: 30px 20px;
+  }
+  main section h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+}
+
+/* pad - 640px */
+@media screen and (max-width: 640px){
+  main section {
+    width:100%;
+    margin-bottom: 20px;
+  }
+  main section + section {
+    margin-left: 0;
+  }
+}
+
+/* pad - 480px */
+@media screen and (max-width: 480px){
+  header .inner {
+    padding: 20px;
+  }
+  header h1 { 
+    font-size: 36px;
+  } 
+  a.btn { 
+    font-size: 12px;
+  } 
+  header a.btn { 
+    font-size: 14px;
+  } 
+  main section h2 {
+  }
+}

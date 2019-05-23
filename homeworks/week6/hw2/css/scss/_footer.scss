@@ -1,0 +1,97 @@
+.footer {
+  background: #fafafa;
+  flex-basis: 100%;
+  box-shadow: 0 0px 20px 50px #fff;
+  z-index:2;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  padding:50px 0;
+}
+
+/* 推薦文章 */
+.post-related {
+  display: flex;
+  max-width: 1030px;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin:0 auto 50px auto;
+  flex-wrap: wrap;
+}
+
+.post-related__item {
+  flex-basis: calc(100% / 3 - 20px);
+  border-radius: 4px;
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.04);
+  overflow: hidden;
+}
+.post-related__item a.pic {
+  display: block;
+  overflow: hidden;
+}
+.post-related__item a.pic img {
+  width:100%;
+  height:auto;
+}
+
+.post-related__body {
+  padding: 15px;
+}
+.post-related__body span {
+  font-size: 13px;
+  color:#999;
+} 
+.post-related__body .title {
+  margin: 10px 0 20px 0;
+  font-size: 18px;
+}
+
+/* 下方操作區 */
+.related-operate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+a.related-operate__pic {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+a.related-operate__pic img {
+  width: 100%;
+  height: auto;
+}
+.related-operate__info {
+  flex: 1;
+  font-size: 13px;
+  margin: 0.5em 0;
+}
+.related-operate__info span {
+  display: block;
+  margin: 0.5em 0;
+}
+/* 右邊按鈕區 */
+.related-operate__btn {
+  flex-basis: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.related-operate__clap svg {
+  fill: #03a87c;
+  cursor: pointer;
+}
+.related-operate__clap-num {
+
+}
+.related-operate__border {
+
+}
+.related-operate__bookmark svg {
+  fill: #666;
+  cursor: pointer;
+}

@@ -1,0 +1,24 @@
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 3px;
+  border: 1px solid #666;
+  color: #666;
+  font-size: 13px;
+  transition: all .3s ease-out;
+}
+.btn:hover { 
+  background: #666;
+  color: #fff;
+  border-color: #666;
+}
+
+.btn--follow {
+  color: #03a87c;
+  border-color: #03a87c;
+}
+.btn--follow:hover { 
+  background: #03a87c;
+  color: #fff;
+  border-color: #03a87c;
+}

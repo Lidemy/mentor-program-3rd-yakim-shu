@@ -1,0 +1,139 @@
+.operate {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+/* 拍手區 */
+.operate-claps {
+  flex: 1;
+  height: 75px;
+  /* border: 1px solid #666; */
+  padding: 10px 0;
+  
+}
+.coperate-claps__btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+  transition: all .3s ease-in-out;
+}
+.coperate-claps__btn:hover {
+  border-color: #03a87c;
+  box-shadow: 0 0 8px 0 #03a87c;
+}
+.coperate-claps__btn:hover svg {
+  fill: #03a87c;
+}
+.operate-claps__num {
+  font-size: 14px;
+  color: #666;
+  margin: 0em .5em 0;
+}
+.operate-claps__ppl {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.5em;
+  margin: .5em 0 0;
+}
+/* 社群留言區 */
+.operate-share {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  flex-basis: 200px;
+  height: 70px;
+  margin: 0 0 0 80px;
+  padding:0;
+}
+.operate-share .item {
+  display: inline-flex;
+  cursor: pointer;
+}
+.operate-share svg {
+  fill: #666;
+}
+.operate-share .item:hover svg {
+  fill: #000;
+}
+.operate-share__twitter {
+
+}
+.operate-share__fb {
+
+}
+.operate-share__comment {
+
+}
+.operate-share__comment-num{
+  color: #666;
+  font-size: 12px;
+}
+.operate-share__bookmark {
+
+}
+.operate-share__report {
+
+}
+/* 作者資訊區 */
+.operate-author {
+  flex-basis: 100%;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+a.operate-author__pic {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: #333;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 5px white, 0 0 0px 5.5px green;
+}
+
+a.operate-author__pic img{
+  width: 100%;
+  height: 100%;
+}
+.operate-author__body {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  /* justify-content: space-evenly; */
+  padding-left:20px;
+}
+.operate-author__body p{
+  margin: 0;
+}
+
+a.operate-author__name {
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 5px;
+}
+p.operate-author__date {
+  color: #666;
+  font-size:12px;
+  margin-bottom: 5px;
+}
+p.operate-author__summary {
+  color: #666;
+  font-size:15px;
+  line-height: 1.5em;
+}
+
+.operate-author a.btn--follow {
+  margin-left: 40px;
+}

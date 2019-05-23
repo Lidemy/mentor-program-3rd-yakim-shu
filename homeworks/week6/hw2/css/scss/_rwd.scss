@@ -1,0 +1,77 @@
+/* ------------- RWD ------------- */
+/* pad - 1200px */
+@media screen and (max-width: 1200px){ 
+.side-nav {
+  left: 3%;
+}
+.side-nav__top {
+  display: none;
+}
+}
+
+
+/* pad - 860px */
+@media screen and (max-width: 860px){ 
+.side-nav {
+  display: none;
+}
+
+
+}
+
+/* pad - 768px */
+@media screen and (max-width: 768px){ 
+.side-nav {
+  display: none;
+}
+/* 推薦文章 */
+.post-related__item {
+  flex-basis: 100%;
+  margin-bottom: 15px;
+}
+}
+
+/* pad - 640px */
+@media screen and (max-width: 640px){ 
+  .operate-claps {
+  display: flex;
+  align-items: center;
+  }
+  .operate-claps__ppl {
+    display: none;
+  }
+}
+
+
+/* pad - 480px */
+@media screen and (max-width: 480px){ 
+  .gallery {
+    margin-bottom: 20px;
+  }
+  .article__title {
+    font-size: 30px;
+  }
+  .article__body {
+    font-size: 18px;
+  }
+  .article__body li {
+    font-size: 18px;
+  }
+  .article__body blockquote {
+    font-size: 24px;
+    margin: 30px 10px
+  }
+  .coperate-claps__btn {
+    margin-right: 5px;
+  }
+  .operate-claps__num {
+    margin:0;
+  }
+  .operate-share {
+    margin-left: 0px;
+    flex-basis: 160px;
+  }
+  .operate-author a.btn--follow {
+    margin-left: 10px;
+  }
+}

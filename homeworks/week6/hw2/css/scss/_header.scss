@@ -1,0 +1,64 @@
+/* block: header */
+.header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 65px;
+  background: #fff;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
+  z-index:2;
+}
+.header__logo-main {
+  display: inline-block;
+  width: 45px; 
+  height: 45px;
+}
+.header__inner {
+  display: flex;
+  flex-basis: 1080px;
+  align-items: center;
+  justify-content: space-between;
+  padding:0 20px;
+}
+
+/* block: header-nav */
+.header-nav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 200px;
+}
+.header-nav .item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+.header-nav .item svg{
+  width: 25px;
+  height: 25px;
+  fill: #999;
+}
+.header-nav .item:hover svg {
+  fill: #333;
+}
+.item.header-nav__search {
+}
+.item.header-nav__bookmark {
+
+}
+.item.header-nav__notification {
+
+}
+.item.header-nav__profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+.item.header-nav__profile-pic img {
+  width: 100%;
+  height: auto;
+}

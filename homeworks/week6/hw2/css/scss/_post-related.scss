@@ -1,0 +1,81 @@
+/* block: 推薦文章 */
+.post-related {
+  max-width: 1020px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 10px;
+  margin:0 auto 50px auto;
+}
+
+/* element: 單則推薦 */
+.post-related__item {
+  flex-basis: calc(100% / 3 - 10px);
+  border-radius: 4px;
+  box-shadow: 0 1px 7px rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.04);
+  overflow: hidden;
+}
+.post-related__item .pic {
+  display: block;
+  overflow: hidden;
+}
+.post-related__item .pic img {
+  width:100%;
+  height:auto;
+}
+.post-related__body {
+  padding: 15px;
+}
+.post-related__body span {
+  font-size: 13px;
+  color:#999;
+} 
+.post-related__body .title {
+  margin: 10px 0 20px 0;
+  font-size: 18px;
+  height: 60px; /* 固定高 - RWD 要調整*/
+}
+
+/* block: 單則推薦 - 下方操作區 */
+.related-operate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+a.related-operate__pic {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+a.related-operate__pic img {
+  width: 100%;
+  height: auto;
+}
+.related-operate__info {
+  flex: 1;
+  font-size: 13px;
+  margin: 0.5em 0;
+}
+.related-operate__info span {
+  display: block;
+  margin: 0.5em 0;
+}
+/* element: 單則推薦 - 下方操作區 - 右邊按鈕區 */
+.related-operate__btn {
+  display: flex;
+  flex-basis: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+.related-operate__clap svg {
+  fill: #03a87c;
+  cursor: pointer;
+}
+.related-operate__bookmark svg {
+  fill: #666;
+  cursor: pointer;
+}

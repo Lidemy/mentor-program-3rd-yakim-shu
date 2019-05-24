@@ -1,0 +1,9 @@
+/* block: 文章上方大圖 */
+.gallery {
+  margin-bottom: 50px;
+  z-index:1;
+}
+.gallery__pic img {
+  width: 100%;
+  height: auto;
+}

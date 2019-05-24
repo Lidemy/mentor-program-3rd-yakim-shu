@@ -1,0 +1,144 @@
+/* block: 留言區 */
+.comment {
+  width:100%;
+  max-width: 680px;
+  padding: 0 20px;
+  margin:0 auto 20px auto;
+}
+.comment--shadow {
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.09);
+  overflow: hidden;
+}
+
+/* block: 上半部 */
+.comment-top {
+  margin-bottom: 30px;
+}
+.comment-top__title {
+  font-size: 14px;
+  color: #666;
+}
+
+/* element: 上半部 - 輸入框 */
+.comment-top__input {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+}
+.comment-top__user-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right:10px;
+}
+.comment-top__user-pic img {
+  width: 105%;
+  height: auto;
+}
+.comment-top__input textarea{
+  width: 100%;
+  letter-spacing: .03em;
+  color: #666;
+  padding:12px;
+  border: none;
+}
+.comment-top__input textarea::placeholder{
+  color: #aaa;
+}
+.comment-top__input textarea:focus{
+    outline: none; /* 去除預設樣式 */
+}
+.comment-top__below {
+  font-size: 13px;
+  letter-spacing: .05em;
+  color: #999;
+  position: relative;
+  margin-top: 20px;
+  padding: 20px 0 0 20px;
+}
+.comment-top__below::before {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: #888;
+  position: absolute;
+  top: 0;
+}
+.comment-top__below a {
+  color: #03a87c;
+}
+
+/* block: 下半部 - 單則留言 */
+.comment-post {
+  margin-bottom: 20px;
+}
+.comment-post .item{
+  padding: 20px;
+}
+.comment-post .item + .item {
+  border-top: 1px solid rgba(0,0,0,.09);
+}
+/* block: 單則留言 - 用戶名 */
+.comment-post__user {
+  margin-bottom: 30px;
+}
+.comment-post__user-pic {
+  display: inline-block;
+  float: left;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+.comment-post__user-pic img{ 
+  width: 100%;
+  height: auto;
+}
+
+.comment-post__user-name {
+  display: block;
+  margin: 0.5em 0;
+  font-size: 14px;
+  color: #03a87c;
+}
+.comment-post__comment-time {
+  font-size: 12px;
+  color: #999;
+}
+.comment-post__body p {
+  font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-size: 18px;
+  line-height: 1.7em;
+  color: #666;
+  margin-bottom: 20px;
+}
+.comment-post__info .clap svg {
+  fill: #666;
+}
+.comment-post__info .clap::after {
+  content: attr(num);
+  position: relative;
+  color: #aaa;
+  font-size: 14px;
+  left: 5px;
+  top: -6px;
+}
+.comment-post__button-set {
+  float: right;
+  position: relative;
+  top:3px;
+}
+.comment-post__button-set svg {
+  fill: #666;
+}
+.comment-post__bookmark {
+  position: relative;
+  top: 3px;
+}

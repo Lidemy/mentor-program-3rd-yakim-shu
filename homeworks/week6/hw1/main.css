@@ -1,0 +1,214 @@
+/*  ------------- 簡易歸零 ------------- */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration:none;
+}
+body {
+  font-family: sans-serif, Verdana, Geneva, Tahoma;
+}
+/*  ------------- 通用 ------------- */
+a.btn {
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  background: #666;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
+  transition: all .3s;
+}
+a.btn:hover {
+  background: #555;
+}
+/* ------------- nav ------------- */
+nav { 
+  height: 50px;
+  background: #a1a3a0;
+  position: sticky;
+  top:0;
+  z-index: 1;
+}
+nav a, nav ul li{
+  display: inline-block;
+  height: 100%;
+  line-height: 50px;
+  color: #fff;
+  padding: 0 15px;
+}
+/* nav - logo  */
+nav a.logo {
+  font-size: 20px;
+}
+/* nav - ul  */
+nav ul {
+  display: inline-block;
+}
+nav ul li {
+  cursor: pointer;
+  color: #777368;
+}
+nav ul li:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ------------- header ------------- */
+header { 
+  background: url("http://parson-photo.com/wp-content/uploads/2016/08/prewedding_lesbian_mina_2015_01.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment:fixed;
+}
+header .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding:170px 20px;
+  text-align: center;
+}
+header h1 { 
+  font-size: 50px;
+  font-weight: normal;
+  color:#fff;
+  text-shadow: 0 0 10px #333;
+  margin-bottom:20px;
+  font-family: 'Noto Serif TC', serif;
+}
+header p { 
+  margin: 15px 0;
+  
+}
+header a.btn { 
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 45px 0 25px;
+  font-size: 18px;
+  font-family: 'Noto Serif TC', serif;
+  background: rgba(97, 108, 126, 0.7);
+  color: #fff;
+  border: 1px solid #fff;
+}
+header a.btn:hover { 
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(97, 72, 30, 0.76);
+  padding: 0 55px 0 35px;
+}
+header a.btn em {
+  position: absolute;
+  top: 0px;
+  right: 15px;  
+}
+
+/* ------------- main ------------- */
+main { 
+}
+main .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding: 50px 20px;
+  overflow: auto;
+}
+main section {
+  float: left;
+  width: calc((100% / 3) - 20px);
+  padding:20px 15px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  transition:all .3s;
+}
+main section:hover {
+  border-color:#aaa;
+}
+main section:not(:first-child){
+  margin-left:20px;
+}
+main section h2 {
+  font-size: 20px;
+  color: #3f789a;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+main section p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+main section a.btn {
+  color: #7898a9;
+  background:none;
+  border:1px solid #7898a9;
+}
+main section a.btn:hover {
+  color: #fff;
+  background:#7898a9;
+}
+
+/* ------------- footer ------------- */
+footer { 
+}
+footer .inner { 
+  max-width: 1000px;
+  margin:0 auto;
+  padding: 40px 20px;
+  border-top: 1px solid #e5e5e5;
+}
+footer p {
+  color: #666;
+  font-size: 12px;
+}
+
+/* ------------- RWD ------------- */
+/* pad - 768px */
+@media screen and (max-width: 768px){
+  header h1 { 
+    font-size: 36px;
+  } 
+  header a.btn { 
+    height: 40px;
+    line-height: 40px;
+  } 
+  header .inner {
+    padding: 80px 20px;
+  }
+  main .inner {
+    padding: 30px 20px;
+  }
+  main section {
+    width:100%;
+    margin-bottom: 20px;
+  }
+  main section:not(:first-child) {
+    margin-left: 0;
+  }
+  main section h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+}
+
+/* pad - 640px */
+@media screen and (max-width: 640px){
+
+}
+
+/* pad - 480px */
+@media screen and (max-width: 480px){
+  header .inner {
+    padding: 20px;
+  }
+  header h1 { 
+    font-size: 26px;
+  } 
+  a.btn { 
+    font-size: 12px;
+  } 
+  header a.btn { 
+    font-size: 14px;
+  } 
+  main section h2 {
+  }
+}

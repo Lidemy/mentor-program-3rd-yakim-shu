@@ -1,8 +1,12 @@
+@import 'scss/layout';
 @import 'scss/block';
-@import 'scss/article';
-@import 'scss/comment';
+
 @import 'scss/header';
+@import 'scss/sidebar';
+@import 'scss/gallery';
+@import 'scss/article';
 @import 'scss/operate';
-@import 'scss/side-nav';
-@import 'scss/footer';
+@import 'scss/post-related';
+@import 'scss/comment';
+
 @import 'scss/rwd';

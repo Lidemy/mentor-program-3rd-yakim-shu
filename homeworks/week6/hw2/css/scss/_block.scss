@@ -1,3 +1,7 @@
+/* 
+通用元素 
+常用顏色： #03a87c;
+*/ 
 .btn {
   display: inline-block;
   padding: 8px 16px;
@@ -5,6 +9,7 @@
   border: 1px solid #666;
   color: #666;
   font-size: 13px;
+  letter-spacing: .05em;
   transition: all .3s ease-out;
 }
 .btn:hover { 

@@ -1,0 +1,32 @@
+/* 預設歸零 */
+* {
+  box-sizing: border-box;
+  font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+}
+a {
+  text-decoration: none;
+}
+
+/* 版型 */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.main {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  background: #fafafa;
+  padding:30px 0;
+  box-shadow: 0 0px 20px 50px #fff; /* 讓 sidebar 消失自然一點 */
+  z-index:2;
+}

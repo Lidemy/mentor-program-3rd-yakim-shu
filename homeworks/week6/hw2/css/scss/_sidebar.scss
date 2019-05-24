@@ -1,0 +1,64 @@
+/* block: 側欄拍手、分享區 */
+.sidebar {
+  width: 120px;
+  height: 200px;
+  position: -webkit-sticky; /* safari */
+  position: sticky;
+  top: 80px;
+  margin: 100px 50px 0 0;
+}
+
+/* element: 上半部 - 作者介紹 */
+.sidebar__top {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+.sidebar__author-name {
+  color: #000;
+  font-size: 18px;
+}
+.sidebar__summary {
+  font-size: 13px;
+  letter-spacing: .2;
+  line-height: 1.5em;
+  color:#999;
+  margin: 0.3em 0 1em;
+}
+
+/* element: 下半部 - 拍手、社群分享 */
+.sidebar__bottom {
+  list-style: none;
+  padding-left: 0;
+}
+.sidebar__bottom .item {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  transition: all .3s;
+  cursor: pointer;
+}
+.sidebar__bottom .item svg {
+  fill: #666;
+  transition: all .3s;
+}
+.sidebar__bottom .item:hover svg{
+  fill: #000;
+}
+
+.sidebar__clap {
+  position: relative;
+}
+.sidebar__clap.item svg {
+  fill: #03a87c;
+}
+.sidebar__clap em {
+  position: absolute;
+  right: -25px;
+  top: 8px;
+  font-style: normal;
+  font-size: 12px;
+  color: #999;
+}
+

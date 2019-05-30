@@ -5,96 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Yakim_week7-hw1</title>
   <link rel="stylesheet" href="./main.css">
+  
 </head>
 <body>
   <ul class="scoreBoard">
-    <li>成績列表: (秒)</li>
+    <h4>成績列表: (秒)</h4>
+    <li></li>
+    <li></li>
+    <li></li>
   </ul>
   <h1>畫面變色時請點擊</h1>
-  <script>
-    const body = document.querySelector("body");
-    const scoreBoard = document.querySelector(".scoreBoard");
-    const bgColorOrgin = '#666';
-    let score = [];
-    let timeStart = 0;
-    let isFailed = false;
-    let isColorChanged = false;
-    let isButtonShow = false;
-    let isAgain = false;
-    let color = '#fff';
-    
-    // 隨機取色
-    function getRadomColor() {
-      const str = 'abcdef0123456789';
-      let result = '';
-      for (let i = 0; i < 6; i += 1) {
-        result += str[Math.floor(Math.random() * 16)];
-      }
-      return result;
-    }
-    
-    // 改背景色
-    function setBgColor() {
-      if (isColorChanged || isFailed) return false;
-      isColorChanged = true;
-      timeStart = new Date();
-      body.style.background = `#${getRadomColor()}`;
-    }
-    
-    // 出現「 再玩一次 」按鈕
-    function showButton(isButtonShow) {
-      if (!isButtonShow) {
-        const button = document.createElement('button');
-        button.innerText = "再試一次";
-        body.appendChild(button);
-      }
-    }
-
-    // 設置換色時間 & 倒數換色
-    function startTicking() {
-      const randomTime = ((Math.random() * 2) + 1) * 1000;
-      setTimeout(setBgColor, randomTime);
-    };
-    startTicking();
-
-    function updateScore(score){
-      const li = document.createElement('li');
-      li.innerText = score;
-      scoreBoard.appendChild(li);
-    }
-    // 事件動作 callback
-    function callback(e) {
-      if (e === 'btn' || e.target.nodeName === "BUTTON") { // 按到按鈕
-        body.removeChild(document.querySelector('button'));
-        isColorChanged = isFailed = false; // 改回預設
-        body.style.background = bgColorOrgin;
-        isAgain = true;
-        isButtonShow = false;
-        startTicking();
-      } else { // 按鈕以外的地方
-        const timeEnd = new Date();
-        if (isColorChanged && !isButtonShow) {
-          let temp = (timeEnd - timeStart) / 1000;
-          updateScore(temp);
-          alert(`你的成績: ${temp}秒`);
-        } else if (!isColorChanged && !isButtonShow) {
-          alert(`客官您很心急！`);
-          isFailed = true;
-        }
-        showButton(isButtonShow);
-        if (!isButtonShow) isButtonShow = !isButtonShow;
-      }
-    }
-
-    // click & key 事件監聽
-    body.onclick = e => callback(e);
-    body.onkeydown = e => {
-      if (e.keyCode === 32) callback(e);
-      if (e.keyCode === 82 && isButtonShow) callback('btn');
-    }
-
-
-
-  </script>
+  <script src="./main.js"></script>
 </body>
 </html>

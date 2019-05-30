@@ -1,24 +1,19 @@
-function eventListener() {
-  console.log('load');
-  const form = document.querySelector('.form');
-  form.addEventListener('click', (e) => {
-    const objectRead = document.querySelectorAll('input[read="true"]');
-    if (e.target.getAttribute('required') === '' && e.target.value === '') {
-      e.target.setAttribute('read', 'true');
+function setInputBg(inputRead) {
+  if (inputRead.length < 0) return;
+  for (let i = 0; i < inputRead.length; i += 1) {
+    if (inputRead[i].value === '') inputRead[i].parentElement.classList.add('read');
+    else inputRead[i].parentElement.classList.remove('read');
+  }
+}
+
+function windowLoad() {
+  window.addEventListener('click', (e) => {
+    const inputRead = document.querySelectorAll('input[data-isRead="true"]');
+    if (e.target.hasAttribute('required') && e.target.value === '') {
+      e.target.setAttribute('data-isRead', 'true');
     }
-    if (objectRead.length > 0) {
-      for (let i = 0; i < objectRead.length; i += 1) {
-        if (objectRead[i].value === '') {
-          e.target.setAttribute('read', 'true');
-          objectRead[i].parentElement.classList.add('read');
-        } else {
-          objectRead[i].removeAttribute('read');
-          objectRead[i].parentElement.classList.remove('read');
-        }
-      }
-    }
+    setInputBg(inputRead);
   });
 }
 
-
-window.onload = eventListener;
+window.onload = windowLoad;

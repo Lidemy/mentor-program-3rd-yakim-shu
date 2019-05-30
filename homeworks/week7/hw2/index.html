@@ -1,0 +1,89 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://necolas.github.io/normalize.css/latest/normalize.css" rel="stylesheet">
+  <link href="./main.css" rel="stylesheet">
+  <script src="main.js"></script>
+  <title>Yakim_week7-hw2</title>
+</head>
+
+<body>
+  <header class="header"></header>
+  <main class="main">
+    <div class="main__inner">
+      <section class="summary">
+        <h1 class="summary__title">程式導師實驗計畫第三期報名表單</h1>
+        <p>詳情請參考：<a target="_blank"
+            href="https://medium.com/hulis-blog/mentor-program-3rd-47a2e85e33b3">https://medium.com/hulis-blog/mentor-program-3rd-47a2e85e33b3</a>
+        </p>
+        <p>填完之後請務必按照文章內的說明再寄信給我，才算報名成功喔</p>
+        <p class="summary__strong">*必填</p>
+      </section>
+      <section class="form">
+        <form action="">
+          <ul>
+            <li class="form__item" data-check="true">
+              <h4>電子郵件地址</h4>
+              <input type="email" name="email" id="email" class="input--half" placeholder="你的電子郵件" required>
+            </li>
+            <li class="form__item" data-check="true">
+              <h4>暱稱</h4>
+              <span>該如何稱呼你</span>
+              <input type="text" name="nickname" id="nickname" class="input--half" placeholder="你的回答" required>
+            </li>
+            <li class="form__item" data-check="true">
+              <h4>報名類型</h4>
+              <div>
+                <input type="radio" name="type" id="type1" required>
+                <label for="type1">從零到一基礎班（兩個月後開始收保證金 5000，淘汰不退還，結業後兩個月內找到工作付一個月半薪水，沒工作不用付）</label>
+              </div>
+              <div>
+                <input type="radio" name="type" id="type2" required>
+                <label for="type2">在職工程師加強班（兩個月後開始收保證金 5000，三個月時收學費 35000 元台幣，被淘汰不退還）</label>
+              </div>
+            </li>
+            <li class="form__item" data-check="true">
+              <h4>現在的職業</h4>
+              <span>範例：學生、前端工程師、待業中、業務</span>
+              <input type="text" name="job" id="job" class="input--half" placeholder="你的回答" required>
+            </li>
+            <li class="form__item" data-check="true">
+              <h4>怎麼知道這個計畫的？</h4>
+              <input type="text" name="from" id="from" placeholder="你的回答" required>
+            </li>
+            <li class="form__item" data-check="true">
+              <h4>是否有程式相關背景？</h4>
+              <span>範例：無、高中時候學過C++、學過一點網頁前端、目前在資策會上課...</span>
+              <input type="text" name="experience" id="experience" placeholder="你的回答" required>
+            </li>
+            <li class="form__item">
+              <h4>其他</h4>
+              <span>任何你想說的</span>
+              <input type="text" name="opinion" id="opinion" placeholder="你的回答">
+            </li>
+            <li class="form__item">
+              <button type="submit" class="btn-submit">提交</button>
+              <span>請勿利用 Google 表單送出密碼。</span>
+            </li>
+          </ul>
+        </form>
+      </section>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>Google 並未認可或建立這項內容。
+      <a target="_blank"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf_VezMf-V20hMDYTNEM0LEkuztIg-ZIsSI9Zy9xLAwGYzxGA/reportabuse?source=https://docs.google.com/forms/d/e/1FAIpQLSf_VezMf-V20hMDYTNEM0LEkuztIg-ZIsSI9Zy9xLAwGYzxGA/viewform">檢舉濫用情形</a>
+      -
+      <a target="_blank" href="http://www.google.com/accounts/TOS">服務條款</a>
+    </p>
+    <a target="_blank" class="url-google-form"
+      href="https://www.google.com/forms/about/?utm_source=product&utm_medium=forms_logo&utm_campaign=forms">Google
+      表單</a>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Yakim_week7-hw1</title>
+</head>
+<body>
+<style>
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  button {
+    border: 1px solid #eee;
+    background: white;
+    padding: 10px 20px;
+    transition: all .3s;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #eee;
+  }
+  button:focus {
+    outline: none;
+  }
+</style>
+  <h1>畫面變色時請點擊</h1>
+  <script>
+    const body = document.querySelector("body");
+    let timeStart = 0;
+    let isFailed = false;
+    let isColorChanged = false;
+    let isButtonShow = false;
+    let isSuscess = false;
+    let isAgain = false;
+    
+    function setColor() {
+      if (isButtonShow || isFailed) return false;
+      isColorChanged = true;
+      timeStart = new Date();
+      body.style.background = "grey";
+    }
+
+    function showButton(isButtonShow, isAgain) {
+      if (isButtonShow) return false;
+      else {
+        console.log('show: ', isButtonShow);
+        const button = document.createElement('button');
+        button.innerText = "再試一次";
+        body.appendChild(button);
+        isButtonShow = true;
+      }
+    }
+      
+    function start() {
+      const randomTime = ((Math.random() * 2) + 1) * 1000;
+      setTimeout(setColor, randomTime);
+    };
+    start();
+
+    body.addEventListener("click", function(e){
+      if (e.target.nodeName === "BUTTON") {
+        body.removeChild(document.querySelector('button'));
+        isColorChanged = isSuscess = isFailed = false; // 改回預設
+        body.style.background = "white";
+        isAgain = true;
+        start();
+      } else {
+        const timeEnd = new Date();
+        if (isColorChanged && !isSuscess) {
+          const gap = (timeEnd - timeStart) / 1000;
+          isSuscess = true;
+          console.log("成功: ", gap);
+        } else if (!isColorChanged){
+          console.log("失敗");
+          isFailed = true;
+        }
+        showButton(isButtonShow, isAgain);
+      }
+    });
+
+  </script>
+</body>
+</html>

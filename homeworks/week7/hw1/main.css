@@ -1,0 +1,55 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #666;
+}
+h1 {
+  background: rgba(255,255,255, 0.5);
+  color: #fff;
+  font-weight: normal;
+  padding: 20px 40px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
+  text-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+button {
+  color: white;
+  background: rgba(0,0,0,0);
+  padding: 10px 20px;
+  transition: all .5s;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+}
+button:hover {
+  background: rgba(0,0,0,0.15);
+}
+button:focus {
+  outline: none;
+}
+.scoreBoard {
+  position: fixed;
+  padding: 20px;
+  list-style: none;
+  right: 20px;
+  top: 10px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.scoreBoard li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* pad - 768px */
+@media screen and (max-width: 768px){
+  .scoreBoard {
+    display: none;
+  }
+}

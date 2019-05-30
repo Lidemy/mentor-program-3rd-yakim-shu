@@ -38,20 +38,18 @@
     let isAgain = false;
     
     function setColor() {
-      if (isButtonShow || isFailed) return false;
+      if (isColorChanged || isFailed) return false;
       isColorChanged = true;
       timeStart = new Date();
       body.style.background = "grey";
     }
 
-    function showButton(isButtonShow, isAgain) {
-      if (isButtonShow) return false;
-      else {
+    function showButton(isButtonShow) {
+      if (!isButtonShow) {
         console.log('show: ', isButtonShow);
         const button = document.createElement('button');
         button.innerText = "再試一次";
         body.appendChild(button);
-        isButtonShow = true;
       }
     }
       
@@ -62,23 +60,26 @@
     start();
 
     body.addEventListener("click", function(e){
-      if (e.target.nodeName === "BUTTON") {
+      if (e.target.nodeName === "BUTTON") { // 按到按鈕
+        console.log("再玩一次");
         body.removeChild(document.querySelector('button'));
         isColorChanged = isSuscess = isFailed = false; // 改回預設
         body.style.background = "white";
         isAgain = true;
+        isButtonShow = false;
         start();
-      } else {
+      } else { // 按鈕以外的地方
         const timeEnd = new Date();
         if (isColorChanged && !isSuscess) {
           const gap = (timeEnd - timeStart) / 1000;
           isSuscess = true;
-          console.log("成功: ", gap);
-        } else if (!isColorChanged){
-          console.log("失敗");
+          alert(`你的成績:  ${gap} 秒`);
+        } else if (!isColorChanged && !isButtonShow){
+          alert(`客官您很心急！`);
           isFailed = true;
         }
-        showButton(isButtonShow, isAgain);
+        showButton(isButtonShow);
+        if(!isButtonShow) isButtonShow = !isButtonShow;
       }
     });
 

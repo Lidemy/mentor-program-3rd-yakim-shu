@@ -12,16 +12,30 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      background: #666;
+  }
+  h1 {
+    background: rgba(255,255,255, 0.5);
+    color: #fff;
+    font-weight: normal;
+    padding: 20px 40px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
+    text-shadow: 0 0 10px rgba(0,0,0,0.2);
   }
   button {
-    border: 1px solid #eee;
-    background: white;
+    color: white;
+    background: rgba(0,0,0,0);
     padding: 10px 20px;
-    transition: all .3s;
+    transition: all .5s;
     cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
   }
   button:hover {
-    background: #eee;
+    background: rgba(0,0,0,0.15);
   }
   button:focus {
     outline: none;
@@ -30,23 +44,33 @@
   <h1>畫面變色時請點擊</h1>
   <script>
     const body = document.querySelector("body");
+    const bgColorOrgin = '#666';
     let timeStart = 0;
     let isFailed = false;
     let isColorChanged = false;
     let isButtonShow = false;
-    let isSuscess = false;
     let isAgain = false;
+    let color = '#fff';
     
+
+    function getRadomColor() {
+      const str = 'abcdef0123456789';
+      let result = '';
+      for (let i = 0; i < 6; i += 1) {
+        result += str[Math.floor(Math.random() * 16)];
+      }
+      return result;
+    }
+
     function setColor() {
       if (isColorChanged || isFailed) return false;
       isColorChanged = true;
       timeStart = new Date();
-      body.style.background = "grey";
+      body.style.background = `#${getRadomColor()}`;
     }
 
     function showButton(isButtonShow) {
       if (!isButtonShow) {
-        console.log('show: ', isButtonShow);
         const button = document.createElement('button');
         button.innerText = "再試一次";
         body.appendChild(button);
@@ -61,19 +85,16 @@
 
     body.addEventListener("click", function(e){
       if (e.target.nodeName === "BUTTON") { // 按到按鈕
-        console.log("再玩一次");
         body.removeChild(document.querySelector('button'));
-        isColorChanged = isSuscess = isFailed = false; // 改回預設
-        body.style.background = "white";
+        isColorChanged = isFailed = false; // 改回預設
+        body.style.background = bgColorOrgin;
         isAgain = true;
         isButtonShow = false;
         start();
       } else { // 按鈕以外的地方
         const timeEnd = new Date();
-        if (isColorChanged && !isSuscess) {
-          const gap = (timeEnd - timeStart) / 1000;
-          isSuscess = true;
-          alert(`你的成績:  ${gap} 秒`);
+        if (isColorChanged && !isButtonShow) {
+          alert(`你的成績:  ${(timeEnd - timeStart) / 1000} 秒`);
         } else if (!isColorChanged && !isButtonShow){
           alert(`客官您很心急！`);
           isFailed = true;

@@ -1,5 +1,5 @@
 function setInputBg(inputRead) {
-  if (inputRead.length < 0) return;
+  if (inputRead.length < 1) return;
   for (let i = 0; i < inputRead.length; i += 1) {
     if (inputRead[i].value === '') inputRead[i].parentElement.classList.add('read');
     else inputRead[i].parentElement.classList.remove('read');

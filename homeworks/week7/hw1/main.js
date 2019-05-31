@@ -5,22 +5,13 @@ let timeStart = 0;
 let isColorChanged = false;
 let isButtonShow = false;
 
-// 隨機取色
-function getRadomColor() {
-  const str = 'abcdef0123456789';
-  let result = '';
-  for (let i = 0; i < 6; i += 1) {
-    result += str[Math.floor(Math.random() * 16)];
-  }
-  return result;
-}
-
 // 改背景色
 function updateBgColor() {
   if (isColorChanged || isButtonShow) return;
   isColorChanged = true;
   timeStart = new Date();
-  body.style.background = `#${getRadomColor()}`;
+  // hsl 色彩表示 (色相, 飽和度, 明度) 後兩值固定 => 確保沒有太刺眼的顏色
+  body.style.background = `hsl(${Math.floor(Math.random() * 360)}, 40%, 40%)`;
 }
 
 // 出現「 再玩一次 」按鈕

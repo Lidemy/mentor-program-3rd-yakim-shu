@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 const inputResultTop = document.querySelector('.row__result span');
 const inputResult = document.querySelector('.row__result strong');
 const calculator = document.querySelector('.calculator');
@@ -17,11 +19,15 @@ const stateManage = {
   isClickCalc: false,
 };
 const funManage = {
-  dataProcess: value => ((value[0] === '0' && value.length !== 1) ? value.substr(1) : value),
+  dataProcess: value => ((value[0] === '0' && value[1] !== '.' && value.length !== 1) ? value.substr(1) : value),
   calc: (subValue, mainValue) => {
-    const result = [funManage.dataProcess(subValue), funManage.dataProcess(mainValue)];
-    if (stateManage.isFinish && mainValue % 1) result[1] = funManage.isFloat(mainValue);
-    [inputResultTop.innerText, inputResult.innerText] = result;
+    if (Number.isNaN(mainValue)) {
+      showResult(showError(['0', '哎呀有臭蟲 🤢']));
+    } else {
+      const result = [funManage.dataProcess(subValue), funManage.dataProcess(mainValue)];
+      if (stateManage.isFinish && mainValue % 1) result[1] = funManage.isFloat(mainValue);
+      [inputResultTop.innerText, inputResult.innerText] = result;
+    }
   },
   isFloat: (mainValue) => {
     const num = mainValue.toString();
@@ -50,12 +56,31 @@ const funManage = {
 
 // click - 歸零 (AC)
 function clickReset(msg) {
-  if (msg) return msg;
   [stateManage.isCalculated, stateManage.isFinish] = [false, false];
   [numManage.numOrigin, numManage.numResult] = ['', ''];
+  if (msg) return msg;
   return ['0', '0'];
 }
+// click - 等於 (=)
+function clickResult() {
+  stateManage.isCalculated = false;
+  stateManage.isFinish = true;
+  const arr = numManage.numOrigin.split(signManage.calcSignCurrent);
+  const numFir = Number(arr[0]);
+  const numSec = Number(arr[1].substring(0, arr[1].length - 1));
+  numManage.numResult = funManage.doCalc(signManage.calcSignCurrent, numFir, numSec);
+  return [numManage.numOrigin, numManage.numResult];
+}
+// click - 加、減、乘、除 (+、-、*、/)
+function clickCalc(sign) {
+  signManage.calcSignCurrent = sign;
+  if (numManage.numResult) numManage.numOrigin = numManage.numResult + sign;
+  if (stateManage.isCalculated) return showError(['0', '哎呀有臭蟲 🤢']);
+  stateManage.isCalculated = true;
+  return [numManage.numOrigin, sign];
+}
 
+// show 錯誤
 function showError(msg) {
   calculator.classList.add('shake');
   return clickReset(msg);
@@ -67,27 +92,6 @@ function showResult(arr) {
   else if (!arr) funManage.calc(numManage.numOrigin, numManage.numOrigin);
   else funManage.calc(arr[0], arr[1]); // 其他符號
 }
-
-// click - 等於 (=)
-function clickResult() {
-  stateManage.isCalculated = false;
-  stateManage.isFinish = true;
-  const arr = numManage.numOrigin.split(signManage.calcSignCurrent);
-  const numFir = Number(arr[0]);
-  const numSec = Number(arr[1].substring(0, arr[1].length - 1));
-  numManage.numResult = funManage.doCalc(signManage.calcSignCurrent, numFir, numSec);
-  return [numManage.numOrigin, numManage.numResult];
-}
-
-// click - 加、減、乘、除 (+、-、*、/)
-function clickCalc(sign) {
-  signManage.calcSignCurrent = sign;
-  if (numManage.numResult) numManage.numOrigin = numManage.numResult + sign;
-  if (stateManage.isCalculated) return showError(['0', '哎呀幫您歸零 😘']);
-  stateManage.isCalculated = true;
-  return [numManage.numOrigin, sign];
-}
-
 // 已有運算符號的處理，只顯示後來的數字
 function showMainNum(value) {
   if (numManage.numResult) {
@@ -102,7 +106,7 @@ function showMainNum(value) {
 calculator.addEventListener('click', (e) => {
   calculator.classList.remove('shake');
   const value = e.target.getAttribute('data-value');
-  stateManage.isClickCalc = signManage.calcSignAll.some(x => value === x);
+  stateManage.isClickCalc = signManage.calcSignAll.some(sign => value === sign);
   if (value === null) return;
 
   numManage.numOrigin += value;

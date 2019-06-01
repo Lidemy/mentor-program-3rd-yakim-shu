@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background: rgb(248, 237, 230);
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+.header {
+  height: 270px;
+  background-image: url(https://lh4.googleusercontent.com/sAvtic6WzLRcGC485d2irc6Q36VS9GaiIj2TjL9AkbD1t3RjwacfNkJmmUe9fh9c0WV-ZVKQcw=w1200);
+  background-size: cover;
+  background-position: center;
+}
+.main {
+  padding: 0 20px;
+}
+.main__inner {
+  max-width: 640px;
+  background: #fff;
+  margin:-100px auto 50px auto;
+  padding: 15px;
+  border-top: 8px solid rgb(255, 137, 75);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+}
+.summary {
+  padding: 0 20px;
+}
+.summary__title {
+  font-size: 30px;
+  font-weight: normal;
+}
+.summary p {
+  font-size: 12px;
+}
+.summary p a{
+  color: #00e;
+}
+.summary__strong {
+  color: #d93025;
+  margin: 20px 0 30px 0;
+}
+
+.form ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+.form__item {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  transition: all .3s;
+}
+.form__item.read {
+  background: #fce8e6;
+}
+.form__item.read::after {
+  content:"這是必填問題";
+  color: #d93025;
+  font-size: 15px;
+}
+
+.form__item input, .form__item h4 {
+  display: block;
+}
+.form__item h4 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+.form__item[data-check="true"] h4::after {
+  content: '*';
+  color: #d93025;
+  font-size: 22px;
+  margin-left: 5px;
+}
+.form__item span {
+  font-size: 12px;
+  position: relative;
+  top: -15px;
+}
+.form__item input {
+  margin-bottom:20px;
+  width: 100%;
+  height: 25px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  transition: all .5s;
+  position: relative;
+  background: none;
+  border-radius: 0; /* 修正 safari 自帶圓角 */
+}
+
+
+.form__item input[type="radio"] {
+  display: none;
+}
+.form__item input[type="radio"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0px;
+    top: 15px;
+    border: 1px solid #fff;
+    box-shadow: 0px 0px 0px 3px white, 0 0 0px 5px #999;
+    transition: all .5s;
+}
+.form__item input[type="radio"]:checked + label::before {
+  background: #d93025;
+  box-shadow: 0px 0px 0px 3px white, 0 0 0px 5px #d93025;
+}
+.form__item input[type="radio"] + label:hover::before {
+  box-shadow: 0px 0px 0px 3px white, 0 0 0px 5px #d93025, 0 0 0px 15px #ff000029;
+}
+.form__item.read input,
+.form__item input:focus {
+  outline: none;
+  border-bottom: 2px solid #d93025;
+}
+.form__item input::placeholder {
+  color: #bbb;
+  font-size: 14px;
+}
+.form__item .input--half {
+  width: 60%;
+}
+
+.form__item label {
+  display: block;
+    font-size: 15px;
+    line-height: 1.4em;
+    padding-left: 30px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.form__item label + input {
+  margin-bottom: 15px;
+}
+.form__item input[type="radio"] {
+  width: 60px;
+}
+
+.btn-submit {
+  display: inline-block;
+  padding: 10px 30px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 3px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: #1a73e8db;
+}
+
+.btn-submit + span {
+  top: 0;
+  display: block;
+  margin-top: 25px;
+  color: #999;
+}
+
+.footer {
+  text-align: center;
+  padding: 0 20px 30px;
+}
+.footer p {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.footer a {
+  font-size: 12px;
+  color: #666;
+}
+.footer .url-google-form {
+  font-size: 18px;
+  text-decoration: none;
+  color: #bbb;
+}
+
+
+
+/* pad - 660px */
+@media screen and (max-width: 660px){
+  .header {
+    height: 120px;
+  }
+  .main__inner {
+    margin-top: -50px;
+  }
+  .summary__title {
+    font-size: 34px;
+  }
+}
+/* pad - 480px */
+@media screen and (max-width: 480px){
+  .summary__title {
+    font-size: 25px;
+  }
+  .form__item .input--half {
+    width: 100%;
+  }
+}

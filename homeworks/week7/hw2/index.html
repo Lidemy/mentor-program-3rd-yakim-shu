@@ -1,12 +1,12 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://necolas.github.io/normalize.css/latest/normalize.css" rel="stylesheet">
   <link href="./main.css" rel="stylesheet">
-  <script src="main.js"></script>
+  
   <title>Yakim_week7-hw2</title>
 </head>
 
@@ -23,7 +23,7 @@
         <p class="summary__strong">*必填</p>
       </section>
       <section class="form">
-        <form action="">
+        <form action="" novalidate>
           <ul>
             <li class="form__item" data-check="true">
               <h4>電子郵件地址</h4>
@@ -36,14 +36,10 @@
             </li>
             <li class="form__item" data-check="true">
               <h4>報名類型</h4>
-              <div>
-                <input type="radio" name="type" id="type1" required>
-                <label for="type1">從零到一基礎班（兩個月後開始收保證金 5000，淘汰不退還，結業後兩個月內找到工作付一個月半薪水，沒工作不用付）</label>
-              </div>
-              <div>
-                <input type="radio" name="type" id="type2" required>
-                <label for="type2">在職工程師加強班（兩個月後開始收保證金 5000，三個月時收學費 35000 元台幣，被淘汰不退還）</label>
-              </div>
+                <input type="radio" name="classType" id="basic" required>
+                <label for="basic">從零到一基礎班（兩個月後開始收保證金 5000，淘汰不退還，結業後兩個月內找到工作付一個月半薪水，沒工作不用付）</label>
+                <input type="radio" name="classType" id="advanced" required>
+                <label for="advanced">在職工程師加強班（兩個月後開始收保證金 5000，三個月時收學費 35000 元台幣，被淘汰不退還）</label>
             </li>
             <li class="form__item" data-check="true">
               <h4>現在的職業</h4>
@@ -84,6 +80,7 @@
       href="https://www.google.com/forms/about/?utm_source=product&utm_medium=forms_logo&utm_campaign=forms">Google
       表單</a>
   </footer>
+  <script src="main.js"></script>
 </body>
 
 </html>

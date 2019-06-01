@@ -111,7 +111,6 @@ body {
   box-shadow: 0px 0px 0px 3px white, 0 0 0px 5px #d93025;
 }
 .form__item input[type="radio"] + label:hover::before {
-  background: #d93025;
   box-shadow: 0px 0px 0px 3px white, 0 0 0px 5px #d93025, 0 0 0px 15px #ff000029;
 }
 .form__item.read input,
@@ -126,15 +125,17 @@ body {
 .form__item .input--half {
   width: 60%;
 }
-.form__item div {
-  display: flex;
-  margin-bottom: 20px;
-}
-.form__item div label {
+
+.form__item label {
+  display: block;
     font-size: 15px;
     line-height: 1.4em;
     padding-left: 30px;
     position: relative;
+    margin-bottom: 30px;
+}
+.form__item label + input {
+  margin-bottom: 15px;
 }
 .form__item input[type="radio"] {
   width: 60px;

@@ -1,0 +1,70 @@
+body {
+  height: 100vh;
+  padding: 20px;
+  background: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+h2 {
+  text-shadow: 0 0 40px rgba(0,0,0,0.2);
+  letter-spacing: 0.1em;
+  color: #fff;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+  transition-delay: .4s;
+}
+button {
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  padding: 10px 20px;
+  transition: all .5s;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+}
+button:hover {
+  background: rgba(0,0,0,0.15);
+}
+button:focus {
+  outline: none;
+}
+.show h1 {
+  display: none;
+}
+.show h2,
+.show .pic {
+  opacity: 1;
+}
+.pic {
+  opacity: 0;
+  transition: all .5s ease-in-out;
+  transition-delay: .8s;
+  max-width: 300px;
+}
+
+.pic img{
+  width: 100%;
+  height: auto;
+}
+.theme--first {
+  background: darksalmon;
+}
+.theme--second {
+  background: darkcyan;
+}
+.theme--third {
+  background: darkred;
+}
+.theme--none {
+  background: #333;
+}

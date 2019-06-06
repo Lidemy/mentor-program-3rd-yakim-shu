@@ -11,46 +11,9 @@
   <main class="main">
     <div class="pic"><img src="" alt=""></div>  
     <h2></h2>
-    <h1>王媽媽抽獎</h1>
+    <h1>王媽媽火鍋好滋味 - 抽獎快來唷</h1>
     <button>抽獎囉！</button>
   </main>
-  <script>
-    const request = new XMLHttpRequest;
-    const prizeObj = {
-      FIRST: ['恭喜你中頭獎了！日本東京來回雙人遊！','prize_first.png','theme--first'],
-      SECOND: ['二獎！90 吋電視一台！', 'prize_tv.png', 'theme--second'],
-      THIRD: ['恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券一張，bang！', 'prize_youtube.png', 'theme--third'],
-      NONE: ['銘謝惠顧', '', 'theme--none'],
-    }
-    const dq = (element) => document.querySelector(element);
-
-    function renderHtml(prizeType){
-      dq('button').innerText = '再抽一次！';
-      dq('h2').innerText = prizeObj[prizeType][0];
-      dq('.pic img').setAttribute('src', `image/${prizeObj[prizeType][1]}`);
-      dq('body').className = `show ${prizeObj[prizeType][2]}`;
-    }
-
-    function sendError() {
-      alert('系統不穩定，請再試一次');
-    }
-    request.onload = function () {
-      if (request.status >= 200 && request.status <= 300) {
-        const json = JSON.parse(request.responseText);
-        dq('button').addEventListener('click', function(){
-          sendRequest();
-          renderHtml(json.prize);
-        })
-      } else {
-        sendError();
-      }
-    }
-
-    function sendRequest(){
-      request.open("GET", "https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery");
-      request.send();
-    }
-    sendRequest();
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>

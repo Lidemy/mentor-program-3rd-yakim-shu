@@ -56,6 +56,7 @@ function sendRequest(obj) {
       obj.load(json);
     } else {
       console.log(status, request.responseText);
+      alert('系統不穩定，請待會再試');
     }
   };
 }

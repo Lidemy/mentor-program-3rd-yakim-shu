@@ -7,17 +7,19 @@ const gameArr = [];
 let offset = 0;
 let gameCurrent = '';
 
+function handleError(res) {
+  console.log(res.status, res.responseText);
+  alert('系統不穩定，請待會再試');
+}
 // 確認 response 狀態
 function checkResStatus(res) {
   if (res.status >= 200 && res.status < 300) {
-    return JSON.parse(request.responseText);
+    return JSON.parse(res.responseText);
   }
-  console.log(res.status);
-  return false;
+  return handleError(res);
 }
 
 function renderStreamPost(json) {
-  console.log(json);
   const data = json.streams;
   const item = dq('.origin');
   dq('.title').innerText = data[0].channel.game;
@@ -56,7 +58,6 @@ function getStreamPost(name) {
   request.onload = () => {
     if (!offset) removeAllPost();
     renderStreamPost(checkResStatus(request));
-    console.log(JSON.parse(request.responseText));
   };
 }
 
@@ -111,7 +112,7 @@ dq('input').addEventListener('keydown', (e) => {
   inputCheck(dq('input').value + e.key);
 });
 
-// 無限滾動
+// 無限滾動 => 有效能問題，待優化
 window.addEventListener('scroll', () => {
   const html = document.documentElement;
   // 視窗高 + 滾動高度 >= 頁面總高度 - 緩衝

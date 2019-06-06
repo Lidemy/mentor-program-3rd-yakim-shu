@@ -5,10 +5,10 @@ const postGroup = dq('.comment__body');
 const baseUrl = 'https://lidemy-book-store.herokuapp.com/posts';
 const numList = 20; // 20 Msg for 1 page
 let postPage = 1;
+let latestId = 0;
 
 // 拿資料、渲染畫面
 function RenderHtml() {
-  let latestId = 0;
   let lastPage = true;
   let firstPage = false;
 
@@ -32,8 +32,9 @@ function RenderHtml() {
   };
 
   // 跑所有資料
-  this.getAllPost = (data) => {
-    for (let i = data.length - 1; i >= 0; i -= 1) {
+  this.getAllPost = (data, gap) => {
+    const num = gap || data.length; // 如果有新增的留言 => 取差集
+    for (let i = num - 1; i >= 0; i -= 1) {
       this.addNewPost(data[i].content, data[i].id);
     }
     postGroup.classList.add('expand');
@@ -41,25 +42,6 @@ function RenderHtml() {
   };
 }
 const render = new RenderHtml();
-
-// data - GET
-function getObj(page) {
-  return {
-    method: 'GET',
-    url: `${baseUrl}?_limit=20&_sort=id&_order=desc&_page=${page}`,
-    load: json => render.getAllPost(json),
-  };
-}
-
-// data - POST
-function postObj(msg) {
-  return {
-    method: 'POST',
-    url: baseUrl,
-    content: msg,
-    load: json => render.addNewPost(json.content),
-  };
-}
 
 // 發送 request
 function sendRequest(obj) {
@@ -75,6 +57,28 @@ function sendRequest(obj) {
     } else {
       console.log(status, request.responseText);
     }
+  };
+}
+
+// data - GET
+function getObj(page, gap) {
+  return {
+    method: 'GET',
+    url: `${baseUrl}?_limit=20&_sort=id&_order=desc&_page=${page}`,
+    load: json => render.getAllPost(json, gap),
+  };
+}
+
+// data - POST
+function postObj(msg) {
+  return {
+    method: 'POST',
+    url: baseUrl,
+    content: msg,
+    load: (json) => {
+      const gapId = json.id - latestId;
+      sendRequest(getObj(postPage, gapId));
+    },
   };
 }
 
@@ -106,9 +110,4 @@ window.addEventListener('click', (e) => {
   if (target === '送出') user.checkInput();
   else if (target === 'Next' && !render.banNext) user.updatePage('next');
   else if (target === 'Prev' && !render.banPrev) user.updatePage('prev');
-});
-
-// 輸入框按 Enter 也可以送出
-dq('.input').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') user.checkInput();
 });

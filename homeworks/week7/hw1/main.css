@@ -29,6 +29,9 @@ button:hover {
 button:focus {
   outline: none;
 }
+button.hide {
+  display: none;
+}
 .scoreBoard {
   position: fixed;
   padding: 20px;

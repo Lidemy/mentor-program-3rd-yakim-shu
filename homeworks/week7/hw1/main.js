@@ -1,4 +1,5 @@
 const body = document.querySelector('body');
+const button = document.querySelector('button');
 const bgColorOrgin = '#666';
 let scoreArr = [];
 let timeStart = 0;
@@ -17,9 +18,7 @@ function updateBgColor() {
 // 出現「 再玩一次 」按鈕
 function showButton() {
   if (isButtonShow) return;
-  const button = document.createElement('button');
-  button.innerText = '再試一次';
-  body.appendChild(button);
+  button.classList.remove('hide');
 }
 
 // 設置換色時間 & 倒數換色
@@ -35,14 +34,14 @@ function updateScore(score) {
   scoreArr.sort((a, b) => a - b); // 大於0，排序變b、a
   scoreArr = scoreArr.slice(0, 3);
   for (let i = 0; i < 3; i += 1) {
-    document.querySelectorAll('li')[i].innerText = scoreArr[i] ? scoreArr[i] : '';
+    document.querySelectorAll('li')[i].innerText = scoreArr[i] || '';
   }
 }
 
 // click 再玩一次按鈕，改回預設狀態
 function clickAgainBtn() {
   startTicking();
-  body.removeChild(document.querySelector('button'));
+  button.classList.add('hide');
   body.style.background = bgColorOrgin;
   isColorChanged = false;
   isButtonShow = false;
@@ -68,6 +67,6 @@ body.onclick = (e) => {
   else clickBg();
 };
 body.onkeydown = (e) => {
-  if (e.keyCode === 32) clickBg();
-  if (e.keyCode === 82 && isButtonShow) clickAgainBtn();
+  if (e.keyCode === 32) clickBg(); // 'key: R'
+  if (e.keyCode === 82 && isButtonShow) clickAgainBtn(); // 'key: Space'
 };

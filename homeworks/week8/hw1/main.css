@@ -1,0 +1,116 @@
+body {
+  height: 100vh;
+  padding: 0;
+  margin:0;
+  background: #fff;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .5s ease-in-out;
+  position: relative;
+}
+body::after {
+  margin: 50px;
+  content: "";
+  background: url(https://www.laurel.com.tw/assets/fileupload/recipe/imgL_4.jpg) center center no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+body.show::after {
+  opacity: .1;
+}
+body.show button {
+  background: rgba(0,0,0,0.5);
+}
+body.show button:hover {
+  background: rgba(0,0,0,0);
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  padding: 0 20px;
+}
+h1 {
+  padding: 20px;
+  background: rgba(255,255,255,0.8);
+  color: #805828;
+}
+h2 {
+  text-shadow: 0 0 40px rgba(0,0,0,0.2);
+  letter-spacing: 0.1em;
+  color: #fff;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+  transition-delay: .4s;
+}
+button {
+  color: #fff;
+  background: rgb(162, 125, 78);
+  padding: 15px 30px;
+  transition: all .5s;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+}
+button:hover {
+  background: rgb(115, 85, 46);
+}
+button:focus {
+  outline: none;
+}
+.show h1 {
+  display: none;
+}
+.show h2,
+.show .pic {
+  opacity: 1;
+}
+.pic {
+  opacity: 0;
+  transition: all .5s ease-in-out;
+  transition-delay: .8s;
+  max-width: 300px;
+}
+.pic.hide {
+  display: none;
+}
+.pic img{
+  width: 100%;
+  height: auto;
+}
+.theme--first {
+  background: darksalmon;
+}
+.theme--second {
+  background: darkcyan;
+}
+.theme--third {
+  background: darkred;
+}
+.theme--none {
+  background: #333;
+}
+
+/* 480px */
+@media screen and (max-width: 480px){
+  body::after {
+    margin:10px;
+  }
+  h1 {
+    font-size:20px;
+  }
+  h2 {
+    font-size:20px;
+  }
+}

@@ -1,0 +1,125 @@
+body {
+  font-family: 'Noto Sans TC', Arial, Helvetica, sans-serif;
+  margin:0;
+  background: darkcyan;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  position: relative;
+}
+h1 {
+  color: #fff;
+  font-weight: normal;
+  padding: 20px 40px;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(0,0,0,0.4);
+  margin:0;
+}
+.comment {
+  background: #fff;
+  margin: 0 auto;
+  max-width: 800px;
+  min-width:40%;
+  padding: 10px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.user-input {
+  display: flex;
+}
+.user-input input[type="text"] {
+  font-size: 16px;
+  padding: 0 10px;
+  height: 35px;
+  flex:1;
+  transition: all .3s;
+  border: 1px solid #eee;
+  color: darkcyan;
+  border-radius: 3px;
+}
+.user-input button {
+  margin-left:8px;
+  flex-basis: 50px;
+  background: darkcyan;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.user-input button:hover {
+  background: #007373;
+}
+.user-input input[type="text"]:hover {
+  border: 1px solid darkcyan;
+}
+.user-input input[type="text"]:focus,
+.user-input button:focus {
+  outline: none;
+  border: 1px solid darkcyan;
+}
+.comment__body {
+  list-style: none;
+  padding-inline-start: 0;
+  transition: all 1s ease-in-out;
+  max-height:20px; /* demo from https://codepen.io/felipefialho/pen/ICkwe */
+  overflow: auto;
+  
+}
+
+.comment__body.expand {
+  max-height: 200px;
+  height: 200px;
+}
+.comment__body li {
+  margin-bottom: 10px;
+}
+.comment__body li span { 
+  display: inline-block;
+  background: #efefef;
+  border-radius: 2px;
+  padding: 5px 10px;
+  letter-spacing: 0.05em;
+}
+
+.nav {
+  max-width: 800px;
+  min-width:40%;
+  display: flex;
+  justify-content: center;
+}
+.nav .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #333;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 3px;
+  margin-right: 20px;
+  transition: all .2s;
+}
+.nav .btn:hover {
+  background: #111;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+.nav .btn.not-allowed {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+/* 
+custom scrollbar only for webkit
+demo from https://wcc723.github.io/css/2014/12/03/css-scrollbar/ 
+*/
+.comment__body::-webkit-scrollbar { 
+  width: 7px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.1);
+}
+.comment__body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #5bb4b0;
+}

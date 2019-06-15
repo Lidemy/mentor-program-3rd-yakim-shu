@@ -1,3 +1,4 @@
 node_modules/
 conn.php
+DB_config.php
 .DS_STORE

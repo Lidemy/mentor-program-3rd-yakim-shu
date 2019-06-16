@@ -1,5 +1,5 @@
 <?php
-require_once('./DB_conn.php');
+require_once('./lib/DB_conn.php');
 if (isset($_POST['content'])) {
   $content = $_POST['content'];
   $id = $_COOKIE["member_id"];

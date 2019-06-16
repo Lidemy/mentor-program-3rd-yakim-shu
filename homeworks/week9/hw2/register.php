@@ -10,13 +10,15 @@
 </head>
 <body class="theme-member">
   <?php include("./layout/nav.php");?>
+  
   <main class="container">
     <?php
-    require_once('./DB_conn.php');
-    if (isset($_GET['is_username']) || isset($_GET['is_nickname'])) {
-      $username = $_GET['is_username'] === 'unvalid' ? '帳號' : '';
-      $nickname = $_GET['is_nickname'] === 'unvalid' ? ' 暱稱' : '';
-      echo '<p class="member__status">'. $username . $nickname .'有人用過囉！</p>';
+    require_once('./lib/DB_conn.php');
+
+    if (isset($_GET['status'])) {
+      include("./lib/msg_class.php");
+      $duplicate = new showMsg('duplicate', '帳號或暱稱有人用過囉！');
+      $empty = new showMsg('empty', '資料要填完喔');
     }
     ?>
     <section class="member shadow">
@@ -40,6 +42,5 @@
     </form>
     </section>
   </main>
-  <script src="./js/index.js"></script>
 </body>
 </html>

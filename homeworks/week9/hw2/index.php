@@ -9,40 +9,43 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <?php
-  require_once('./DB_conn.php');
-  
+  require_once('./lib/DB_conn.php');
 
   if(isset($_COOKIE["member_id"])) {
     $is_login = 'login';
     $id = $_COOKIE["member_id"];
     $sql_user = "SELECT * FROM yakim_users WHERE id = " . $id;
     $db->query($sql_user);
-    $row_users = $db->result->fetch_assoc();
-    $username = $row_users['username'];
-    $nickname = $row_users['nickname'];
+    $row_users = $db->getSingleRow();
   }
 ?>
 <body class="<?php echo $is_login; ?>">
   <?php include("./layout/nav.php");?>
 
   <h4 class="title_warning">本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時<span>「 請勿使用 」</span>任何真實的帳號或密碼</h4>
-  <h1 class="title_brief">HELLO, <span><?php echo $nickname; ?></span> </h1>
+  <h1 class="title_brief">HELLO, <span><?php echo $row_users['nickname']; ?></span> </h1>
 
   <main class="container">
+    <!-- 留言區 -->
     <section class="add-comment shadow">
-      <p class="comment__tip-login">還沒登入唷 !</p>
-      <h2 class="title_2">寫下你的留言</h2>
+      <a class="comment__tip-login" href="login.php">欸欸還沒登入啦</a>
+      <h2 class="title_2">寫下你的胡鬧名言</h2>
       <form action="handle_add_comment.php" method="POST">
-        <textarea class="require comment__input" name="content" id="" rows="5" placeholder="巴拉巴拉巴拉 ✍"></textarea>
+        <textarea class="require comment__input" name="content" id="" rows="5" placeholder="巴啦巴啦巴啦 ✍" required></textarea>
         <button class="add-comment__submit" type="submit">送出留言</button>
       </form>
     </section>
+
+    <!-- 留言列表 -->
     <section class="comments shadow">
-      <h2 class="title_2">留言板</h2>
+      <h2 class="title_2">最新留言</h2>
       <?php
-        $sql_col = "SELECT C.content, C.created_at, U.nickname FROM yakim_comments as C LEFT JOIN yakim_users as U ";
-        $sql_related = "ON C.user_id = U.id ORDER BY C.created_at DESC LIMIT 50";
-        $db->query($sql_col . $sql_related);
+        $sql = "SELECT C.content, C.created_at, U.nickname 
+        FROM yakim_comments as C LEFT JOIN yakim_users as U 
+        ON C.user_id = U.id 
+        ORDER BY C.created_at DESC 
+        LIMIT 50";
+        $db->query($sql);
         while ($row = $db->result->fetch_assoc()) {
           echo "<div class='comments_item'>";
           echo "  <p class='comments__username'>" . $row['nickname'] . "</p>";
@@ -53,6 +56,5 @@
       ?>
     </section>
   </main>
-  <script src="./js/index.js"></script>
 </body>
 </html>

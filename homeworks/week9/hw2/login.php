@@ -13,15 +13,13 @@
   
   <main class="container">
     <?php
-    require_once('./DB_conn.php');
+    require_once('./lib/DB_conn.php');
     if (isset($_GET['status'])) {
-      $status = $_GET['status'];
-      if ($status === 'failed') {
-        echo '<p class="member__status">帳號或密碼出錯囉！</p>';
-      } else if ($status === 'sucess') {
-        echo '<p class="member__status">註冊成功，請登入</p>';
-      }
-      
+
+      include("./lib/msg_class.php");
+      $fail = new showMsg('failed', '帳號或密碼出錯囉！');
+      $sucess = new showMsg('sucess', '註冊成功，請登入');
+      $empty = new showMsg('empty', '資料要填完喔');
     }
     ?>
     <section class="member shadow">
@@ -43,6 +41,5 @@
     </form>
     </section>
   </main>
-  <script src="./js/index.js"></script>
 </body>
 </html>

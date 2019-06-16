@@ -51,8 +51,8 @@ function removeAllPost() {
 }
 
 function getStreamPost(name) {
-  gameCurrent = name;
-  request.open('GET', `${url}${name}&offset=${offset}`);
+  gameCurrent = encodeURIComponent(name);
+  request.open('GET', `${url}${gameCurrent}&offset=${offset}`);
   request.setRequestHeader('Client-ID', token);
   request.send();
   request.onload = () => {

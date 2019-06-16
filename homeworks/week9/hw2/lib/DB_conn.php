@@ -1,6 +1,6 @@
 <?php
 
-require_once('./DB_config.php');
+require_once('./lib/DB_config.php');
 
 class Db {
   public function __construct($servername, $user, $password, $dbname) {
@@ -24,13 +24,27 @@ class Db {
     $this->checkQuery();
   }
   private function checkQuery() {
-    if (!$this->result) die('Failed: ' . $this->result->error);
+    if (!$this->result) {
+      echo 'Failed: ' . $this->conn->error;
+      return false;
+    }
   }
 
-  public function Redirect($url) {
-    header('Location: ./' . $url);
+  public function Redirect($url, $key = '', $value = '') {
+    if (empty($key) && empty($value)) {
+      header('Location: ./' . $url);
+    } else {
+      header('Location: ./' . $url . '?' . $key . '=' . $value);
+    }
   }
+  
+  public function getSingleRow() {
+    if ($this->result->num_rows > 0) return $this->result->fetch_assoc();
+    else return false;
+  }
+
 }
 
 $db = new Db($servername, $user, $password, $dbname);
+
 ?>

@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring */
-const request = new XMLHttpRequest();
 const dq = element => document.querySelector(element);
 const postGroup = dq('.comment__body');
 const baseUrl = 'https://lidemy-book-store.herokuapp.com/posts';
@@ -45,6 +44,7 @@ const render = new RenderHtml();
 
 // 發送 request
 function sendRequest(obj) {
+  const request = new XMLHttpRequest();
   request.open(obj.method, obj.url);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send(obj.content);
@@ -87,7 +87,7 @@ function postObj(msg) {
 function UserOperater() {
   // 檢查輸入框是否有內容
   this.checkInput = () => {
-    const msg = dq('.input').value;
+    const msg = encodeURIComponent(dq('.input').value); // => 對特殊字元進行編碼
     if (msg === '') return;
     dq('.input').value = '';
     sendRequest(postObj(`content=${msg}`));

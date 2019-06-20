@@ -1,34 +1,36 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
+
 const body = document.querySelector('body');
 const button = document.querySelector('button');
 
 /* --------------------
   < Score: 分數表 >
-  property: scoreBoard
+  property: _scoreBoard, _numList
   method: add, _update
 -------------------- */
 
 class Score {
-  constructor() {
-    this.scoreBoard = [];
+  constructor(n) {
+    this._scoreBoard = [];
+    this._numList = n;
   }
 
   add(score) {
-    this.scoreBoard.push(score);
-    this._update(3);
+    this._scoreBoard.push(score);
+    this._update();
   }
 
-  _update(nunList) {
-    this.scoreBoard.sort((a, b) => a - b); // 大於0，排序變b、a
-    this.scoreBoard = this.scoreBoard.slice(0, nunList);
-    for (let i = 0; i < nunList; i += 1) {
-      document.querySelectorAll('li')[i].innerText = this.scoreBoard[i] || '';
+  _update() {
+    this._scoreBoard.sort((a, b) => a - b); // 大於0，排序變b、a
+    this._scoreBoard = this._scoreBoard.slice(0, this._numList);
+    for (let i = 0; i < this._numList; i += 1) {
+      document.querySelectorAll('li')[i].innerText = this._scoreBoard[i] || '';
     }
   }
 }
-const scoreList = new Score();
+const scoreList = new Score(3);
 
 /* --------------------
   < Result: 結果 >
@@ -81,14 +83,19 @@ const elementBody = new Body();
 
 /* --------------------
   < Game: 遊戲控制 >
-  property: startTime
   method: startGame, _resetGame
 -------------------- */
 
 class Game {
   constructor() {
-    this.startTime = 0;
     this.startGame();
+  }
+
+  _resetGame() {
+    elementBody.isBgChanged = false;
+    result.isEnd = false;
+    button.classList.add('hide');
+    body.style.background = '#666';
   }
 
   startGame() {
@@ -97,13 +104,6 @@ class Game {
       this.startTime = new Date();
       elementBody.changeBg();
     }, ((Math.random() * 2) + 1) * 1000);
-  }
-
-  _resetGame() {
-    elementBody.isBgChanged = false;
-    result.isEnd = false;
-    button.classList.add('hide');
-    body.style.background = '#666';
   }
 }
 const game = new Game();

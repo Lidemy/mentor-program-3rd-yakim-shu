@@ -145,8 +145,8 @@ Excel 是人類最美好的發明，沒有之一，SQL 給我感覺就像用指�
 原先理想計畫是複習週可以地毯式 Review 這四周的所有作業，但還是太低估這地獄般的作業量，看完 week7 hw1 & hw2 就果斷放棄，雖然真的可以學到不少，但耐心消磨得更快，真心佩服 Huli 每天消化拔山倒樹而來的作業。
 
 Code Reivew 心得：
-- [Week7 hw1](/review_w7_hw1.md)
-- [Week7 hw2](/review_w7_hw2.md)
+- [Week7 hw1](./homeworks/week10/review_w7_hw1.md)
+- [Week7 hw2](./homeworks/week10/review_w7_hw2.md)
 
 ##### [ 重構 Week7 hw1 ]
 是一次打擊信心的重構。現在想想，我從一開始就沒有想好「 為何重構？ 」。

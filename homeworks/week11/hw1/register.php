@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Yakim_week9_註冊會員</title>
+  <title>Yakim_week11_註冊會員</title>
   <link href="https://necolas.github.io/normalize.css/latest/normalize.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/main.css">
 </head>
@@ -13,13 +13,15 @@
   
   <main class="container">
     <?php
-    require_once('./lib/DB_conn.php');
-
-    if (isset($_GET['status'])) {
-      include("./lib/msg_class.php");
-      $duplicate = new showMsg('duplicate', '帳號或暱稱有人用過囉！');
-      $empty = new showMsg('empty', '資料要填完喔');
+    // require_once('./lib/DB_conn.php');
+    require_once('./lib/request_check.php');
+    require_once('./lib/prompt.php');
+    
+    if ($requestCheck->get('status')) {
+      $prompt = new Prompt();
+      $prompt->showMsg();
     }
+
     ?>
     <section class="member shadow">
       <h2 class="title_1">註冊會員</h2>

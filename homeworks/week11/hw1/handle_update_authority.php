@@ -1,16 +1,11 @@
 <?php
-require_once('./lib/DB_conn.php');
+require_once('./lib/user.php');
+require_once('./lib/request_check.php');
+require_once('./lib/page_control.php');
 
 // 更新權限
-if (isset($_GET['id']) && isset($_POST['authority']) ) {
-  $id = $_GET['id'];
-  $authority = $_POST['authority'];
-  echo $id;
-  echo $authority;
-
-  $sql = "UPDATE yakim_users SET authority = '$authority' WHERE id = $id";
-  $db->query($sql);
+if ($requestCheck->get('id') && $requestCheck->post('authority')) {
+  $user->updateAuthority($_POST['authority'], $_GET['id']);
 }
-
-$db->Redirect('admin_authority.php');
+$page->redirect('admin_authority.php');
 ?>

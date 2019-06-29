@@ -8,6 +8,9 @@ ul {
 a {
   text-decoration: none;
 }
+body {
+  font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
+}
 
 
 /* --- 通用元素 --- */
@@ -28,7 +31,6 @@ a {
   margin-right: 10px;
 }
 .btn_2 {
-  /* float:right; */
   font-size: 18px;
   margin-bottom: 10px;
   background: #138bc2;
@@ -145,6 +147,7 @@ body {
 .nav__username {
   display: inline-block;
   color: #ffc124;
+  margin-right: 10px;
 }
 /* 已登入 : 註冊區消失 */
 .login .is-logout {
@@ -189,6 +192,9 @@ body:not(.login) .is-login {
   line-height: 2em;
   letter-spacing: 0.05em;
 }
+.comments_item a {
+
+}
 
 /* --- 新增留言區 --- */
 .add-comment {
@@ -209,6 +215,12 @@ body:not(.login) .is-login {
   letter-spacing: 0.05em;
   color: #007bc5;
 }
+/* 更新留言樣式 */
+.comment__input.edit {
+  border:1px solid #eee;
+  padding: 10px;
+  line-height: 1.5em;
+}
 
 .comment__input:focus {
   outline: none;
@@ -223,7 +235,7 @@ body:not(.login) .is-login {
   color: #007bc5;
   border-radius: 2px;
   padding: 5px 10px;
-  margin: 15px;
+  margin: 15px 0;
   cursor: pointer;
   transition: all .3s;
 }
@@ -296,7 +308,6 @@ body:not(.login) .is-login {
   border-bottom: 2px solid #fff;
   background: none;
   padding-left:10px;
-  transition: all .3s;
 }
 .member input:hover,
 .member input:focus {
@@ -320,6 +331,42 @@ body:not(.login) .is-login {
   background: none;
   color: #0074fc;
   border: 2px solid #0074fc;
+}
+
+/* --- 分頁導覽 --- */
+.pagination {
+  width: 360px;
+  max-width: 600px;
+  height: 30px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.pagination .btn {
+  margin:0;
+  padding: 5px 10px;
+  transition: none;
+  background: none;
+  color: #fff;
+  border-color: #fff;
+}
+.pagination .btn:hover {
+  background: #0078c5;
+}
+.pagination .btn.active {
+  background: #ffffff69;
+  color: #0186c5;
+}
+.pagination p.unvalid,
+.pagination p.unvalid:hover {
+  background: none;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.pagination-summary {
+  color: #fff;
+  margin-bottom:30px;
 }
 
 /* --- 通用裝飾 --- */
@@ -349,7 +396,20 @@ body:not(.login) .is-login {
 
 /* --- 後台樣式 --- */
 .theme-admin {
-  background: linear-gradient(90deg, #12e9ff 0%, #209cf5 100%);
+  background: linear-gradient(90deg, #9554ff 0%, #e1a7ff 100%);
+}
+
+.theme-admin nav {
+  background: #9654fc;
+}
+
+.theme-admin .pagination .btn:hover {
+  background: #7f3ce6;
+}
+
+.theme-admin .pagination .btn.active {
+  color: #7f3ce6;
+  background:#ffffff69;
 }
 
 /* 已刪除留言 */
@@ -382,17 +442,24 @@ body:not(.login) .is-login {
   background: #ef6da3;
 }
 
-.theme-admin-super .comments_item {
+.theme-super .comments_item {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.theme-admin-super .comments_item select{ 
+.theme-super .comments_item select{ 
   font-size: 12px;
+  border-color: #9654fc;
+  background: #fff;
 }
-.theme-admin-super .comments_item .btn_2{ 
+.theme-super .comments_item .btn_2 { 
   font-size: 12px;
   margin-left: 5px;
+  background: #999;
+  cursor: pointer;
+}
+.theme-super .comments_item .btn_2:hover {
+  background: #7b49ca;
 }
 
 .nav__btn.admin, .nav__btn.admin_authority {

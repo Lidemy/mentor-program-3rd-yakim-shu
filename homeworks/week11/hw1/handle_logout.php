@@ -1,5 +1,8 @@
-<?php
-session_destroy(); // => 重置 session
-setcookie('session_id' , '', time()+3600*24, '/');
-header('Location: ./index.php')
+<?php  
+require_once('./lib/user.php');
+require_once('./lib/page_control.php');
+
+$session = new Session($db);
+$session->clearCookie();
+$page->redirect('index.php');
 ?>

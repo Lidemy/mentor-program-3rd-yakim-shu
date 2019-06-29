@@ -18,27 +18,18 @@ class Db {
     mysqli_query($this->conn, "SET NAMES utf8");
     mysqli_query($this->conn, "SET time_zone = '+08:00'");
   }
-
-  public function query($str) {
-    $this->result = mysqli_query($this->conn, $str);
-    $this->checkQuery();
-  }
   private function checkQuery() {
     if (!$this->result) {
       echo 'Failed: ' . $this->conn->error;
       return false;
     }
   }
-
-  public function Redirect($url, $key = '', $value = '') {
-    if (empty($key) && empty($value)) {
-      header('Location: ./' . $url);
-    } else {
-      header('Location: ./' . $url . '?' . $key . '=' . $value);
-    }
-  }
   
-  public function getSingleRow() {
+  function query($str) {
+    $this->result = mysqli_query($this->conn, $str);
+    $this->checkQuery();
+  }
+  function getRow() {
     if ($this->result->num_rows > 0) return $this->result->fetch_assoc();
     else return false;
   }

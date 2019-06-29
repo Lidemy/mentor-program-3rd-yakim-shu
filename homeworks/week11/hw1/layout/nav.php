@@ -1,9 +1,11 @@
 <?php
   require_once('./lib/DB_conn.php');
-  require_once('./lib/user_class.php');
+  require_once('./lib/user.php');
+  
   function checkActive($page){
     if ($page === basename($_SERVER['PHP_SELF'], ".php")) return ' active';
   }
+
   // 非管理員
   $admin_show = '';
   if (isLogin()) {

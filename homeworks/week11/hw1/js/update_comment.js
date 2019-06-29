@@ -10,7 +10,7 @@ window.addEventListener('click', (e) => {
   if (testArea.nodeName === 'P') content = testArea.innerText; // => 先儲存原訊息
 
   const formHTML = `
-  <form action="handle_update_comment.php" method="POST">
+  <form action="handling/handle_update_comment.php" method="POST">
     <textarea class="edit require comment__input" name="content" id="" rows="2" required>${content}</textarea>
     <input style="display:none" name="comment_id" value="${btn.dataset.id}">
     <button class="add-comment__submit" type="submit">更新</button>

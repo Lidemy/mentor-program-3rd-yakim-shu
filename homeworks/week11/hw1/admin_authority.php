@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <?php
-  require_once('./lib/DB_conn.php');
-  require_once('./lib/user.php');
-  require_once('./lib/page_control.php');
+  require_once('lib/DB_conn.php');
+  require_once('lib/user.php');
+  require_once('lib/page_control.php');
   
   // 非超級管理員 => 顯示錯誤訊息、跳回登入頁
   if (!isLogin() || !$user->isSuperAdmin()) {
@@ -43,7 +43,7 @@
         while ($row = $db->result->fetch_assoc()) {
           echo "<div class='comments_item'>";
           echo "  <p class='comments__username " . showlabel($row) ."'>" . $row['username'] . "</p>";
-          echo "<form method='POST' action='handle_update_authority.php?id=" .$row['id']. "'>";
+          echo "<form method='POST' action='./handling/handle_update_authority.php?id=" .$row['id']. "'>";
             // 下拉選單區 -----
             echo "<select name='authority' class='authority'>";
               echo "<option value='normal'>一般會員</option>";

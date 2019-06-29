@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <?php
-  require_once('./lib/DB_conn.php');
-  require_once('./lib/user.php');
-  require_once('./lib/page_control.php');
+  require_once('lib/DB_conn.php');
+  require_once('lib/user.php');
+  require_once('lib/page_control.php');
   
   // 非管理員 => 顯示錯誤訊息、跳回登入頁
   if (!isLogin() || !$user->isAdmin()) {
@@ -52,10 +52,10 @@
           echo "<p class='comments__content'>" . $row['content'] . "</p>";
             echo "<a class='btn btn_1 btn_edit' data-id='". $id ."' href=''>編輯</a>";
             if ($row['is_deleted'] == 1) { // => 前台已刪除的留言
-              echo "<a class='btn btn_1' href='handle_recovery_comment.php?comment_id=$id'>還原</a>";
-              echo "<a class='btn btn_1' href='handle_clean_comment.php?comment_id=$id'>永久清除</a>";
+              echo "<a class='btn btn_1' href='./handling/handle_recovery_comment.php?comment_id=$id'>還原</a>";
+              echo "<a class='btn btn_1' href='./handling/handle_clean_comment.php?comment_id=$id'>永久清除</a>";
             } else {
-              echo "<a class='btn btn_1' href='handle_delete_comment.php?comment_id=$id'>刪除</a>";
+              echo "<a class='btn btn_1' href='./handling/handle_delete_comment.php?comment_id=$id'>刪除</a>";
             }
           echo "</div>";
         }

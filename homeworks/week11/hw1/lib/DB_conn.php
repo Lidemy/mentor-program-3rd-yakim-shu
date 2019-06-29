@@ -1,6 +1,5 @@
 <?php
-
-require_once('./lib/DB_config.php');
+require_once('DB_config.php');
 
 class Db {
   public function __construct($servername, $username, $password, $dbname) {

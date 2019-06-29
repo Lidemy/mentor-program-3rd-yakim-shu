@@ -1,5 +1,5 @@
 <?php
-require_once('./lib/DB_conn.php');
+require_once('DB_conn.php');
 
 class MsgControl {
   public function __construct($db) {

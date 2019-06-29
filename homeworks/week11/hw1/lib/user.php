@@ -1,5 +1,5 @@
 <?php
-require_once('./lib/DB_conn.php');
+require_once('DB_conn.php');
 
 /* ---- 設置 session ---- */
 class Session {

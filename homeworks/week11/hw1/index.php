@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <?php
-  require_once('./lib/DB_conn.php');
-  require_once('./lib/user.php');
+  require_once('lib/DB_conn.php');
+  require_once('lib/user.php');
 
   $is_login = isLogin() ? 'login' : '';
 ?>
@@ -28,7 +28,7 @@
     <section class="add-comment shadow">
       <a class="comment__tip-login" href="login.php">欸欸還沒登入啦</a>
       <h2 class="title_2">寫下你的胡鬧名言</h2>
-      <form action="handle_post_comment.php" method="POST">
+      <form action="./handling/handle_post_comment.php" method="POST">
         <textarea class="require comment__input" name="content" id="" rows="5" placeholder="巴啦巴啦巴啦 ✍" required></textarea>
         <input style="display:none" name="id" value="<?php echo $user->row_users['id']?>">
         <button class="add-comment__submit" type="submit">送出留言</button>
@@ -60,7 +60,7 @@
           echo "  <p class='comments__content'>" . $row['content'] . "</p>";
           if (isLogin() && $row['nickname'] === $user->row_users['nickname']) {
             echo "<a class='btn btn_1 btn_edit' data-id='". $id ."' href=''>編輯</a>";
-            echo "<a class='btn btn_1' href='handle_delete_comment.php?comment_id=$id'>刪除</a>";
+            echo "<a class='btn btn_1' href='./handling/handle_delete_comment.php?comment_id=$id'>刪除</a>";
           }
           echo "</div>";
         }

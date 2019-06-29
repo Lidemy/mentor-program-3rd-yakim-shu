@@ -21,7 +21,7 @@
         <p class="nav__username"><?php if (isLogin()) echo $user->row_users['username']; ?></p>
         <a class="nav__btn admin <?php echo $admin_show.checkActive('admin'); ?>" href="admin.php">留言管理</a>
         <a class="nav__btn admin_authority <?php echo $admin_show.checkActive('admin_authority'); ?>" href="admin_authority.php">權限管理</a>
-      <a class="nav__btn" href="./handle_logout.php">登出</a>
+      <a class="nav__btn" href="./handling/handle_logout.php">登出</a>
     </div>
     <div class="nav__group is-logout">
       <a class="nav__btn <?php echo checkActive('register'); ?>" href="./register.php">註冊</a>

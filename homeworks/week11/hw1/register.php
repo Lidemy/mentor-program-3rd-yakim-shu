@@ -13,19 +13,18 @@
   
   <main class="container">
     <?php
-    // require_once('./lib/DB_conn.php');
-    require_once('./lib/request_check.php');
-    require_once('./lib/prompt.php');
+      require_once('lib/request_check.php');
+      require_once('lib/prompt.php');
     
-    if ($requestCheck->get('status')) {
-      $prompt = new Prompt();
-      $prompt->showMsg();
-    }
+      if ($requestCheck->get('status')) {
+        $prompt = new Prompt();
+        $prompt->showMsg();
+      }
 
     ?>
     <section class="member shadow">
       <h2 class="title_1">註冊會員</h2>
-      <form class="form" method="POST" action="handle_register.php">
+      <form class="form" method="POST" action="./handling/handle_register.php">
         <ul>
           <li>
             <label for="username">帳號</label>

@@ -13,18 +13,18 @@
   
   <main class="container">
     <?php
-    require_once('./lib/request_check.php');
-    require_once('./lib/prompt.php');
-    
-    if ($requestCheck->get('status')) {
-      $prompt = new Prompt();
-      $prompt->showMsg();
-    }
+      require_once('lib/request_check.php');
+      require_once('lib/prompt.php');
+      
+      if ($requestCheck->get('status')) {
+        $prompt = new Prompt();
+        $prompt->showMsg();
+      }
 
     ?>
     <section class="member shadow">
       <h2 class="title_1">登入會員</h2>
-      <form class="form" method="POST" action="handle_login.php">
+      <form class="form" method="POST" action="./handling/handle_login.php">
         <ul>
           
           <li>

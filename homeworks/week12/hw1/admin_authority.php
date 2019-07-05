@@ -25,7 +25,7 @@
   <h1 class="title_brief">權限管理區</h1>
   <main class="container">
     
-    <!-- 留言列表 -->
+    <!-- 會員列表 -->
     <section class="comments">
       <?php
         $sql = "SELECT * FROM yakim_users ORDER BY authority ASC";

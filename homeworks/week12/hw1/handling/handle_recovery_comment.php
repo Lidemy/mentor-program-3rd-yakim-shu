@@ -4,6 +4,6 @@ require_once($dir . 'lib/page_control.php');
 require_once($dir . 'lib/msg_control.php');
 
 // 復原刪除的留言
-$msg->recovery($_GET['comment_id']);
+$msg->recovery($_GET['comment_id'], $_GET['user_id']);
 $page->back();
 ?>

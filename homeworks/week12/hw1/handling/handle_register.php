@@ -14,19 +14,18 @@
   $password = $_POST['password'];
   $nickname = $_POST['nickname'];
 
-  $sql_select = "SELECT * FROM yakim_users 
-  where username = '$username' OR nickname = '$nickname'";
-
-  $db->query($sql_select);
-
-  if ($db->result->num_rows > 0) {
+  $sql_select = "SELECT * FROM yakim_users where username = ? OR nickname = ?";
+  $db->stmtQuery($sql_select, 'ss', $username, $nickname);
+  $row = $db->getResult();
+  
+  if ($row) {
     $page->redirectQuery('../register.php', 'status', 'duplicate'); // => 帳號、暱稱重複
   } else {
     $hash_password = password_hash($password, PASSWORD_DEFAULT); // => 加強密碼
-    $sql = "INSERT INTO yakim_users(username, password, nickname, authority) 
-    VALUES('$username', '$hash_password', '$nickname', 'normal')";
-
-    $db->query($sql);
+    
+    $sql = "INSERT INTO yakim_users(username, password, nickname, authority) VALUES(?, ?, ?, 'normal')";
+    $db->stmtQuery($sql, 'sss', $username, $hash_password, $nickname);
+    $row = $db->getResult();
     $page->redirectQuery('../login.php', 'status', 'sucess');
   }
 ?>

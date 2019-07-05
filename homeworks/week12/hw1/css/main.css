@@ -167,10 +167,25 @@ body:not(.login) .is-login {
   background: rgba(255, 255, 255, 1);
   padding: 15px 20px;
 }
+
 .comments_item:not(:last-child) {
   border-bottom: 1px solid #eee;
   margin-bottom: 10px;
 }
+
+/* 留言內的輸入框 toggle */
+/* 高度漸變參考： https://css-tricks.com/using-css-transitions-auto-dimensions/ */
+.comments_item .comment__inside {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+}
+.comments_item.show_input > .comment__inside{
+  height: auto;
+  max-height: 100px;
+}
+
+
 .comments__username {
   display: inline-block;
   margin: 10px 0;
@@ -186,14 +201,50 @@ body:not(.login) .is-login {
   letter-spacing: 0.05em;
   margin-top: 10px;
 }
+
 .comments__content {
   word-break: break-word;
   color: #666;
   line-height: 2em;
   letter-spacing: 0.05em;
 }
-.comments_item a {
 
+.comments_item a {
+  margin-bottom:10px;
+  cursor: pointer;
+}
+
+.comments__like {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 2.5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  background: #ccc;
+  color: #fff;
+  transition: all .3s;
+}
+
+.comments__like::after {
+  content: '讚';
+  display: inline-block;
+  color: #fff;
+  margin-left: 5px;
+}
+
+/* 已按讚 */
+.comments__like:hover,
+.comments__like.liked {
+  background: #0086c6;
+}
+.comments__like.liked::after {
+  content: '已按讚';
+}
+.comments__like.liked:hover {
+  background: #ccc;
+}
+.comments__like.liked:hover::after {
+  content: '收回讚';
 }
 
 /* --- 新增留言區 --- */
@@ -215,6 +266,54 @@ body:not(.login) .is-login {
   letter-spacing: 0.05em;
   color: #007bc5;
 }
+
+/* 子留言 */
+.comments_child {
+  margin: 10px;
+  padding: 10px;
+}
+
+section.comments_child:nth-of-type(1) {
+  border-top: 3px solid #eee;
+}
+
+.comments_child .comments__content {
+  margin: 0 0 5px 0;
+}
+
+
+.comments_child .comments__username {
+  color: #37c6e6;
+}
+.comments_child .comments__username.default::after {
+  content:"原 PO";
+  display: inline-block;
+  color: #fff;
+  background: #f9a156;
+  padding: 2px 5px;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* 子輸入框 */
+.comment__inside {
+  text-align: right;
+  margin-top: 5px;
+}
+.comment__input-inside {
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px solid #eee;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+}
+.comment__input-inside:hover {
+  border-color: #0073fc66;
+}
+.comment__input-inside + .btn_1 {
+}
+
 /* 更新留言樣式 */
 .comment__input.edit {
   border:1px solid #eee;
@@ -415,6 +514,10 @@ body:not(.login) .is-login {
 /* 已刪除留言 */
 .theme-deleted {
   background: #ffffffb0;
+}
+/* 已刪除子留言 */
+.comments_child.theme-deleted {
+  background: #00000026;
 }
 
 .theme-deleted .comments__username::after {

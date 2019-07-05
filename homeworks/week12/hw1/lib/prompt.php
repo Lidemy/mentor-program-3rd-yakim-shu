@@ -16,6 +16,8 @@
           return '資料要填完喔'; break;
         case 'not_allowed':
           return '要有管理權限才可以登入後台喔'; break;
+        case 'not_login':
+          return '要先登入喔!'; break;
         default :
           return false;
       }

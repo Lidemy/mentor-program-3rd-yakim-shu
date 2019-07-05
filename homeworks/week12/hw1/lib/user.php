@@ -23,16 +23,16 @@ class Session {
     session_start();
     session_regenerate_id(); // => 更新 session id，但這樣 Server 端的 session 好像會一直增加 (?)，待優化
     $id = session_id();
-    $sql_set_session = "INSERT INTO $this->table(username, certificate_id) VALUES('$this->user', '$id')";
-    $this->db->query($sql_set_session);
+    $sql_set_session = "INSERT INTO $this->table(username, certificate_id) VALUES(?,?)";
+    $this->db->stmtQuery($sql_set_session, 'ss', $this->user, $id);
     return $id;
   }
 
   // 檢查 session 表 => user 是否登入過
   function checkID() {
-    $sql_get_session = "SELECT * FROM $this->table WHERE username = '$this->user'";
-    $this->db->query($sql_get_session);
-    $this->row = $this->db->getRow();
+    $sql_get_session = "SELECT * FROM $this->table WHERE username = ?";
+    $this->db->stmtQuery($sql_get_session, 's', $this->user);
+    $this->row = $this->db->getResult();
     $this->id = ($this->row) ? $this->getID() : $this->setID();
   }
 
@@ -57,9 +57,9 @@ class User {
   // 取得會員資料
   private function getAuthority() {
     $sql_user = "SELECT U.id, U.nickname, U.username, U.authority FROM yakim_users as U LEFT JOIN yakim_users_certificate as C
-    ON U.username = C.username WHERE C.certificate_id = '". $this->session_id. "'";
-    $this->db->query($sql_user);
-    $this->row_users = $this->db->getRow();
+    ON U.username = C.username WHERE C.certificate_id = ?";
+    $this->db->stmtQuery($sql_user, 's', $this->session_id);
+    $this->row_users = $this->db->getResult();
   }
 
   function isAdmin() {
@@ -72,8 +72,8 @@ class User {
 
   // 更新會員權限
   function updateAuthority($authority, $id) {
-    $sql = "UPDATE yakim_users SET authority = '$authority' WHERE id = $id";
-    $this->db->query($sql);
+    $sql = "UPDATE yakim_users SET authority = '$authority' WHERE id = ?";
+    $this->db->stmtQuery($sql, 'i', $id);
   }
 
   

@@ -30,8 +30,10 @@
       <a class="comment__tip-login" href="login.php">欸欸還沒登入啦</a>
       <h2 class="title_2">寫下你的胡鬧名言</h2>
       <form action="./handling/handle_post_comment.php" method="POST">
-        <textarea class="require comment__input" name="content" id="" rows="5" placeholder="巴啦巴啦巴啦 ✍" required></textarea>
+        <textarea class="require comment__input" name="content" rows="5" placeholder="巴啦巴啦巴啦 ✍" required></textarea>
         <input type="hidden" name="id" value="<?= $user->row_users['id'] ?>">
+        <input type='hidden' name='layer' value='1'>
+        <input type='hidden' name='parent_id' value='none'>
         <button class="add-comment__submit" type="submit">送出留言</button>
       </form>
     </section>
@@ -51,5 +53,6 @@
 
   </main>
   <script src="./js/update_comment.js"></script>
+  <script src="./js/input_toggle.js"></script>
 </body>
 </html>

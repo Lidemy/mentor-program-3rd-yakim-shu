@@ -11,7 +11,7 @@
 <?php
   require_once('lib/DB_conn.php');
   require_once('lib/user.php');
-  // require_once('lib/page_control.php');
+  require_once('lib/page_control.php');
   
   // 非管理員 => 顯示錯誤訊息、跳回登入頁
   if (!isLogin() || !$user->isAdmin()) {
@@ -41,5 +41,6 @@
     </section>
   </main>
   <script src="./js/update_comment.js"></script>
+  <script src="./js/input_toggle.js"></script>
 </body>
 </html>

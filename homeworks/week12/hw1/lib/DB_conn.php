@@ -20,7 +20,7 @@ class Db {
   private function checkQuery() {
     if (!$this->result) {
       echo 'Failed: ' . $this->conn->error;
-      return false;
+      exit();
     }
   }
   
@@ -29,7 +29,7 @@ class Db {
     $this->checkQuery();
   }
 
-  function stmtQuery($str, $type, ...$List) {
+  function stmtQuery($str, $type = 's', ...$List) {
     $this->stmt = mysqli_prepare($this->conn, $str);
     mysqli_stmt_bind_param($this->stmt, $type, ...$List);
     $this->result = mysqli_stmt_execute($this->stmt);

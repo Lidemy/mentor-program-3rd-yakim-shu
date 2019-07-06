@@ -1,5 +1,6 @@
 <?php
 require_once('DB_conn.php');
+require_once('msg_control.php');
 
 /* ---- 設置 session ---- */
 class Session {
@@ -37,7 +38,8 @@ class Session {
   }
 
   function setCookie() {
-    setcookie($this->session_name ,$this->id, $this->lifeTime, '/', null, null, true);
+    setcookie($this->session_name ,$this->id, $this->lifeTime, '/', null, null, true); // => HttpOnly 防簡單的 XSS（還是不安全）
+    // setcookie($this->session_name ,$this->id, $this->lifeTime, ['samesite' => 'Lax']); // => 設置 samsite 防 CSRF
   }
   function clearCookie() {
     setcookie($this->session_name , '', $this->lifeTime, '/');
@@ -61,7 +63,6 @@ class User {
     $this->db->stmtQuery($sql_user, 's', $this->session_id);
     $this->row_users = $this->db->getResult();
   }
-
   function isAdmin() {
     return strstr($this->row_users['authority'], 'admin');
   }
@@ -70,8 +71,17 @@ class User {
     return strstr($this->row_users['authority'], 'admin_super');
   }
 
+  // 非管理員 or 本人 => 立刻結束
+  function chceckAuthority($user_id) {
+    if (!isLogin()) exit('未登入');
+    if (!$this->isAdmin() && !$this->isSuperAdmin()) {
+      if ($this->row_users['id'] !== (int)$user_id) exit('非本人或管理員');
+    }
+  }
+
   // 更新會員權限
   function updateAuthority($authority, $id) {
+    $this->chceckAuthority($id);
     $sql = "UPDATE yakim_users SET authority = '$authority' WHERE id = ?";
     $this->db->stmtQuery($sql, 'i', $id);
   }

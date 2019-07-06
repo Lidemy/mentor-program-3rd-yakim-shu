@@ -173,17 +173,6 @@ body:not(.login) .is-login {
   margin-bottom: 10px;
 }
 
-/* 留言內的輸入框 toggle */
-/* 高度漸變參考： https://css-tricks.com/using-css-transitions-auto-dimensions/ */
-.comments_item .comment__inside {
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.2s ease-out;
-}
-.comments_item.show_input > .comment__inside{
-  height: auto;
-  max-height: 100px;
-}
 
 
 .comments__username {
@@ -308,11 +297,34 @@ section.comments_child:nth-of-type(1) {
   line-height: 1.5em;
   margin-bottom: 10px;
 }
+.comment__input-inside::placeholder {
+  font-size: 13px;
+}
 .comment__input-inside:hover {
   border-color: #0073fc66;
 }
-.comment__input-inside + .btn_1 {
+
+
+/* 留言內的輸入框 toggle */
+/* 高度漸變參考： https://css-tricks.com/using-css-transitions-auto-dimensions/ */
+.comments_child .comment__inside {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
 }
+.comments_child.show_input > .comment__inside{
+  height: auto;
+  max-height: 100px;
+}
+.comment__inside .btn {
+  font-size: 16px;
+  padding: 3px 10px;
+}
+/* 最後一層：不要顯示輸入框 */
+.comment__inside.last {
+  display: none; 
+}
+
 
 /* 更新留言樣式 */
 .comment__input.edit {

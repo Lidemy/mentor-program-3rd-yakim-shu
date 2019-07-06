@@ -6,6 +6,7 @@ window.addEventListener('click', (e) => {
   e.preventDefault();
   const btn = e.target;
   const { id } = btn.dataset;
+  const { user } = btn.dataset;
   const textNode = btn.parentNode.children[2];
 
   if (textNode.nodeName === 'P') comments[id] = textNode.innerText; // => 先儲存原訊息
@@ -28,7 +29,8 @@ window.addEventListener('click', (e) => {
   const formHTML = `
   <form action="handling/handle_update_comment.php" method="POST">
     <textarea class="edit require comment__input" name="content" id="" rows="2" required>${escapeHtml(comments[id])}</textarea>
-    <input style="display:none" name="comment_id" value="${id}">
+    <input type='hidden' name='user_id' value='${user}'>
+    <input type='hidden' name='id' value='${id}'>
     <button class="add-comment__submit" type="submit">更新</button>
   </form>
   `;

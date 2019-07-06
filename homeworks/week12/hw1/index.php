@@ -31,7 +31,7 @@
       <h2 class="title_2">寫下你的胡鬧名言</h2>
       <form action="./handling/handle_post_comment.php" method="POST">
         <textarea class="require comment__input" name="content" rows="5" placeholder="巴啦巴啦巴啦 ✍" required></textarea>
-        <input type="hidden" name="id" value="<?= $user->row_users['id'] ?>">
+        <input type="hidden" name="current_user_id" value="<?= $user->row_users['id'] ?>">
         <input type='hidden' name='layer' value='1'>
         <input type='hidden' name='parent_id' value='none'>
         <button class="add-comment__submit" type="submit">送出留言</button>
@@ -44,7 +44,7 @@
       include("./layout/pagination.php");
     ?>
 
-    <section class="comments shadow">
+    <section class="comments shadow" id="test">
       <h2 class="title_2">最新留言</h2>
       <!-- 留言列表 -->
       <?php include("./layout/board.php");?>
@@ -54,5 +54,6 @@
   </main>
   <script src="./js/update_comment.js"></script>
   <script src="./js/input_toggle.js"></script>
+  <script src="./js/scroll.js"></script>
 </body>
 </html>

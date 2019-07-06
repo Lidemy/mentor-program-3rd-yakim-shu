@@ -7,76 +7,66 @@ require_once('user.php');
 class MsgControl {
   private $table = 'yakim_comments';
 
-  public function __construct($db, $requestCheck, $page) {
+  public function __construct($db, $requestCheck, $page, $request_id) {
     $this->db = $db;
     $this->page = $page;
     $this->requestCheck = $requestCheck;
+    $this->request_id = $request_id;
+    $this->init();
+  }
+
+  // 權限檢查：
+  // 登入 => 建立使用者資料
+  // Request => 是否為本人或管理員發出
+  private function init() {
     $this->checkLogin();
-    $this->curentUserId = $this->user->row_users['id'];
+    $this->user->chceckAuthority($this->request_id);
   }
 
-  // 有登入 => 建立使用者資料
   private function checkLogin() {
-    if (isLogin()) {
-      $this->user = new User($this->db, $_COOKIE['session_id']);
-    }
+    if (isLogin()) $this->user = new User($this->db, $_COOKIE['session_id']);
+    else exit('沒有權限唷！');
   }
 
-  // 檢查：刪除參數
   private function checkId() {
-    if (!$this->requestCheck->getList('comment_id', 'user_id')) exit();
+    if (!$this->requestCheck->getList('comment_id', 'user_id')) exit('參數不足');
   }
 
-  // 非管理員 or 本人 => 立刻結束
-  private function chceckAuthority($user_id) {
-    if (!isLogin()) exit('未登入');
-    if (!$this->user->isAdmin() && !$this->user->isSuperAdmin()) {
-      if ($this->curentUserId !== (int)$user_id) exit('非本人或管理員');
-    }
-    return true;
-  }
-
-  // 暫時刪除
-  function delete($comment_id, $user_id) {
+  // => 暫時刪除
+  function delete($comment_id) {
     $this->checkId();
-    $this->chceckAuthority($user_id);
     $sql = "UPDATE $this->table SET is_deleted = 1 WHERE id = ?";
     $this->db->stmtQuery($sql, 'i', $comment_id);
   }
 
-  // 還原刪除
-  function recovery($comment_id, $user_id) {
+  // => 還原刪除
+  function recovery($comment_id) {
     $this->checkId();
-    $this->chceckAuthority($user_id);
     $sql = "UPDATE $this->table SET is_deleted = 0 WHERE id = ?";
     $this->db->stmtQuery($sql, 'i', $comment_id);
   }
   
-  // 永久刪除
-  function clean($comment_id, $user_id) {
+  // => 永久刪除
+  function clean($comment_id) {
     $this->checkId();
-    $this->chceckAuthority($user_id);
     $sql = "DELETE FROM $this->table WHERE id = ?";
     $this->db->stmtQuery($sql, 'i', $comment_id);
   }
 
-  // 新增
-  function post($user_id, $content, $parent_id, $layer) {
-    $this->chceckAuthority($user_id);
-    if (!$this->requestCheck->postList('id','content', 'parent_id', 'layer')) exit('');
+  // => 新增
+  function post($content, $parent_id, $layer, $current_user_id) {
+    if (!$this->requestCheck->postList('content', 'parent_id', 'layer', 'current_user_id')) exit('參數不足');
     $sql = "INSERT INTO ".$this->table."(content, user_id, parent_id, layer) VALUES(?, ?, ?, ?)";
-    $this->db->stmtQuery($sql, 'siii', $content, $user_id, $parent_id, $layer);
+    $this->db->stmtQuery($sql, 'siii', $content, $current_user_id, $parent_id, $layer);
   }
   
-  // 更新
-  function update($user_id, $content) {
-    $this->chceckAuthority($user_id);
-    if (!$this->requestCheck->postList('comment_id', 'content')) exit();
+  // => 更新
+  function update($id, $content) {
+    if (!$this->requestCheck->postList('id', 'content', 'user_id')) exit('參數不足');
     $sql = "UPDATE $this->table SET content = ? WHERE id = ?";
-    $this->db->stmtQuery($sql, 'si', $content, $user_id);
+    $this->db->stmtQuery($sql, 'si', $content, $id);
   }
 
 }
-$msg = new MsgControl($db, $requestCheck, $page);
 
 ?>

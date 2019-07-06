@@ -17,7 +17,7 @@ class PageControl {
     header($this->location . $_SERVER['HTTP_REFERER']);
   }
 
-  // 顯示此頁
+  // 確認當前頁
   function isPage($page_str) {
     return basename($_SERVER['PHP_SELF']) === $page_str;
   }

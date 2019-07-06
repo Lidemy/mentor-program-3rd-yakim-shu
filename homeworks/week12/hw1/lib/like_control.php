@@ -11,16 +11,16 @@ class likeControl extends MsgControl {
     parent::__construct($db, $requestCheck, $page, $user);
   }
 
+  // 檢查有沒有按過 like
   private function checkLiked($comment_id, $user_id) {
     $sql_check = "SELECT * FROM $this->table WHERE comment_id = ? AND user_id = ?";
     $this->db->stmtQuery($sql_check, 'ii', $comment_id, $user_id);
     $row = $this->db->getResult();
-    // print_r($row);
     return $row;
   }
 
-  // 刪除
-  function delete($comment_id) { // => 跟 MsgControl 的方法重複
+  // => 刪除
+  function delete($comment_id) {
     $id = $this->user->row_users['id'];
     if (!$this->requestCheck->getList('comment_id','user_id')) exit();
 
@@ -28,7 +28,7 @@ class likeControl extends MsgControl {
     $this->db->stmtQuery($sql, 'ii', $comment_id, $id);
   }
 
-  // 新增
+  // => 新增
   function add($comment_id) {
     $id = $this->user->row_users['id'];
     

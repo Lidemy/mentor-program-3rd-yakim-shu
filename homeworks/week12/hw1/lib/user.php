@@ -38,12 +38,14 @@ class Session {
   }
 
   function setCookie() {
-    setcookie($this->session_name ,$this->id, $this->lifeTime, '/', null, null, true); // => HttpOnly 防簡單的 XSS（還是不安全）
-    // setcookie($this->session_name ,$this->id, $this->lifeTime, ['samesite' => 'Lax']); // => 設置 samsite 防 CSRF
+    setcookie($this->session_name ,$this->id, $this->lifeTime, '/', null, null, true); 
+    // => 設置 samsite 防 CSRF ( 目前的 PHP 版本太舊，要 7.3 以上才支援，暫時先註解掉 )
+    // setcookie($this->session_name ,$this->id, $this->lifeTime, '/', null, null, true, ['samesite' => 'Lax']); 
   }
+  
   function clearCookie() {
     setcookie($this->session_name , '', $this->lifeTime, '/');
-    session_destroy(); // => 清除所有 session（ 目前好像是加心酸的 ）
+    session_destroy();
   }
 }
 
@@ -71,6 +73,7 @@ class User {
     return strstr($this->row_users['authority'], 'admin_super');
   }
 
+  // 檢查操作權限
   // 非管理員 or 本人 => 立刻結束
   function chceckAuthority($user_id) {
     if (!isLogin()) exit('未登入');

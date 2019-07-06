@@ -1,4 +1,5 @@
 <?php
+  require_once('lib/escape.php');
   Class Prompt { 
     public function __construct() {
       $this->page = basename($_SERVER['PHP_SELF']);
@@ -44,7 +45,7 @@
           $msg = $this->registerMsg(); break;
         default: break;
       }
-      if ($msg) echo '<p class="member__status">'. $msg .'</p>'; 
+      if ($msg) echo '<p class="member__status">'. encode($msg) .'</p>'; 
     }
   };
 ?>

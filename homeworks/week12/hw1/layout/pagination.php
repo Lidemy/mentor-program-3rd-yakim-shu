@@ -1,17 +1,19 @@
 <?php
   require_once('./lib/request_check.php');
+  require_once('./lib/page_control.php');
   
   // 每頁的留言數
   $limit = 20;
 
   // 計算頁數
+  $show_deleted_msg = ($page->isPage('index.php')) ? ' WHERE is_deleted = 0 AND ' : 'WHERE';
+  $sql_count = "SELECT COUNT(id) FROM yakim_comments ". $show_deleted_msg ." layer = 1";
   $db->query($sql_count);
   $row_count = $db->getRow();
 
   $total_page = ceil($row_count['COUNT(id)'] / $limit); // => 總頁數
   $page_num = $requestCheck->get('page') ? (int)$_GET['page'] : 1; // => 抓 page 參數
   $current_page = basename($_SERVER['PHP_SELF']); // => 當前頁 url
-
   // 當前分頁高亮
   function isActive($num, $page_num) {
     if($page_num === $num) return 'active';

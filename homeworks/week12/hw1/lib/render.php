@@ -11,13 +11,13 @@ class Render {
   }
 
   // 編輯區：前台
-  function index_edit($id, $user_id) {
+  private function index_edit($id, $user_id) {
     echo "<a class='btn btn_1 btn_edit' data-id='$id' data-user='$user_id'>編輯</a>";
     echo "<a class='btn btn_1' href='./handling/handle_delete_comment.php?comment_id=$id&user_id=$user_id'>刪除</a>";
   }
 
   // 編輯區：後台
-  function admin_edit($id, $is_deleted, $user_id) {
+  private function admin_edit($id, $is_deleted, $user_id) {
     echo "<a class='btn btn_1 btn_edit' data-id='$id' data-user='$user_id'>編輯</a>";
     if (($is_deleted)) { // => 前台已刪除的留言
       echo "<a class='btn btn_1' href='./handling/handle_recovery_comment.php?comment_id=$id&user_id=$user_id'>還原</a>";
@@ -28,8 +28,7 @@ class Render {
   }
 
   // 編輯區：控制前後台
-  function printEditTool($row, $id, $is_deleted) {
-    // global $currentNickname;
+  function editArea($row, $id, $is_deleted) {
     if ($this->page->isPage('admin.php')) {
       $this->admin_edit($id, $is_deleted, $row['user_id']);
     } else if (isLogin() && $row['nickname'] === $this->currentNickname) {
@@ -38,7 +37,7 @@ class Render {
   }
 
   // 訊息區塊
-  function printContent($row, $id, $is_origin) {
+  function contentArea($row, $id, $is_origin) {
     list ($is_liked, $row_like) = getLikesTotal($id);
     $method = ($is_liked)? 'delete':'add';
 
@@ -53,7 +52,7 @@ class Render {
   }
 
   // 新增訊息區
-  function printInput($row, $id, $layer) {
+  function inputArea($row, $id, $layer) {
     global $user, $lauer, $max_layer;
     $is_Last = $layer > $max_layer ? 'last' : '';
 
@@ -70,7 +69,5 @@ class Render {
 }
 
 $render = isLogin() ? new Render($db, $page, $user) : new Render($db, $page);
-
-
 
 ?>

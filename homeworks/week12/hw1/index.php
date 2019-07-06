@@ -40,12 +40,12 @@
 
     <!-- 分頁 -->
     <?php 
-      $sql_count = "SELECT COUNT(id) FROM yakim_comments WHERE is_deleted = 0";
       include("./layout/pagination.php");
     ?>
 
     <section class="comments shadow" id="test">
       <h2 class="title_2">最新留言</h2>
+      
       <!-- 留言列表 -->
       <?php include("./layout/board.php");?>
 

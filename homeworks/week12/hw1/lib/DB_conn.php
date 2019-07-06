@@ -24,11 +24,16 @@ class Db {
     }
   }
   
+  // 一般 query
   function query($str) {
     $this->result = mysqli_query($this->conn, $str);
     $this->checkQuery();
   }
+  function getRow() {
+    return ($this->result->num_rows > 0) ? $this->result->fetch_assoc() : "";
+  }
 
+  // prepare statement query
   function stmtQuery($str, $type = 's', ...$List) {
     $this->stmt = mysqli_prepare($this->conn, $str);
     mysqli_stmt_bind_param($this->stmt, $type, ...$List);
@@ -36,11 +41,6 @@ class Db {
     $this->checkQuery();
     $this->stmt_result = $this->stmt->get_result();
   }
-
-  function getRow() {
-    return ($this->result->num_rows > 0) ? $this->result->fetch_assoc() : "";
-  }
-
   function getResult() {
     return $this->stmt_result ? $this->stmt_result->fetch_assoc() : '';
   }

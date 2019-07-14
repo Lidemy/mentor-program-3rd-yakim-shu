@@ -39,13 +39,13 @@ class Render {
   // 訊息區塊
   function contentArea($row, $id, $is_origin) {
     list ($is_liked, $row_like) = getLikesTotal($id);
-    $method = ($is_liked)? 'delete':'add';
+    $method = ($is_liked)? 'remove':'add';
 
     echo  "<p class='comments__username $is_origin'>". encode($row['nickname']) ."</p>";
     echo  "<time class='comments__time'>". $row['created_at'] ."</time>";
     echo  "<p class='comments__content'>". encode($row['content']) ."</p>";
     if (isLogin()) {
-      echo  "<a class='comments__like ". $is_liked ."' href='./handling/handle_". $method ."_like.php?comment_id=$id'>$row_like</a>";
+      echo  "<a class='comments__like btn btn_".$method."_like ". $is_liked ."'>$row_like</a>";
     } else {
       echo  "<a class='comments__like' href='login.php?status=not_login'>$row_like</a>";
     }
@@ -53,7 +53,7 @@ class Render {
 
   // 新增訊息區
   function inputArea($row, $id, $layer) {
-    global $user, $lauer, $max_layer;
+    global $user, $max_layer;
     $is_Last = $layer > $max_layer ? 'last' : '';
 
     echo "<section class='comment__inside $is_Last'>";

@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Yakim_week13_管理後台</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
   <link href="https://necolas.github.io/normalize.css/latest/normalize.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/main.css">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
 </head>
 <?php
   require_once('lib/DB_conn.php');
@@ -40,13 +42,9 @@
 
     </section>
   </main>
-  <script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
+  
   <script src="./js/update_comment.js"></script>
   <script src="./js/input_toggle.js"></script>
-  <script src="./js/scroll.js"></script>
   <script src="./js/msg.js"></script>
 </body>
 </html>

@@ -31,7 +31,7 @@ class likeControl extends MsgControl {
   // => 新增
   function add($comment_id) {
     if (!$this->requestCheck->get('comment_id')) exit();
-    if ($this->checkLiked($comment_id, $id)) exit('已經按過讚了喔！');
+    if ($this->checkLiked($comment_id, $this->user_id)) exit('已經按過讚了喔！');
 
     $sql = "INSERT INTO ".$this->table."(comment_id, user_id) VALUES(?, ?)";
     $this->db->stmtQuery($sql, 'ii', $comment_id, $this->user_id);

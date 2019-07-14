@@ -5,5 +5,4 @@ require_once($dir . 'lib/like_control.php');
 
 // 新增讚
 $like->add($_GET['comment_id']);
-$page->back();
 ?>

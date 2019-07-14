@@ -1,18 +1,14 @@
+/* eslint-disable prefer-arrow-callback */
 /* eslint-disable camelcase */
 /* eslint-disable func-names */
 /* eslint-disable no-undef */
 $(document).ready(() => {
-  // error Msg
-  function error() {
-    console.log('失敗');
-  }
-
-  // CRUD callback
+  // 留言 ajax callback
   class Msg {
-    constructor(id, target) {
+    constructor(id, btn) {
       this.id = id;
-      this.btn = target;
-      this.comment = target.parent();
+      this.btn = btn;
+      this.comment = btn.parent();
     }
 
     delete() {
@@ -44,13 +40,18 @@ $(document).ready(() => {
 
     post(res, layer) {
       const resp = JSON.parse(res);
-      console.log(resp);
+
+      // .find() => 找所有子元素
+      // .child() => 找下一層級子元素
+      const parent = $('.comments').find(`.comments_item[data-id=${resp.parent_id}]`);
+      const isOrgin = (parent.children('.comments__username').text() === resp.nickname) ? 'default' : '';
+
       const newMsg = `
-      <div class="comments_item" data-id=${resp.comment_id}>
-          <p class="comments__username">${resp.nickname}</p>
+      <div class="comments_item comments_child" data-id=${resp.comment_id}>
+          <p class="comments__username ${isOrgin}">${resp.nickname}</p>
           <time class="comments__time">${resp.created_at}</time>
           <p class="comments__content">${resp.content}</p>
-          <a class="comments__like" href="./handling/handle_add_like.php?comment_id=${resp.comment_id}">0</a>
+          <a class="comments__like btn btn_add_like">0</a>
           <a class='btn btn_1 btn_edit' data-id='${resp.comment_id}' data-user='${resp.user_id}'>編輯</a>
           <a class='btn btn_1 btn_delete' data-id='${resp.comment_id}'>刪除</a>
           <section class='comment__inside '>
@@ -62,26 +63,60 @@ $(document).ready(() => {
       </div>
       `;
 
-      if (resp.layer === 1) { // => 第一層主留言
-        $(newMsg).hide().prependTo('.comments').fadeIn(1000);
-        $('.add-comment textarea').val('');
-      } else { // => 子留言
-        const parent = $('.comments').find(`.comments_item[data-id=${resp.parent_id}]`);
-        $(newMsg).addClass('comments_child')
+      // 主留言
+      if (resp.layer === 1) {
+        $(newMsg).removeClass('comments_child')
           .hide()
-          .insertBefore(parent.find('.comments_item'))
-          .fadeIn(1000); // => 插入在所有子留言的第一個
+          .prependTo('.comments')
+          .fadeIn(1000);
+        $('.add-comment textarea').val('');
+      // 子留言 ------
+      } else {
         this.comment.find('textarea').val('');
+        $(newMsg).hide();
+
+        // => 第 n 個子留言，用相對位置
+        if (parent.children('.comments_item').length) {
+          $(newMsg)
+            .insertBefore(parent.children('.comments_item')[0]) // => 插入在第一個子留言之前
+            .fadeIn(1000);
+
+        // => 第 1 個子留言，用絕對位置
+        } else {
+          $(newMsg)
+            .appendTo(parent)
+            .fadeIn(1000);
+        }
       }
     }
   }
 
-  // 按下編輯按鈕
+  // 按讚 ajax callback
+  class Like extends Msg {
+    constructor(id, btn) {
+      super(id, btn);
+      this.init();
+    }
+
+    init() {
+      this.btn.toggleClass('btn_remove_like btn_add_like liked');
+    }
+
+    add() {
+      this.btn.text(parseInt(this.btn.text(), 10) + 1);
+    }
+
+    remove() {
+      this.btn.text(parseInt(this.btn.text(), 10) - 1);
+    }
+  }
+
+  // 頁面按鈕控制
   $('.comments, .add-comment').on('click', '.btn', function (e) {
     e.preventDefault();
-    const target = $(this);
-    const item = target.parent();
-    let id = item.data('id');
+    const target = $(e.target);
+    const comment = target.parent();
+    let id = comment.data('id');
 
 
     function sendReq(type, content = '', layer = '', parent_id = '') {
@@ -127,7 +162,6 @@ $(document).ready(() => {
           [
             'POST', './handling/handle_post_comment.php',
             (res) => {
-              console.log(res);
               msg = new Msg(id, target);
               msg.post(res, layer);
             },
@@ -137,43 +171,74 @@ $(document).ready(() => {
               layer,
             },
           ],
+        add_like:
+          [
+            'GET', `./handling/handle_add_like.php?comment_id=${id}`,
+            () => {
+              like = new Like(id, target);
+              like.add();
+            },
+          ],
+        remove_like:
+          [
+            'GET', `./handling/handle_remove_like.php?comment_id=${id}`,
+            () => {
+              like = new Like(id, target);
+              like.remove();
+            },
+          ],
       };
 
+      // Ajax 操作
       $.ajax({
         type: req[type][0],
         url: req[type][1],
         data: req[type][3] || '',
-        success: req[type][2],
-        error,
-      });
+      })
+        .done(function (data) {
+          req[type][2](data);
+        })
+        .fail(function (jqXHR, textStatus) {
+          console.log('失敗: ', textStatus);
+        });
     }
 
-    (function MsgControl() {
+    // 不同按鈕要進行的操作
+    (function btnControl() {
       let content = '';
       const clickBtn = className => target.hasClass(className);
 
       switch (true) {
-        case clickBtn('btn_delete'):
+        case clickBtn('btn_delete'): // => 刪除
           sendReq('delete'); break;
 
-        case clickBtn('btn_clean'):
+        case clickBtn('btn_clean'): // => 永久清除
           sendReq('clean'); break;
 
-        case clickBtn('btn_recovery'):
+        case clickBtn('btn_recovery'): // => 還原
           sendReq('recovery'); break;
 
-        case clickBtn('btn_update'):
-          id = item.parent().data('id');
-          content = item.find('textarea').val();
+        case clickBtn('btn_update'): // => 更新
+          id = comment.parent().data('id');
+          content = comment.find('textarea').val();
           sendReq('update', content);
           break;
 
-        case clickBtn('btn_post'):
-          content = item.find('textarea').val();
+        case clickBtn('btn_post'): // => 新增
+          content = comment.find('textarea').val();
           layer = target.data('layer');
           parent_id = target.data('parent');
           sendReq('post', content, layer, parent_id);
           break;
+
+        case clickBtn('btn_add_like'): // => (like) 按讚
+          sendReq('add_like');
+          break;
+
+        case clickBtn('btn_remove_like'): // => (like) 移除讚
+          sendReq('remove_like');
+          break;
+
         default: break;
       }
     }());

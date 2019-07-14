@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  color: rosybrown;
+}
+h3 {
+  color: gray;
+}
+section {
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #aaa;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row > div {
+  border-right: 3px solid #fff;
+  background: darksalmon;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 5px;
+  letter-spacing: 0.05em;
+}
+
+.row > div:nth-of-type(odd) {
+  background: rosybrown;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: calc(100% / 12 * #{$i});
+  }
+}
+
+/* 720px */
+@media screen and (max-width: 720px){
+  @for $i from 1 through 12 {
+  .col-#{$i} {
+    width: 100%;
+  }
+}
+}

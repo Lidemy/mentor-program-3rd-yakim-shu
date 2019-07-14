@@ -212,6 +212,7 @@ body:not(.login) .is-login {
   background: #ccc;
   color: #fff;
   transition: all .3s;
+  border: 1px solid #ccc;
 }
 
 .comments__like::after {
@@ -225,12 +226,14 @@ body:not(.login) .is-login {
 .comments__like:hover,
 .comments__like.liked {
   background: #0086c6;
+  border: 1px solid #0086c6;
 }
 .comments__like.liked::after {
   content: '已按讚';
 }
 .comments__like.liked:hover {
   background: #ccc;
+  border: 1px solid #ccc;
 }
 .comments__like.liked:hover::after {
   content: '收回讚';

@@ -5,5 +5,4 @@ require_once($dir . 'lib/msg_control.php');
 
 // 更新留言
 $msg->update($_POST['id'], $_POST['content']);
-$page->back();
 ?>

@@ -61,12 +61,11 @@ class MsgControl {
   function clean($comment_id) {
     if (!$this->requestCheck->get('comment_id')) $this->showError('para');
 
-    $sql = "DELETE FROM yakim_comments WHERE parent_id = ? OR id = ?
-            AND EXISTS (SELECT * WHERE id = ? $this->adminSQL)";
+    $sql = "DELETE FROM yakim_comments WHERE id = ? $this->adminSQL";
     if ($this->user->checkAdmin()) {
-      $this->db->stmtQuery($sql, 'iii', $comment_id, $comment_id, $comment_id);
+      $this->db->stmtQuery($sql, 'i', $comment_id);
     } else {
-      $this->db->stmtQuery($sql, 'iiis', $comment_id, $comment_id, $comment_id, $this->user->id);
+      $this->db->stmtQuery($sql, 'is', $comment_id, $this->user->id);
     }
   }
 

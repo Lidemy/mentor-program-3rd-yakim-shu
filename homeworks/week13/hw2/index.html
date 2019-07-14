@@ -20,14 +20,13 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Yakim - Todo List</h1>
-      <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
     </div>
   </div>
 
   <div class="container">
 
     <!-- 列表 -->
-    <div class="card" style="width: 25rem;">
+    <div class="card">
       <div class="card-body">
         <!-- 輸入框 -->
         <div class="input-group mb-3 input-text">
@@ -35,39 +34,49 @@
             aria-describedby="inputGroup-sizing-default">
         </div>
 
-        <h5 class="card-title">Card title</h5>
+        <h5 class="card-title">w13 作業待辦</h5>
 
           <div class="check-list">
               <div class="item d-flex justify-content-between">
-                <input id="myCheckbox" type="checkbox">
-                <label for="myCheckbox">11111</label>
+                <input id="delete" type="checkbox">
+                <label for="delete">想辦法刪除所有子留言</label>
                 <span></span>
                 <div>
-                  <a href='' class="badge badge-danger btn_delete">刪除</a>
+                  <a class="badge badge-danger btn_delete">刪除</a>
                   <div class="badge badge-primary badge-warning badge-state">未完成</div>
                 </div>
               </div>
 
               <div class="item d-flex justify-content-between">
-                <input id="1" type="checkbox">
-                <label for="1">2222</label>
+                <input id="api" type="checkbox">
+                <label for="api">Restful API 設計</label>
                 <span></span>
                 <div>
-                  <a href='' class="badge badge-danger btn_delete">刪除</a>
+                  <a class="badge badge-danger btn_delete">刪除</a>
                   <div class="badge badge-primary badge-warning badge-state">未完成</div>
                 </div>
               </div>
-              <!-- <div class="item d-flex justify-content-between">
-                <input id="myCheckbox2" type="checkbox">
-                <label for="myCheckbox2">Checkbox unchecked</label>
+              
+              <div class="item d-flex justify-content-between">
+                <input id="qa" type="checkbox">
+                <label for="qa">簡答題</label>
                 <span></span>
-                <div class="badge badge-primary badge-pill">14</div>
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-warning badge-state">未完成</div>
+                </div>
               </div>
-              <div class="item">
-                <input id="myCheckbox3" type="checkbox" disabled>
-                <label for="myCheckbox3">Checkbox disabled</label>
+
+              <div class="item d-flex justify-content-between finish">
+                <input id="food" type="checkbox" checked="true">
+                <label for="food">交完作業吃宵夜</label>
                 <span></span>
-              </div> -->
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-info badge-state">完成</div>
+                </div>
+              </div>
+              
           </div>
 
       </div>

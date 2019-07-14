@@ -17,8 +17,8 @@ $(document).ready(() => {
       } else {
         this.comment.addClass('theme-deleted');
         this.btn.replaceWith(`
-          <a class='btn btn_1 btn_recovery' data-id=${this.id}>還原</a>
-          <a class='btn btn_1 btn_clean' data-id=${this.id}>永久清除</a>
+          <a class='btn btn_1 btn_recovery'>還原</a>
+          <a class='btn btn_1 btn_clean'>永久清除</a>
         `);
       }
     }
@@ -29,12 +29,12 @@ $(document).ready(() => {
 
     recovery() {
       this.comment.removeClass('theme-deleted').find('.btn_clean').remove();
-      this.btn.replaceWith(`<a class='btn btn_1 btn_delete' data-id=${this.id}>刪除</a>`);
+      this.btn.replaceWith("<a class='btn btn_1 btn_delete'>刪除</a>");
     }
 
     update(content) {
       const btn = this.comment.parent().find('.isEditing');
-      this.comment.replaceWith(`<p class='comments__content'>${content}</p>`);
+      this.comment.replaceWith(`<p class='comments__content'>${escapeHtml(content)}</p>`);
       btn.text('編輯').removeClass('isEditing');
     }
 
@@ -48,15 +48,15 @@ $(document).ready(() => {
 
       const newMsg = `
       <div class="comments_item comments_child" data-id=${resp.comment_id}>
-          <p class="comments__username ${isOrgin}">${resp.nickname}</p>
+          <p class="comments__username ${isOrgin}">${escapeHtml(resp.nickname)}</p>
           <time class="comments__time">${resp.created_at}</time>
-          <p class="comments__content">${resp.content}</p>
+          <p class="comments__content">${escapeHtml(resp.content)}</p>
           <a class="comments__like btn btn_add_like">0</a>
-          <a class='btn btn_1 btn_edit' data-id='${resp.comment_id}' data-user='${resp.user_id}'>編輯</a>
-          <a class='btn btn_1 btn_delete' data-id='${resp.comment_id}'>刪除</a>
+          <a class='btn btn_1 btn_edit'>編輯</a>
+          <a class='btn btn_1 btn_delete'>刪除</a>
           <section class='comment__inside '>
             <form action="./handling/handle_post_comment.php" method="POST" class="show_input">
-              <textarea class="comment__input comment__input-inside" name="content" rows="2" placeholder="回應 ${resp.nickname}" required=""></textarea>
+              <textarea class="comment__input comment__input-inside" name="content" rows="2" placeholder="回應 ${escapeHtml(resp.nickname)}" required=""></textarea>
               <a class="btn btn_1 btn_post" data-layer='${layer + 1}' data-parent='${resp.comment_id}'>送出</a>
             </form>
           </section>
@@ -70,20 +70,23 @@ $(document).ready(() => {
           .prependTo('.comments')
           .fadeIn(1000);
         $('.add-comment textarea').val('');
-      // 子留言 ------
-      } else {
-        this.comment.find('textarea').val('');
-        $(newMsg).hide();
 
-        // => 第 n 個子留言，用相對位置
+        // 子留言 ------
+      } else {
+        parent.removeClass('show_input');
+        this.comment.find('textarea').val('');
+
+        // => 第 n 個子留言，相對位置
         if (parent.children('.comments_item').length) {
           $(newMsg)
+            .hide()
             .insertBefore(parent.children('.comments_item')[0]) // => 插入在第一個子留言之前
             .fadeIn(1000);
 
-        // => 第 1 個子留言，用絕對位置
+          // => 第 1 個子留言，絕對位置
         } else {
           $(newMsg)
+            .hide()
             .appendTo(parent)
             .fadeIn(1000);
         }
@@ -198,8 +201,8 @@ $(document).ready(() => {
         .done(function (data) {
           req[type][2](data);
         })
-        .fail(function (jqXHR, textStatus) {
-          console.log('失敗: ', textStatus);
+        .fail(function (jqXHR) {
+          console.log(jqXHR.status, jqXHR.responseText);
         });
     }
 

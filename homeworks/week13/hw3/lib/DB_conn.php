@@ -12,6 +12,8 @@ class Db {
   private function init() {
     $this->conn = mysqli_connect($this->server, $this->user, $this->pass, $this->db);
     if ($this->conn->connect_error) {
+      http_response_code(500);
+      
       die('Failed: ' . $this->conn->connect_error);
     }
     mysqli_query($this->conn, "SET NAMES utf8");
@@ -19,8 +21,9 @@ class Db {
   }
   private function checkQuery() {
     if (!$this->result) {
-      echo 'Failed: ' . $this->conn->error;
-      exit();
+      header("Cache-Control: no-cache, must-revalidate");
+      header('HTTP/1.1 404 wrong SQL query');
+      exit('SQL 指令錯誤');
     }
   }
   

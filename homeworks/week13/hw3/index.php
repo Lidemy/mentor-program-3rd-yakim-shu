@@ -50,7 +50,7 @@
     </section>
 
   </main>
-
+  <script src="./js/escape.js"></script>
   <script src="./js/update_comment.js"></script>
   <script src="./js/input_toggle.js"></script>
   <script src="./js/msg.js"></script>

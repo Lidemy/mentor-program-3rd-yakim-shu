@@ -90,6 +90,7 @@ body {
   letter-spacing: 0.05em;
   margin: 20px auto;
   padding: 5px 10px;
+  line-height: 1.8em;
 }
 .title_warning span {
   color: #0073fc;
@@ -449,15 +450,13 @@ section.comments_child:nth-of-type(1) {
 
 /* --- 分頁導覽 --- */
 .pagination {
-  width: 360px;
-  max-width: 600px;
   height: 30px;
   margin: 20px auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .pagination .btn {
-  margin:0;
+  margin:0 10px;
   padding: 5px 10px;
   transition: none;
   background: none;
@@ -492,6 +491,13 @@ section.comments_child:nth-of-type(1) {
 }
 
 /* --- RWD --- */
+/* pad - 768px */
+@media screen and (max-width: 768px){
+body {
+  padding-top: 60px;
+}
+}
+
 /* pad - 480px */
 @media screen and (max-width: 480px){
   .nav__btn {
@@ -500,6 +506,27 @@ section.comments_child:nth-of-type(1) {
   .nav__username {
     display: none;
   }
+  .title_warning {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .title_brief {
+    font-size: 26px;
+  }
+  .pagination .btn:nth-of-type(1),
+  .pagination .btn:nth-last-of-type(1) {
+    display: none;
+  }
+
+  .comments__time {
+    float: none;
+    display: block;
+    margin: 0 auto 10px;
+    color: #aaa;
+    border: none;
+    padding: 0;
+  }
+  
 }
 /* pad - 375px */
 @media screen and (max-width: 375px){

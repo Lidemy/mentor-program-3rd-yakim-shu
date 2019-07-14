@@ -12,13 +12,13 @@ class Render {
 
   // 編輯區：前台
   private function index_edit($id, $user_id) {
-    echo "<a class='btn btn_1 btn_edit' data-user='$user_id'>編輯</a>";
+    echo "<a class='btn btn_1 btn_edit'>編輯</a>";
     echo "<a class='btn btn_1 btn_delete'>刪除</a>";
   }
 
   // 編輯區：後台
   private function admin_edit($id, $is_deleted, $user_id) {
-    echo "<a class='btn btn_1 btn_edit' data-user='$user_id'>編輯</a>";
+    echo "<a class='btn btn_1 btn_edit'>編輯</a>";
     if (($is_deleted)) { // => 前台已刪除的留言
       echo "<a class='btn btn_1 btn_recovery'>還原</a>";
       echo "<a class='btn btn_1 btn_clean'>永久清除</a>";
@@ -58,9 +58,7 @@ class Render {
 
     echo "<section class='comment__inside $is_Last'>";
     echo  "<form action='./handling/handle_post_comment.php' method='POST'>";
-    echo    "<textarea class='comment__input comment__input-inside' name='content' rows='2' placeholder='回應 ". $row['nickname'] ."' required></textarea>";
-    echo    "<input type='hidden' name='parent_id' value='$id'>";
-    echo    "<input type='hidden' name='layer' value='$layer'>";
+    echo    "<textarea class='comment__input comment__input-inside' name='content' rows='2' placeholder='回應 ". encode($row['nickname']) ."' required></textarea>";
     echo    "<a class='btn btn_1 btn_post' data-parent='$id' data-layer='$layer'>送出</a>";
     echo  "</form>";
     echo "</section>";

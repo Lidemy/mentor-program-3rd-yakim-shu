@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const comments = {}; // => 編輯過的留言
 
 window.addEventListener('click', (e) => {
@@ -9,21 +10,6 @@ window.addEventListener('click', (e) => {
   const textNode = btn.parentNode.children[2];
 
   if (textNode.nodeName === 'P') comments[id] = textNode.innerText; // => 先儲存原訊息
-
-  /*
-    JS 跳脫
-    from: https://stackoverflow.com/questions/1787322/htmlspecialchars-equivalent-in-javascript/4835406#4835406
-  */
-  function escapeHtml(text) {
-    const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;',
-    };
-    return text.replace(/[&<>"']/g, m => map[m]);
-  }
 
   const formHTML = `
   <form action="handling/handle_update_comment.php" method="POST">

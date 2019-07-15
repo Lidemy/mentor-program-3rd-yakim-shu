@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Yakim_w13-todo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- landing banner -->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Yakim - Todo List</h1>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- 列表 -->
+    <div class="card">
+      <div class="card-body">
+        <!-- 輸入框 -->
+        <div class="input-group mb-3 input-text">
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+
+        <h5 class="card-title">w13 作業待辦</h5>
+
+          <div class="check-list">
+              <div class="item d-flex justify-content-between">
+                <input id="delete" type="checkbox">
+                <label for="delete">想辦法刪除所有子留言</label>
+                <span></span>
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-warning badge-state">未完成</div>
+                </div>
+              </div>
+
+              <div class="item d-flex justify-content-between">
+                <input id="api" type="checkbox">
+                <label for="api">Restful API 設計</label>
+                <span></span>
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-warning badge-state">未完成</div>
+                </div>
+              </div>
+              
+              <div class="item d-flex justify-content-between">
+                <input id="qa" type="checkbox">
+                <label for="qa">簡答題</label>
+                <span></span>
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-warning badge-state">未完成</div>
+                </div>
+              </div>
+
+              <div class="item d-flex justify-content-between finish">
+                <input id="food" type="checkbox" checked="true">
+                <label for="food">交完作業吃宵夜</label>
+                <span></span>
+                <div>
+                  <a class="badge badge-danger btn_delete">刪除</a>
+                  <div class="badge badge-primary badge-info badge-state">完成</div>
+                </div>
+              </div>
+              
+          </div>
+
+      </div>
+    </div>
+
+
+    
+
+  </div>
+
+
+  <style>
+  .item {
+    padding: 5px;
+    cursor: pointer;
+  }
+  .item .btn_delete {
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  .item:hover .btn_delete {
+    opacity: 1;
+  }
+
+  .item > input[type=checkbox]:checked + label {
+    text-decoration:line-through;
+  }
+  .badge {
+    padding: 4px 5px;
+  }
+  .btn-group-sm>.btn, .btn-sm {
+    padding: 2px 5px;
+  }
+  </style>
+
+  <script src="main.js"></script>
+
+</body>
+</html>

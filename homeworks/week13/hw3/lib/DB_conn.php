@@ -22,11 +22,16 @@ class Db {
   private function checkQuery() {
     if (!$this->result) {
       header("Cache-Control: no-cache, must-revalidate");
-      header('HTTP/1.1 404 wrong SQL query');
-      exit('SQL 指令錯誤');
+      header('HTTP/1.1 404 error: wrong SQL query');
+      sendResponseMsg('fail', 'SQL 指令錯誤');
+      exit();
     }
   }
   
+  public function checkAffect() {
+    return mysqli_affected_rows($this->conn) > 0;
+  }
+
   // 一般 query
   function query($str) {
     $this->result = mysqli_query($this->conn, $str);

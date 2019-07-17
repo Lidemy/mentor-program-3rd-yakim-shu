@@ -1,5 +1,5 @@
 <?php
-  require_once('lib/escape.php');
+  require_once('lib/utils.php');
   Class Prompt { 
     public function __construct() {
       $this->page = basename($_SERVER['PHP_SELF']);

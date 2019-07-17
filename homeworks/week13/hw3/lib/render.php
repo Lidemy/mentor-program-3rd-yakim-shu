@@ -6,8 +6,8 @@ class Render {
     $this->db = $db;
     $this->page = $page;
     $this->user = $user;
-    $this->currentID = isLogin() ? $user->row_users['id'] : '';
-    $this->currentNickname = isLogin() ? $user->row_users['nickname'] : '';
+    $this->currentID = isLogin() ? $user->id : '';
+    $this->currentNickname = isLogin() ? $user->nickname : '';
   }
 
   // 編輯區：前台

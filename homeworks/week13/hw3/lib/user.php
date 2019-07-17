@@ -19,6 +19,7 @@ class User {
     $this->db->stmtQuery($sql_user, 's', $this->username);
     $this->row_users = $this->db->getResult();
     $this->id = $this->row_users['id'];
+    $this->nickname = $this->row_users['nickname'];
   }
   function isAdmin() {
     return strstr($this->row_users['authority'], 'admin');
@@ -37,7 +38,7 @@ class User {
   function chceckAuthority($user_id) {
     if (!isLogin()) exit('未登入');
     if (!$this->isAdmin() && !$this->isSuperAdmin()) {
-      if ($this->row_users['id'] !== (int)$user_id) exit('非本人或管理員');
+      if ($this->id !== (int)$user_id) exit('非本人或管理員');
     }
   }
 
@@ -53,14 +54,12 @@ class User {
 
 /* ---- 測試是否已登入，已登入就建立會員資料 ---- */
 function isLogin() {
-  if (isset($_SESSION["session_id"]) && !empty($_SESSION["session_id"])) {
+  if (isset($_SESSION["username"]) && !empty($_SESSION["username"])) {
     return true;
-  } else {
-    // echo '沒登入';
   }
 }
 
-if (isLogin()) $user = new User($db, $_SESSION['session_id']);
+if (isLogin()) $user = new User($db, $_SESSION['username']);
 
 ?>
 

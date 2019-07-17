@@ -75,6 +75,7 @@ body {
   text-align: center;
   padding: 100px 0;
   background: linear-gradient(90deg, #0072ff 0%, #00d4ff 100%);
+  position: relative;
 }
 .container {
   max-width: 600px;
@@ -613,4 +614,26 @@ body {
 .admin.admin_show,
 .admin_authority.super_show {
   display: inline-block;
+}
+
+/* 提示訊息 */
+.prompt {
+  position: fixed;
+  width: 300px;
+  background: #ffc124;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 10px;
+  left: calc(50% - 150px);
+  top: 100px;
+  border-radius: 5px;
+  z-index: 5;
+  transition: all .5s;
+}
+
+.prompt.error {
+  background: rgb(239, 132, 124);
+}
+.prompt.up {
+  top: 90px;
 }

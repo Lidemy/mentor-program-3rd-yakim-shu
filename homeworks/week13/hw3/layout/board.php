@@ -20,6 +20,7 @@
   // SQL 語法
   function getSQL($layer, $parent_id) {
     global $page, $show_deleted_msg;
+    
     return "SELECT C.id, U.nickname, C.content, is_deleted, C.created_at, U.id as user_id
     FROM yakim_comments as C LEFT JOIN yakim_users as U
     ON C.user_id = U.id ". $show_deleted_msg ." C.layer = $layer AND C.parent_id = ?

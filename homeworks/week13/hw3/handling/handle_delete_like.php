@@ -5,5 +5,4 @@ require_once($dir. 'lib/like_control.php');
 
 // 移除讚 
 $like->delete($_GET['comment_id']);
-$page->back();
 ?>

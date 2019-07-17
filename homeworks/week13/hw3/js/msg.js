@@ -13,7 +13,7 @@ class Msg {
 
   delete() {
     if (window.location.pathname.indexOf('index') > 0) { // => 前台，直接移除
-      this.comment.fadeOut(('slow', () => this.btn.remove()));
+      this.comment.fadeOut(('slow', () => this.comment.remove()));
     } else {
       this.comment.addClass('theme-deleted');
       this.btn.replaceWith(`
@@ -38,9 +38,7 @@ class Msg {
     btn.text('編輯').removeClass('isEditing');
   }
 
-  post(res, layer) {
-    const resp = JSON.parse(res);
-
+  post(resp, layer) {
     // .find() => 找所有子元素
     // .child() => 找下一層級子元素
     const parent = $('.comments').find(`.comments_item[data-id=${resp.parent_id}]`);
@@ -114,18 +112,37 @@ class Like extends Msg {
   }
 }
 
-// Ajax 操作
+// 提示訊息
+function prompt(promtMsg, type) {
+  $(`<span class='prompt ${type}'>${promtMsg}</span>`)
+    .appendTo('.container').hide().fadeIn(400)
+    .addClass('up')
+    .delay(100)
+    .fadeOut(800);
+}
+
+
+// Ajax
 function sendReq(req) {
   $.ajax({
     type: req.method,
     url: req.url,
-    data: req.data || '',
+    data: req.data || {},
   })
-    .done(function (data = '') {
-      req.success(data);
+    .done(function (res = {}, textStatus, jqXHR) {
+      console.log(jqXHR.status, jqXHR.statusText);
+      data = JSON.parse(res);
+
+      if (data.result !== 'fail') {
+        req.success(data.result);
+        prompt(data.message, 'success');
+      } else {
+        prompt(data.message, 'error');
+      }
     })
     .fail(function (jqXHR) {
-      console.log(jqXHR.status, jqXHR.responseText);
+      console.log(jqXHR.status);
+      prompt(JSON.parse(jqXHR.responseText).message, 'error');
     });
 }
 
@@ -137,109 +154,105 @@ $(document).ready(() => {
     const comment = target.parent();
     let id = comment.data('id');
 
-    (function btnControl() {
-      let content = '';
-      const clickBtn = className => target.hasClass(className);
+    const clickBtn = className => target.hasClass(className);
 
-      // => 刪除
-      if (clickBtn('btn_delete')) {
-        sendReq({
-          method: 'GET',
-          url: `./handling/handle_delete_comment.php?comment_id=${id}`,
-          success: () => {
-            msg = new Msg(id, target);
-            msg.delete();
-          },
-        });
-      }
+    // => 刪除
+    if (clickBtn('btn_delete')) {
+      sendReq({
+        method: 'GET',
+        url: `./handling/handle_delete_comment.php?comment_id=${id}`,
+        success: () => {
+          msg = new Msg(id, target);
+          msg.delete();
+        },
+      });
+    }
 
-      // => 永久刪除
-      if (clickBtn('btn_clean')) {
-        sendReq({
-          method: 'GET',
-          url: `./handling/handle_clean_comment.php?comment_id=${id}`,
-          success: () => {
-            msg = new Msg(id, target);
-            msg.clean();
-          },
-        });
-      }
+    // => 永久刪除
+    if (clickBtn('btn_clean')) {
+      sendReq({
+        method: 'GET',
+        url: `./handling/handle_clean_comment.php?comment_id=${id}`,
+        success: () => {
+          msg = new Msg(id, target);
+          msg.clean();
+        },
+      });
+    }
 
-      // => 還原
-      if (clickBtn('btn_clean')) {
-        sendReq({
-          method: 'GET',
-          url: `./handling/handle_recovery_comment.php?comment_id=${id}`,
-          success: () => {
-            msg = new Msg(id, target);
-            msg.recovery();
-          },
-        });
-      }
+    // => 還原
+    if (clickBtn('btn_recovery')) {
+      sendReq({
+        method: 'GET',
+        url: `./handling/handle_recovery_comment.php?comment_id=${id}`,
+        success: () => {
+          msg = new Msg(id, target);
+          msg.recovery();
+        },
+      });
+    }
 
-      // => 更新
-      if (clickBtn('btn_update')) {
-        id = comment.parent().data('id');
-        content = comment.find('textarea').val();
-        console.log(content);
-        sendReq({
-          method: 'POST',
-          url: './handling/handle_update_comment.php',
-          data: {
-            id,
-            content,
-          },
-          success: () => {
-            msg = new Msg(id, target);
-            msg.update(content);
-          },
-        });
-      }
+    // => 更新
+    if (clickBtn('btn_update')) {
+      id = comment.parent().data('id');
+      const content = comment.find('textarea').val();
+      sendReq({
+        method: 'POST',
+        url: './handling/handle_update_comment.php',
+        data: {
+          id,
+          content,
+        },
+        success: () => {
+          msg = new Msg(id, target);
+          msg.update(content);
+        },
+      });
+    }
 
-      // => 新增
-      if (clickBtn('btn_post')) {
-        content = comment.find('textarea').val();
-        layer = target.data('layer');
-        parent_id = target.data('parent');
+    // => 新增
+    if (clickBtn('btn_post')) {
+      const content = comment.find('textarea').val();
+      layer = target.data('layer');
+      parent_id = target.data('parent');
 
-        sendReq({
-          method: 'POST',
-          url: './handling/handle_post_comment.php',
-          data: {
-            content,
-            parent_id,
-            layer,
-          },
-          success: (res) => {
-            msg = new Msg(id, target);
-            msg.post(res, layer);
-          },
-        });
-      }
+      sendReq({
+        method: 'POST',
+        url: './handling/handle_post_comment.php',
+        data: {
+          content,
+          parent_id,
+          layer,
+        },
+        success: (res) => {
+          msg = new Msg(id, target);
+          msg.post(res, layer);
+        },
+      });
+    }
 
-      // => (like) 按讚
-      if (clickBtn('btn_add_like')) {
-        sendReq({
-          method: 'GET',
-          url: `./handling/handle_add_like.php?comment_id=${id}`,
-          success: () => {
-            like = new Like(id, target);
-            like.add();
-          },
-        });
-      }
+    // => (like) 按讚
+    if (clickBtn('btn_add_like')) {
+      sendReq({
+        method: 'GET',
+        url: `./handling/handle_add_like.php?comment_id=${id}`,
+        success: () => {
+          like = new Like(id, target);
+          like.add();
+        },
+      });
+    }
 
-      // => (like) 移除讚
-      if (clickBtn('btn_remove_like')) {
-        sendReq({
-          method: 'GET',
-          url: `./handling/handle_remove_like.php?comment_id=${id}`,
-          success: () => {
-            like = new Like(id, target);
-            like.remove();
-          },
-        });
-      }
-    }());
+    // => (like) 移除讚
+    if (clickBtn('btn_remove_like')) {
+      sendReq({
+        method: 'GET',
+        url: `./handling/handle_remove_like.php?comment_id=${id}`,
+        success: () => {
+          like = new Like(id, target);
+          like.remove();
+        },
+      });
+    }
   });
 });

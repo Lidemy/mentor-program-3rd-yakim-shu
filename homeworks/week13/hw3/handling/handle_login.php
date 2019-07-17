@@ -1,5 +1,8 @@
 <?php
+  $lifetime = 3600; // => 過期時間： 1小時
+  session_set_cookie_params($lifetime);
   session_start();
+
   $dir = dirname(__FILE__) . './../';
   require_once($dir . 'lib/DB_conn.php');
   require_once($dir . 'lib/page_control.php');
@@ -25,8 +28,8 @@
   } else {
 
     // 登入成功，建立 session
-    if (!isset($_SESSION["session_id"]) && empty($_SESSION["session_id"])) {
-      $_SESSION['session_id'] =  $row['username'];
+    if (!isset($_SESSION['username']) && empty($_SESSION['username'])) {
+      $_SESSION['username'] = $row['username'];
     } 
 
     $page->redirect('../index.php');

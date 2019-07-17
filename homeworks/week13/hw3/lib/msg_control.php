@@ -1,8 +1,9 @@
 <?php
+require_once('user.php');
 require_once('DB_conn.php');
 require_once('request_check.php');
 require_once('page_control.php');
-require_once('user.php');
+require_once('utils.php');
 
 class MsgControl {
   private $table = 'yakim_comments';
@@ -17,25 +18,27 @@ class MsgControl {
   }
 
   private function checkLogin() {
-    if (isLogin()) $this->user = new User($this->db, $_SESSION['session_id']);
+    if (isLogin()) $this->user = new User($this->db, $_SESSION['username']);
     else $this->showError('user');
   }
 
   private function showError($type) {
     header("Cache-Control: no-cache, must-revalidate");
     switch ($type) {
-      case 'para' :
-        header('HTTP/1.1 404 too few parameters');
-        exit('參數不足');
+      case 'no-para' :
+        header('HTTP/1.1 404 Not Found');
+        sendResponseMsg('fail', '參數不足');
+        exit();
       case 'user' :
-        header('HTTP/1.1 404 not login');
-        exit('沒有權限唷！');
+        header('HTTP/1.1 401 Unauthorized');
+        sendResponseMsg('fail', '沒有權限唷！');
+        exit();
     }
   }
 
   // => 暫時刪除
   function delete($comment_id) {
-    if (!$this->requestCheck->get('comment_id')) $this->showError('para');
+    if (!$this->requestCheck->get('comment_id')) $this->showError('no-para');
 
     $sql = "UPDATE $this->table SET is_deleted = 1 WHERE id = ? $this->adminSQL";
     if ($this->user->checkAdmin()) {
@@ -43,11 +46,18 @@ class MsgControl {
     } else {
       $this->db->stmtQuery($sql, 'is', $comment_id, $this->user->id);
     }
+
+    if ($this->db->checkAffect()) {
+      sendResponseMsg('success', '刪除成功');
+    } else {
+      header('HTTP/1.1 202 error: not found');
+      sendResponseMsg('fail', '刪除失敗，無此資料');
+    }
   }
 
   // => 還原刪除
   function recovery($comment_id) {
-    if (!$this->requestCheck->get('comment_id')) $this->showError('para');
+    if (!$this->requestCheck->get('comment_id')) $this->showError('no-para');
 
     $sql = "UPDATE $this->table SET is_deleted = 0 WHERE id = ? $this->adminSQL";
     if ($this->user->checkAdmin()) {
@@ -55,11 +65,18 @@ class MsgControl {
     } else {
       $this->db->stmtQuery($sql, 'is', $comment_id, $this->user->id);
     }
+
+    if ($this->db->checkAffect()) {
+      sendResponseMsg('success', '還原成功');
+    } else {
+      header('HTTP/1.1 202 error: not found');
+      sendResponseMsg('fail', '還原失敗，無此資料');
+    }
   }
   
   // => 永久刪除
   function clean($comment_id) {
-    if (!$this->requestCheck->get('comment_id')) $this->showError('para');
+    if (!$this->requestCheck->get('comment_id')) $this->showError('no-para');
 
     $sql = "DELETE FROM yakim_comments WHERE id = ? $this->adminSQL";
     if ($this->user->checkAdmin()) {
@@ -67,11 +84,18 @@ class MsgControl {
     } else {
       $this->db->stmtQuery($sql, 'is', $comment_id, $this->user->id);
     }
+
+    if ($this->db->checkAffect()) {
+      sendResponseMsg('success', '永久刪除成功');
+    } else {
+      header('HTTP/1.1 202 error: not found');
+      sendResponseMsg('fail', '永久刪除失敗，無此資料');
+    }
   }
 
   // => 新增
   function post($content, $parent_id, $layer) {
-    if (!$this->requestCheck->postList('content', 'parent_id', 'layer')) $this->showError('para');
+    if (!$this->requestCheck->postList('content', 'parent_id', 'layer')) $this->showError('no-para');
     $sql = "INSERT INTO ".$this->table."(content, user_id, parent_id, layer) VALUES(?, ?, ?, ?)";
     $this->db->stmtQuery($sql, 'siii', $content, $this->user->id, $parent_id, $layer);
     $last_id = mysqli_insert_id($this->db->conn);
@@ -83,13 +107,12 @@ class MsgControl {
     $this->db->stmtQuery($sql_select, 'i', $last_id);
     $row = $this->db->getResult();
 
-    http_response_code(200);
-    print_r(json_encode($row));
+    sendResponseMsg($row, '新增成功');
   }
   
   // => 更新
   function update($id, $content) {
-    if (!$this->requestCheck->postList('id', 'content')) $this->showError('para');
+    if (!$this->requestCheck->postList('id', 'content')) $this->showError('no-para');
     $sql = "UPDATE $this->table SET content = ? WHERE id = ? $this->adminSQL";
 
     if ($this->user->checkAdmin()) {
@@ -98,6 +121,12 @@ class MsgControl {
       $this->db->stmtQuery($sql, 'sis', $content, $id, $this->user->id);
     }
     
+    if ($this->db->checkAffect()) {
+      sendResponseMsg('success', '更新成功');
+    } else {
+      header('HTTP/1.1 202 error: not found');
+      sendResponseMsg('fail', '更新失敗，無此資料');
+    }
   }
 
 }

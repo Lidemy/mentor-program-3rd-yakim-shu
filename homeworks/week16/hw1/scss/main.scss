@@ -101,7 +101,7 @@ $breakpoints: (
 body {
   font-family: 'Noto Sans TC', Arial, Helvetica, sans-serif;
   padding: 50px 0;
-  background: #000 url(./../bg.jpg) top center repeat fixed;
+  background: #000 url(./../image/bg.jpg) top center repeat fixed;
   background-size: auto 100%;
 }
 
@@ -160,7 +160,7 @@ body {
 .nav__search button {
   @include size(28px);
   @extend %reset-input;
-  background: url(./../icon_search.png) center center;
+  background: url(./../image/icon_search.png) center center;
   background-size: 100%;
   cursor: pointer;
   &:hover {

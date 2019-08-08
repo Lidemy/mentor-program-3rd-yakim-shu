@@ -1,4 +1,4 @@
-const gulp = require('gulp'); // 將 node_modules 的檔案載入
+const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
@@ -13,7 +13,7 @@ gulp.task('sass', () => {
     .pipe(sass(
       { outputStyle: 'expanded' },
     ).on('error', sass.logError))
-    .pipe(postcss(processors)) // 將 PostCSS 插入流程
+    .pipe(postcss(processors))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./css'));
 });

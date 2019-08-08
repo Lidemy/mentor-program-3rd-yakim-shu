@@ -3,6 +3,7 @@ const sass = require('gulp-sass');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const sourcemaps = require('gulp-sourcemaps');
+const cssnano = require('gulp-cssnano');
 
 gulp.task('sass', () => {
   const processors = [
@@ -10,10 +11,9 @@ gulp.task('sass', () => {
   ];
   return gulp.src('./scss/*.scss')
     .pipe(sourcemaps.init())
-    .pipe(sass(
-      { outputStyle: 'expanded' },
-    ).on('error', sass.logError))
+    .pipe(sass().on('error', sass.logError))
     .pipe(postcss(processors))
+    .pipe(cssnano())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./css'));
 });

@@ -3,3 +3,4 @@ conn.php
 DB_config.php
 .DS_STORE
 package-lock.json
+homeworks/week18/*/dist/

@@ -1,3 +1,5 @@
+# hw2: webpack
+
 ## 作業規範
 Webpack 的目的其實就是讓前端也能夠像 Node.js 那樣，支援 module.exports 以及 require。
 
@@ -69,7 +71,7 @@ npm run build
     
 後來發現是成功的，只是 `console.log` 沒有辦法在瀏覽器的主控台出現，不知道為什麼 QQ
 
-但直接把 `add(10, 3)` 輸出到 DOM 裡就可以。
+因為直接把 `add(10, 3)` 輸出到 DOM 裡就可以。
 
 
 #### ☞ Q: `index.js` 更新需要自己編譯很麻煩，想要引入 gulp watch，有更新立刻執行 webpack

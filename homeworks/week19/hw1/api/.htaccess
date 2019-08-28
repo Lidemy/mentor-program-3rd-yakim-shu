@@ -1,0 +1,6 @@
+# Turn rewrite engine on
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^list$  RestController.php  [nc,qsa]
+RewriteRule ^list/([0-9]+)$  RestController.php?id=$1 [nc,qsa]

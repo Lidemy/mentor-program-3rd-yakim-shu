@@ -68,7 +68,7 @@ body {
   cursor: default;
 }
 .item label {
-  margin-left: 2rem;
+  padding-left: 2rem;
   position: relative;
   z-index: 2;
   cursor: pointer;
@@ -129,11 +129,13 @@ h1 span {
 .card-title {
   color: darkslategrey;
 }
+a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover,
 a:not([href]):not([tabindex]).btn_delete {
   color: #fff;
 }
 
 .todo-content {
+  width: calc(100% - 180px);
   margin-left: 30px;
   height: 30px;
   color: #18a2b8;
@@ -162,6 +164,9 @@ a:not([href]):not([tabindex]).btn_delete {
 }
 .btn-group-sm>.btn, .btn-sm {
   padding: 2px 5px;
+}
+a:not([href]):not([tabindex]) {
+  color: #fff;
 }
 
 /* 480px */

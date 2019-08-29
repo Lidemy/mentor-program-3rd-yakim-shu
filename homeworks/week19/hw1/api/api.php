@@ -1,19 +1,12 @@
 <?php
+  require_once('utils.php');
   require_once('./lib/DB_conn.php');
 
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
+  header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');
   header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PATCH,DELETE");
   header("Access-Control-Allow-Credentials: true"); // => for preflight
-
-
-  function sendResponseMsg($status, $resMsg, $result = ''){
-    echo json_encode(array(
-      'status' => $status,
-      'result' => $result,
-      'message' => $resMsg
-    ), JSON_UNESCAPED_UNICODE);
-  }
 
   // Handler Class
   class TodoHander {
@@ -34,25 +27,25 @@
     public function processRequest($requestMethod)
     {
       switch ($requestMethod) {
-          case 'GET':
-              if (isset($_GET['id'])) {
-                  $response = $this->get($this->id);
-              } else {
-                  $response = $this->getAll();
-              };
-              break;
-          case 'POST':
-              $response = $this->create();
-              break;
-          case 'PATCH':
-              $response = $this->update($this->id);
-              break;
-          case 'DELETE':
-              $response = $this->delete($this->id);
-              break;
-          default:
-              $response = $this->notFoundResponse();
-              break;
+        case 'GET':
+          if ($this->id) {
+            $response = $this->get($this->id);
+          } else {
+            $response = $this->getAll();
+          };
+          break;
+        case 'POST':
+          $response = $this->create();
+          break;
+        case 'PATCH':
+          $response = $this->update($this->id);
+          break;
+        case 'DELETE':
+          $response = $this->delete($this->id);
+          break;
+        default:
+          $response = $this->notFoundResponse();
+          break;
       }
     }
 
@@ -116,16 +109,10 @@
         die();
       }
 
-      if (isset($this->input['content'])) { // => 內容
-        $sql = "UPDATE $this->table SET content = ? WHERE id = ?";
-        $this->db->stmtQuery($sql, 'si', $this->input['content'], $id);
-      } 
-      
-      if (isset($this->input['status'])) { // => 狀態
-        $sql_status = "UPDATE $this->table SET status = ? WHERE id = ?";
-        $this->db->stmtQuery($sql_status, 'si', $this->input['status'], $id);
+      foreach($this->input as $key => $value) {
+        $this->db->stmtQuery("UPDATE $this->table SET $key = ? WHERE id = ?", 'si', $value, $id);
       }
-      
+
       if ($this->db->checkAffect()) {
         sendResponseMsg('success', '更新成功');
       } else {

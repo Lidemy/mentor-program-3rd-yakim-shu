@@ -2,5 +2,5 @@
 RewriteEngine on
 
 # map neat URL to internal URL
-RewriteRule ^list$  RestController.php  [nc,qsa]
-RewriteRule ^list/([0-9]+)$  RestController.php?id=$1 [nc,qsa]
+RewriteRule ^list$  api.php  [nc,qsa]
+RewriteRule ^list/([0-9]+)$  api.php?id=$1 [nc,qsa]

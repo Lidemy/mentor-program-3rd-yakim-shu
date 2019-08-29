@@ -57,9 +57,9 @@
     // => 列出全部
     function getAll(){
       $sql = "SELECT * FROM $this->table ORDER BY id ASC";
-      $this->db->query($sql);
-      $arr = [];
-      while ($result = $this->db->getRow()) {
+      $this->db->stmtQuery($sql, '', '');
+      $arr = array();
+      while ($result = $this->db->getResult()) {
         array_push($arr, $result);
       }
       sendResponseMsg('success', '查詢成功', $arr);
@@ -70,6 +70,7 @@
       $sql = "SELECT * FROM $this->table WHERE id = ?";
       $this->db->stmtQuery($sql, 'i', $id);
       $result = $this->db->getResult();
+
       if ($result) {
         sendResponseMsg('success', '查詢成功', $result);
       } else {
@@ -87,7 +88,6 @@
 
       $sql = "INSERT INTO $this->table(content) VALUES(?) ";
       $this->db->stmtQuery($sql, 's', $this->input['content']);
-      // $result = $this->db->getResult();
       $last_id = mysqli_insert_id($this->db->conn);
 
       if ($this->db->checkAffect()) {
@@ -121,6 +121,7 @@
         $sql = "UPDATE $this->table SET status = ? WHERE id = ?";
         $this->db->stmtQuery($sql, 'si', $this->input['status'], $id);
       }
+      
       $result = $this->db->getResult();
       if ($this->db->checkAffect()) {
         sendResponseMsg('success', '更新成功');

@@ -4,38 +4,24 @@
 /* eslint-disable func-names */
 /* eslint-disable no-undef */
 
-// Ajax
-function sendReq(req) {
-  return $.ajax({
-    dataType: 'json',
-    type: req.method,
-    url: req.url,
-    data: JSON.stringify(req.data) || {},
-  })
-    .fail((jqXHR) => {
-      console.log(jqXHR.status);
-    });
-}
-
-const url = 'http://yakim.tw/todos/api/list';
-
 // Render todo-list DOM
 function render() {
   $('.check-list').empty();
   let itemHTML = '';
 
   obj.list.forEach((ele, index) => {
-    const badgeClass = Number(ele.status) ? 'badge-info' : 'badge-warning';
-    const badgeText = Number(ele.status) ? '完成' : '未完成';
-    const checkStatus = Number(ele.status) ? "checked = 'true'" : 'false';
+    const badgeClass = ele.status ? 'badge-success' : 'badge-warning';
+    const badgeText = ele.status ? '完成' : '未完成';
+    const checkStatus = ele.status ? "checked = 'true'" : 'false';
 
     itemHTML += `
         <div class="item item_${index} d-flex justify-content-between" data-id=${ele.id}>
           <input id="checkbox_${index}" type="checkbox" ${checkStatus}>
           <label for="checkbox_${index}">${ele.content}</label>
-          <span></span>
-          <div>
+          <span class="checkbox"></span>
+          <div class="btn-area">
             <a href='' class="badge badge-danger btn_delete">刪除</a>
+            <a href='' class="badge badge-info btn_edit">編輯</a>
             <div class="badge badge-primary ${badgeClass} badge-state">${badgeText}</div>
           </div>
         </div>
@@ -58,6 +44,7 @@ Object.defineProperty(obj, 'list', {
   },
 });
 
+// => obj.list CRUD
 class Todo {
   add(value, id) {
     obj.list = [...obj.list, {
@@ -71,27 +58,49 @@ class Todo {
     obj.list = obj.list.filter((item, i) => i !== index);
   }
 
+  changeContent(index, value) {
+    obj.list = obj.list.map((item, i) => {
+      return index !== i ? item : {
+        ...item,
+        content: value,
+      };
+    });
+  }
+
   changeStatus(index) {
     obj.list = obj.list.map((item, i) => {
       return index !== i ? item : {
         ...item,
-        status: !Number(item.status),
+        status: !item.status,
       };
     });
   }
 }
 const todo = new Todo();
 
-
+// => Ajax CRUD
 class ReqControl {
   constructor() {
+    this.url = 'http://yakim.tw/todos/api/list';
     this.getAllTodos();
   }
 
+  sendReq(req) {
+    return $.ajax({
+      dataType: 'json',
+      type: req.method,
+      url: req.url,
+      data: JSON.stringify(req.data) || {},
+    })
+      .fail((jqXHR) => {
+        console.log(jqXHR.status);
+      });
+  }
+
   getAllTodos() {
-    sendReq({
+    this.sendReq({
       method: 'GET',
-      url,
+      url: this.url,
     })
       .done((res) => {
         list = res.result;
@@ -100,9 +109,9 @@ class ReqControl {
   }
 
   addTodo(value) {
-    sendReq({
+    this.sendReq({
       method: 'POST',
-      url,
+      url: this.url,
       data: {
         content: value,
         status: 0,
@@ -111,13 +120,14 @@ class ReqControl {
       .done((res) => {
         console.log('成功新增，id: ', res.result);
         todo.add(value, res.result);
+        $('.input_addTodo').val('');
       });
   }
 
   deleteTodo(index, DOMindex) {
-    sendReq({
+    this.sendReq({
       method: 'DELETE',
-      url: `${url}/${index}`,
+      url: `${this.url}/${index}`,
     })
       .done(() => {
         console.log('刪除成功');
@@ -126,11 +136,11 @@ class ReqControl {
   }
 
   updateTodoStatus(index, DOMindex, oldStatus) {
-    sendReq({
+    this.sendReq({
       method: 'PATCH',
-      url: `${url}/${index}`,
+      url: `${this.url}/${index}`,
       data: {
-        status: oldStatus ? 0 : 1,
+        status: !oldStatus,
       },
     })
       .done(() => {
@@ -138,15 +148,26 @@ class ReqControl {
         todo.changeStatus(DOMindex);
       });
   }
+
+  updateTodoContent(index, DOMindex, newContent) {
+    this.sendReq({
+      method: 'PATCH',
+      url: `${this.url}/${index}`,
+      data: {
+        content: newContent,
+      },
+    })
+      .done(() => {
+        console.log('成功修改');
+        todo.changeContent(DOMindex, newContent);
+      });
+  }
 }
 const req = new ReqControl();
 
-
 // Add: new todo
-$('.input-text').keydown((e) => {
-  if (e.key !== 'Enter') return;
-  req.addTodo($(e.target).val());
-  $(e.target).val('');
+$('.btn_add').on('click', () => {
+  req.addTodo($('.input_addTodo').val());
 });
 
 // Update: todo content
@@ -154,13 +175,34 @@ $('.check-list').on('click', '.item', function (e) {
   e.preventDefault();
   const index = $(this).data('id');
   const DOMindex = $(this).index();
+  const target = $(e.target);
 
-  // 1. change todo status
-  const oldStatus = $(this).find('input')[0].checked;
-  req.updateTodoStatus(index, DOMindex, oldStatus);
+  if (target.hasClass('todo-content')) return; // => 編輯內容 input
 
-  // 2. delete todo
-  if ($(e.target).hasClass('btn_delete')) {
+  // delete todo
+  if (target.hasClass('btn_delete')) {
     req.deleteTodo(index, DOMindex);
+    return;
   }
+
+  // edit todo content
+  if (target.hasClass('btn_edit')) {
+    target.toggleClass('isEditing');
+
+    if (target.hasClass('isEditing')) {
+      const defaultTodo = target.parents('.item').find('label');
+      defaultTodo.replaceWith(`<input class='todo-content' type='text' value='${defaultTodo.text()}'>`);
+      target.text('編輯完成');
+      return;
+    }
+
+    const newValue = $('.todo-content').val();
+    req.updateTodoContent(index, DOMindex, newValue);
+    target.text('編輯');
+    return;
+  }
+
+  // change todo status
+  const oldStatus = Number($(this).find('input')[0].checked);
+  req.updateTodoStatus(index, DOMindex, oldStatus);
 });

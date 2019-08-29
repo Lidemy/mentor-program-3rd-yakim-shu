@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Yakim_w18-todo</title>
+  <title>Yakim_w19-todo</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -16,27 +16,25 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <!-- landing banner -->
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Yakim - Todo List</h1>
-    </div>
-  </div>
-
+  
   <div class="container">
 
     <!-- 列表 -->
     <div class="card">
       <div class="card-body">
+        <h1>Today <span>Todo-List</span></h1>
         <!-- 輸入框 -->
         <div class="input-group mb-3 input-text">
-          <input type="text" class="form-control" aria-label="Sizing example input"
+          <input type="text" class="form-control input_addTodo" aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default">
+          <div class="input-group-append">
+            <button class="btn_add btn btn-outline-secondary" type="button" id="button-addon2">送出</button>
+          </div>
         </div>
 
-        <h5 class="card-title">w13 作業待辦</h5>
-          <div class="check-list">
-          </div>
+        <div class="check-list">
+        </div>
+        
       </div>
     </div>
   </div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Yakim_w19-todo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  
+  <div class="container">
+
+    <!-- 列表 -->
+    <div class="card">
+      <div class="card-body">
+        <h1>Today <span>Todo-List</span></h1>
+        <!-- 輸入框 -->
+        <div class="input-group mb-3 input-text">
+          <input type="text" class="form-control input_addTodo" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+          <div class="input-group-append">
+            <button class="btn_add btn btn-outline-secondary" type="button" id="button-addon2">送出</button>
+          </div>
+        </div>
+
+        <div class="check-list">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/utils.js"></script>
+  <script src="./js/main.js"></script>
+
+</body>
+</html>

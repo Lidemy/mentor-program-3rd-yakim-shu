@@ -12,12 +12,12 @@ function render() {
   obj.list.forEach((ele, index) => {
     const badgeClass = ele.status ? 'badge-success' : 'badge-warning';
     const badgeText = ele.status ? '完成' : '未完成';
-    const checkStatus = ele.status ? "checked = 'true'" : 'false';
+    const checkStatus = ele.status ? "checked ='true'" : '';
 
     itemHTML += `
         <div class="item item_${index} d-flex justify-content-between" data-id=${ele.id}>
           <input id="checkbox_${index}" type="checkbox" ${checkStatus}>
-          <label for="checkbox_${index}">${ele.content}</label>
+          <label for="checkbox_${index}">${escapeHtml(ele.content)}</label>
           <span class="checkbox"></span>
           <div class="btn-area">
             <a href='' class="badge badge-danger btn_delete">刪除</a>

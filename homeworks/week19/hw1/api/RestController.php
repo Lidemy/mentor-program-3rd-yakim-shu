@@ -1,9 +1,11 @@
 <?php
-  require_once('./../lib/DB_conn.php');
+  require_once('./lib/DB_conn.php');
 
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
   header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PATCH,DELETE");
+  header("Access-Control-Allow-Credentials: true"); // => for preflight
+
 
   function sendResponseMsg($status, $resMsg, $result = ''){
     echo json_encode(array(
@@ -117,12 +119,13 @@
       if (isset($this->input['content'])) { // => 內容
         $sql = "UPDATE $this->table SET content = ? WHERE id = ?";
         $this->db->stmtQuery($sql, 'si', $this->input['content'], $id);
-      } else if (isset($this->input['status'])) { // => 狀態
-        $sql = "UPDATE $this->table SET status = ? WHERE id = ?";
-        $this->db->stmtQuery($sql, 'si', $this->input['status'], $id);
+      } 
+      
+      if (isset($this->input['status'])) { // => 狀態
+        $sql_status = "UPDATE $this->table SET status = ? WHERE id = ?";
+        $this->db->stmtQuery($sql_status, 'si', $this->input['status'], $id);
       }
       
-      $result = $this->db->getResult();
       if ($this->db->checkAffect()) {
         sendResponseMsg('success', '更新成功');
       } else {

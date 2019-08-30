@@ -4,12 +4,13 @@
 
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
-  header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');
-  header("Access-Control-Allow-Methods: OPTIONS,GET,POST,PATCH,DELETE");
-  header("Access-Control-Allow-Credentials: true"); // => for preflight
+  header('Access-Control-Allow-Headers: Origin,X-Requested-With, Content-Type, X-Auth-Token, Accept, Authorization');
+  header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, POST, DELETE, OPTIONS");
+  header("Access-Control-Max-Age: 86400");
+
 
   // Handler Class
-  class TodoHander {
+  class TodoHandler {
     private $table = 'yakim_todos';
 
     public function __construct($db) {
@@ -29,22 +30,24 @@
       switch ($requestMethod) {
         case 'GET':
           if ($this->id) {
-            $response = $this->get($this->id);
+            $this->get($this->id);
           } else {
-            $response = $this->getAll();
+            $this->getAll();
           };
           break;
         case 'POST':
-          $response = $this->create();
+          $this->create();
           break;
         case 'PATCH':
-          $response = $this->update($this->id);
+          $this->update($this->id);
           break;
         case 'DELETE':
-          $response = $this->delete($this->id);
+          $this->delete($this->id);
+          break;
+        case 'OPTIONS':
+          header("HTTP/1.1 200 OK");
           break;
         default:
-          $response = $this->notFoundResponse();
           break;
       }
     }
@@ -122,6 +125,6 @@
 
 }
 
-$handler = new TodoHander($db);
+$handler = new TodoHandler($db);
 $handler->processRequest($_SERVER["REQUEST_METHOD"]);
 ?>

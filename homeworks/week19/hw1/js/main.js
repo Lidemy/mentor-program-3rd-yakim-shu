@@ -152,7 +152,6 @@ function updateTodoStatus(index, target) {
   const oldStatus = Number(todo.find('input')[0].checked);
   todoRequest.updateStatus(index, oldStatus);
 }
-
 /* ----- 綁定操作 ------ */
 
 $('.btn_add').on('click', addTodo);

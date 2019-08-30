@@ -42,7 +42,7 @@ table: Todos
 
 | 欄位名稱 | 資料資料 | 說明 | 備註  |
 | --- | --- | --- | --- |
-| id | int | Todo id | Private Key |
+| id | int | Todo id | Primary Key |
 | content | varchar(512) | Todo 內容 | |
 | status | int | Todo 狀態 | `完成: 1 | 未完成: 0` ( 預設 0 ) |
 | created_at | datetime | 建立 Todo 時間 | 預設值：current time |

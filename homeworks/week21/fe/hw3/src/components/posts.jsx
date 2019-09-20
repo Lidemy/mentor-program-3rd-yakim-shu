@@ -11,7 +11,6 @@ class Posts extends Component {
       .then(data => {
         this.setState({
           postList: data,
-          postId: null
         })
       })
   }
@@ -19,14 +18,19 @@ class Posts extends Component {
   render() {
     const { postList } = this.state;
     const { handleChangePage } = this.props;
-    console.log('data: ', postList);
 
     return (
       <div className="posts">
         {
           postList.map(post => (
             <div className="post" key={post.id} data-id={post.id}>
-              <a onClick={(e) => handleChangePage(e, 'post', post.id)} className="post-title">{post.title}</a>
+              <a
+                href="#"
+                onClick={(e) => handleChangePage(e, 'post', post.id)}
+                className="post-title"
+              >
+                {post.title}
+              </a>
               <p className="post-description">{post.body}</p>
             </div>
           ))

@@ -1,13 +1,12 @@
 {
-  "name": "gobang",
+  "name": "my-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "gh-pages": "^2.1.1",
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
-    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1"
   },
@@ -34,5 +33,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://yakim-shu.github.io/gobang"
+  "homepage": "https://yakim-shu.github.io/react-todo"
 }

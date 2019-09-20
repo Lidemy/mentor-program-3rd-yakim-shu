@@ -1,0 +1,204 @@
+/* ------- Variable ------- */
+$color_pacman: #fddb45;
+$color_ghost: #5fd5e4;
+
+/* ------- mixins ------- */
+/* pseudo */
+@mixin pseudo($display: inline-block, $content: '') {
+    content: '';
+    display: $display;
+}
+
+
+/* icon */
+@mixin icon ($icon-url, $width, $height: $width) {
+  width: $width;
+  height: $height;
+  background-size: contain;
+  background-image: url('./img/'+ $icon-url);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* ------- extends ------- */
+%transition {
+    transition: all .4s;
+}
+
+/* ------- elements ------- */
+body {
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+}
+
+.main {
+  @extend %transition;
+  padding: 15px;
+  height: 100vh;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  padding: 1em 0;
+  .nav-switch {
+    display: inline-block;
+  }
+}
+
+/* 標題 */
+.info-title {
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fugaz One', cursive;
+  margin-bottom: .3em;
+  &::before, &::after  {
+    @include pseudo();
+    @include icon('pacman.png', 40px);
+    @extend %transition;
+    transition-delay: .3s;
+  }
+  &::before {
+    margin-right: 20px;
+  }
+  &::after {
+    @include icon('ghost.png', 40px);
+    margin-left: 20px;
+  }
+}
+
+/* 棋盤 */
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  &-board { 
+    background: #eee;
+    transition: all .4s;
+    .board-row {
+      width: 665px;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 15px;
+      &:after {
+        clear: both;
+        content: "";
+        display: table;
+      }
+    }
+  }
+}
+
+/* 棋子 */
+.square {
+  display: inline-block;
+  background: none;
+  border: 1px solid #999;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+
+  &.black {
+    background:  url(./img/pacman.png) no-repeat center center;
+    background-size: 80% auto;
+  }
+  &.white {
+    background:  url(./img/ghost.png) no-repeat center center;
+    background-size: 80% auto;
+  }
+
+  .black &:not(.clicked):hover {
+    background: $color_pacman;
+    box-shadow: 0 0 20px #ffeb3b94;
+  }
+
+  .white &:not(.clicked):hover {
+    background: $color_ghost;
+    box-shadow: 0 0 20px #5fd5e469;
+  }
+}
+
+
+/* 勝利樣式 */
+.win {
+  background: #333;
+  .game-board {
+    background: #323232;
+  }
+}
+
+/* 勝利樣式 -- pacman */
+.win--black {
+  .info-title {
+    color: $color_pacman;
+    &::before {
+      width: 80px;
+      height: 80px;
+    }
+    &::after {
+      width: 0px;
+      height: 0px;
+    }
+  }
+  .game-board {
+    border: 10px solid $color_pacman;
+  }
+}
+
+/* 勝利樣式 -- ghost */
+.win--white {
+  .info-title {
+    color: $color_ghost;
+    &::before {
+      width: 0;
+      height: 0;
+    }
+    &::after {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  .game-board {
+    border: 10px solid $color_ghost;
+  }
+}
+
+
+/* 步驟記錄 - 輪到誰 */
+.dropdown {
+  button {
+    display: flex;
+    align-items: center;
+    & span.icon {
+      display: inline-block;
+      margin: 0 5px;
+      @include icon('pacman.png', 20px);
+    }
+  }
+
+  &.white span.icon {
+    @include icon('ghost.png', 20px);
+  }
+}
+
+/* 步驟記錄 - 按鈕 */
+.dropdown-item:not(:nth-child(1)) {
+  &::after {
+    @include pseudo();
+    @include icon('pacman.png', 20px);
+    margin-left: 10px;
+  }
+
+  &:nth-child(odd)::after {
+    @include icon('ghost.png', 20px);
+  }
+}

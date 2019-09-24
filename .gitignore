@@ -5,3 +5,5 @@ DB_config.php
 package-lock.json
 homeworks/*/*/dist/
 */week21/fe/*/build/
+public/
+.env

@@ -4,6 +4,6 @@ DB_config.php
 .DS_STORE
 package-lock.json
 homeworks/*/*/dist/
-*/week21/fe/*/build/
+homeworks/*/fe/*/build/
 public/
 .env

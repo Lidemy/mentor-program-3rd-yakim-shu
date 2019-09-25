@@ -1,38 +1,15 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 import './Nav.scss'
 
-const Item = ({ children, pageActive, pageName }) => {
-  return (
-    <li className={pageActive === pageName ? 'active' : ''}>
-      <a href={'#' + pageName}>
-        {children}
-      </a >
-    </li>
-  )
-}
-
-const Nav = ({ page }) => {
-  const navList = [
-    ['index', '首頁'],
-    ['posts', 'List'],
-    ['about', 'About'],
-  ];
-  return (
-    <nav className="navbar">
-      <ul className="navbar__list">
-        {
-          navList.map((item, index) => (
-            <Item
-              key={index}
-              pageName={item[0]}
-              pageActive={page}>
-              {item[1]}
-            </Item>
-          ))
-        }
-      </ul>
-    </nav>
-  )
-}
+const Nav = () => (
+  <nav className="navbar" >
+    <ul className="navbar__list">
+      <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
+      <li><NavLink to="/posts" activeClassName="active">List</NavLink></li>
+      <li><NavLink to="/about" activeClassName="active">About</NavLink></li>
+    </ul>
+  </nav>
+);
 
 export default Nav;

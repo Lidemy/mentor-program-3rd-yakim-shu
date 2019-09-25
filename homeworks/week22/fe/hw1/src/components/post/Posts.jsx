@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
 import Spinner from './../spinner/Spinner'
+import axios from 'axios';
 import './Posts.scss'
 
-const Post = ({ post, handleBack }) => {
-  return (
-    <div className="article">
-      <section className="article__body">
-        {
-          !(post.title && post.body) ? <Spinner /> :
-            (
-              <React.Fragment>
-                <h2 className="article__title show">{post.title}</h2>
-                <p>{post.body}</p>
-              </React.Fragment>
-            )
-        }
+const Post = ({ post, handleBack }) => (
+  !(post.title && post.body) ? <Spinner /> :
+    (
+      <section className="article">
+        <h2 className="article__title show">{post.title}</h2>
+        <p>{post.body}</p>
+        <button onClick={handleBack}>Back</button>
       </section>
-      <button onClick={handleBack}>Back</button>
-    </div >
-  )
-}
+    )
+);
 
 class Posts extends Component {
   state = {
@@ -29,11 +22,10 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(json => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(res => {
         this.setState({
-          postList: json,
+          postList: res.data,
         })
       })
   }
@@ -53,31 +45,34 @@ class Posts extends Component {
 
   getPost = () => {
     const { postId } = this.state;
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-      .then(res => res.json())
-      .then(data => {
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then(res => {
         this.setState({
-          post: data,
+          post: res.data,
         })
       })
   }
 
   renderPostList = (postList) => {
     return (
-      postList.length === 0 ? <Spinner /> : (
-        postList.map(post => (
-          <div className="post" key={post.id} data-id={post.id}>
-            <h4
-              onClick={() => {
-                this.setState({ postId: post.id })
-              }}
-              className="post__title">
-              {post.title}
-            </h4>
-            <p className="post__description">{post.body}</p>
-          </div>
-        ))
-      )
+      <div className="post-list">
+        {
+          postList.length === 0 ? <Spinner /> : (
+            postList.map(post => (
+              <div className="post" key={post.id} data-id={post.id}>
+                <h4
+                  onClick={() => {
+                    this.setState({ postId: post.id })
+                  }}
+                  className="post__title">
+                  {post.title}
+                </h4>
+                <p className="post__description">{post.body}</p>
+              </div>
+            ))
+          )
+        }
+      </div>
     )
   }
 
@@ -90,12 +85,11 @@ class Posts extends Component {
 
   render() {
     const { postId, postList, onChangePageId } = this.state;
-
     return (
-      <div className="post-list">
+      <>
         {!postId && this.renderPostList(postList, onChangePageId)}
         {postId && this.renderPost()}
-      </div>
+      </>
     )
   }
 }

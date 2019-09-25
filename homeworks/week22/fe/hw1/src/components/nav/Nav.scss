@@ -14,11 +14,15 @@
   display: flex;
   li {
     cursor: pointer;
-    padding: 10px;
+    a {
+      display: inline-block; 
+      padding: 10px;
 
-    &.active {
-      background: #eee;  
+      &.active {
+        background: #eee;  
+      }
     }
+    
 
     & ~ li {
     margin-left: 20px;

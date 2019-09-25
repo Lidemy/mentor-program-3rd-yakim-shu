@@ -1,0 +1,27 @@
+.navbar {
+  height: 80px;
+  padding: 20px;
+  position: sticky;
+  left: 0;
+  top:0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #aaa;
+}
+
+.navbar__list {
+  display: flex;
+  li {
+    cursor: pointer;
+    padding: 10px;
+
+    &.active {
+      background: #eee;  
+    }
+
+    & ~ li {
+    margin-left: 20px;
+    }
+  }
+}

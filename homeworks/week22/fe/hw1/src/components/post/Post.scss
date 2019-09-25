@@ -1,0 +1,48 @@
+.post-list {
+
+}
+
+.post {
+  border-bottom: 1px solid #fff;
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+
+  &__title {
+    cursor: pointer;
+    display: block;
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    padding-left: 1em;
+    color: #999;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.article {
+  &__title {
+    margin-bottom: 2rem;
+    transition: all 1s;
+    opacity: 0;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+
+  &__body {
+    margin-bottom: 2rem;
+  }
+
+  button {
+    padding: 5px;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+  }
+}

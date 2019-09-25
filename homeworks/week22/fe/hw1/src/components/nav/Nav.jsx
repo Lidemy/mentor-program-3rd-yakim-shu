@@ -1,32 +1,31 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import './Nav.scss'
 
-const Item = ({ children, pageActive, pageName, onChange }) => {
+const Item = ({ children, pageActive, pageName }) => {
   return (
-    <li
-      className={pageActive === pageName && 'active'}
-      onClick={(e) => onChange(e, pageName)}>
-      {children}
+    <li className={pageActive === pageName ? 'active' : ''}>
+      <a href={'#' + pageName}>
+        {children}
+      </a >
     </li>
   )
 }
 
-const Nav = ({ page, onChangePage }) => {
+const Nav = ({ page }) => {
   const navList = [
     ['index', '首頁'],
-    ['about', 'About'],
     ['posts', 'List'],
+    ['about', 'About'],
   ];
   return (
     <nav className="navbar">
       <ul className="navbar__list">
         {
-          navList.map(item => (
+          navList.map((item, index) => (
             <Item
+              key={index}
               pageName={item[0]}
-              pageActive={page}
-              onChange={onChangePage}>
+              pageActive={page}>
               {item[1]}
             </Item>
           ))

@@ -1,31 +1,77 @@
 .navbar {
-  height: 80px;
+  @extend %transition;
   padding: 20px;
   position: sticky;
   left: 0;
   top:0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background: #aaa;
+  background: #eee;
+  z-index:20;
+  
 }
 
 .navbar__list {
+  @extend %transition;
+  max-width: $width-m;
+  
+  margin:0 auto;
   display: flex;
-  li {
-    cursor: pointer;
-    a {
-      display: inline-block; 
-      padding: 10px;
+  justify-content: flex-end;
+  align-items: center;
 
+  .main-logo {
+    @extend %transition;
+    visibility: hidden;
+    min-height:0;
+    margin: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  li {
+    overflow: hidden;
+    cursor: pointer;
+
+    a:not(.main-logo) {
+      @extend %btn--theme-1;
       &.active {
-        background: #eee;  
+        color: #333;
+        &::before {
+          left: 50%;
+        }
       }
     }
-    
 
     & ~ li {
     margin-left: 20px;
     }
+  }
+}
+
+
+.navbar.fixed {
+  background: #333;
+  padding: 30px 10px 10px;
+  top: -20px;
+}
+
+.navbar.fixed .navbar__list {
+  justify-content: flex-end;
+  height: 50px;
+
+  li {
+    a {
+      color: #fff;
+    }
+    &:nth-of-type(1) {
+      justify-self: flex-start;
+      flex-grow: 1;
+
+      .main-logo {
+        visibility: visible;
+        height: auto;
+        transform: scale(0.5);
+      }
+    }
+    
   }
 }

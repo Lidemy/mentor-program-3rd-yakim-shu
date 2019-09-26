@@ -7,7 +7,7 @@ const Spinner = () => (
     <SyncLoader
       sizeUnit={"px"}
       size={10}
-      color={'#999'}
+      color={'#25d0fec2'}
       loading={true}
     />
   </div>

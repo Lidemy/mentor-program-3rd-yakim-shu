@@ -1,0 +1,64 @@
+/* ------- mixins ------- */
+/* pseudo */
+@mixin pseudo($display: inline-block, $content: '') {
+    content: $content;
+    display: $display;
+}
+
+/* size */
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+/* position */
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin absolute($args...) {
+    @include position(absolute, $args...);
+}
+
+@mixin relative($args...) {
+    @include position(relative, $args...);
+}
+
+/* icon */
+@mixin icon ($icon-color, $icon-url, $icon-type: inline-block) {
+    display: $icon-type;
+    background-color: $icon-color;
+    mask-size: cover;
+
+    .no-webp & {
+        mask-image: url('./../image/'+ $icon-url + '.png');
+    }
+    
+    .webp & {
+        mask-image: url('./../webp/'+ $icon-url + '.webp');
+    }
+}
+
+
+/* ------- extends ------- */
+%transition {
+    transition: all .3s;
+}
+
+%reset {
+    margin: 0;
+    padding: 0;
+}
+
+%responsive-img {
+    overflow: hidden;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

@@ -1,0 +1,27 @@
+.article {
+  line-height: 1.8rem;
+  letter-spacing: 0.05rem;
+
+  &__title {
+    margin-bottom: 2rem;
+    transition: all 1s;
+    opacity: 0;
+    color: #333;
+    font-size: 20px;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+
+  &__body {
+    color: #666;
+    white-space: pre-wrap;
+    
+  }
+
+  .btn {
+    @extend %btn--theme-1;
+    margin-top: 2rem;
+  }
+}

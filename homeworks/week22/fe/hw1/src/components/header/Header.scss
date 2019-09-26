@@ -1,0 +1,14 @@
+.header {
+  letter-spacing: 0.02em;
+  max-width: $width-m;
+  margin: 0 auto;
+
+  .main-logo {
+    margin-bottom: 1em;
+  }
+}
+
+.header__description {
+  color: #999;
+  font-size: 14px;
+}

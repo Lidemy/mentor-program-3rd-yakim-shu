@@ -3,31 +3,46 @@
 }
 
 .post {
-  border-bottom: 1px solid #fff;
-  padding-top: 1rem;
-  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding: 2rem 0;
+  cursor: pointer;
 
   &__title {
-    cursor: pointer;
+    @extend %transition;
     display: block;
     color: #333;
-    font-size: 20px;
+    font-size: 17px;
     margin-bottom: 20px;
+    font-weight: normal;
+    
   }
 
   &__description {
+    @extend %transition;
     padding-left: 1em;
+    font-size: 14px;
     color: #999;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  &:hover {
+    .post__title {
+      color: $main-color;
+    }
+    
+    .post__description {
+      color: #333;
+    }
+  }
 }
 
 .article {
+  
+
   &__title {
     margin-bottom: 2rem;
-    transition: all 1s;
     opacity: 0;
 
     &.show {

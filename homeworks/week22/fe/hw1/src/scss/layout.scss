@@ -1,0 +1,16 @@
+body {
+  background: #eee;
+}
+
+
+.container {
+  max-width: $width-m;
+  margin: 0 auto;
+  padding: 40px;
+  margin-top: 50px;
+  background: #fff;
+  min-height: calc(100vh - 290px);
+}
+
+
+

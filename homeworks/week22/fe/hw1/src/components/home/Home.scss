@@ -7,7 +7,7 @@
 /* item */ 
 .home-list__item {
   letter-spacing: 0.05rem;
-  flex: 0 0 48%;
+  flex: 0 0 48.5%;
   cursor: pointer;
 
   &:hover img {
@@ -17,8 +17,8 @@
   &-inner {
     @include relative($top: -30px);
     margin: 0 auto;
-    max-width: 80%;
-    padding: 15px 10px;
+    max-width: 85%;
+    padding: 20px 10px;
     background: #fff;
     white-space: pre-wrap;
   }
@@ -56,6 +56,7 @@
   h3 {
     color: $main-color;
     font-size: 18px;
+    line-height: 1.5rem;
   }
 }
 

@@ -1,0 +1,48 @@
+.article {
+  line-height: 1.8rem;
+  letter-spacing: 0.05rem;
+
+  &__title {
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 20px;
+  }
+
+  &__body {
+    color: #666;
+    white-space: pre-wrap;
+    margin-bottom: 3rem;
+  }
+
+  &__info {
+
+  }
+
+  &__date, &__author {
+    color: #999;
+    font-size: 13px;
+    white-space: inherit;
+    border-bottom: 3px solid #ececec;
+    display: inline-block;
+
+    &::before {
+      @include pseudo($content: '📆 ');
+      font-size: 16px;
+      margin-right: 5px;
+    }
+    
+  }
+
+  &__author {
+    margin-right: 2em;
+    &::before {
+      @include pseudo($content: '✍️ ');
+    }
+  }
+
+  .btn {
+    @extend %btn--theme-1;
+    margin-top: 2rem;
+    padding-left: 0;
+  }
+}

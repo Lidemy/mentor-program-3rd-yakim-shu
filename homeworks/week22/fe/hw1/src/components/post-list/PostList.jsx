@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
-import Spinner from '../spinner/Spinner'
+import Spinner from '../spinner/Spinner';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import getDate from './../../utils';
+
+const Item = ({ post, history }) => {
+  return (
+    <div
+      className="post"
+      key={post.id}
+      onClick={() => {
+        history.push('/posts/' + post.id)
+      }}>
+      <p className="post__date">{getDate(post.createdAt)}</p>
+      <h4 className="post__title">{post.title}</h4>
+      <p className="post__description">{post.body}</p>
+    </div>
+  )
+};
+
 
 class PostList extends Component {
   state = {
-    postList: [],
+    postList: null,
   }
 
   componentDidMount() {
-    axios.get('https://qootest.com/posts')
+    axios.get('https://qootest.com/posts?_sort=id&_order=desc')
       .then(res => {
         this.setState({
           postList: res.data,
@@ -23,17 +40,9 @@ class PostList extends Component {
     return (
       <div className="post-list">
         {
-          postList.length === 0 ? <Spinner /> : (
+          !postList ? <Spinner /> : (
             postList.map(post => (
-              <div className="post" key={post.id} data-id={post.id}
-                onClick={() => {
-                  history.push('/posts/' + post.id)
-                }}>
-                <h4 className="post__title">
-                  {post.title}
-                </h4>
-                <p className="post__description">{post.body}</p>
-              </div>
+              <Item post={post} key={post.id} history={history} />
             ))
           )
         }

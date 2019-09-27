@@ -1,7 +1,7 @@
 import React from 'react';
 
 const About = () => (
-  <p>About this blog</p>
+  <p>🎅🧙‍♂️🧛🧜‍♂️🧞‍♀️</p>
 );
 
 export default About;

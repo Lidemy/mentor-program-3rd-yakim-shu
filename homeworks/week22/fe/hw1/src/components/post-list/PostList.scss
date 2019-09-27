@@ -2,7 +2,8 @@
 
 }
 
-.post {
+.post-list .post {
+  @include relative;
   border-bottom: 1px solid #eee;
   padding: 2rem 0;
   cursor: pointer;
@@ -27,6 +28,12 @@
     overflow: hidden;
   }
 
+  &__date {
+    @include absolute($right: 0, $top: 2rem);
+    color: #ccc;
+    font-size: 13px;
+  }
+
   &:hover {
     .post__title {
       color: $main-color;
@@ -38,23 +45,16 @@
   }
 }
 
-.article {
-  
-
-  &__title {
-    margin-bottom: 2rem;
-    opacity: 0;
-
-    &.show {
-      opacity: 1;
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .post-list .post {
+    &__description {
+      padding-left: 0;
     }
-  }
 
-  button {
-    padding: 5px;
-    background: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 2rem;
+    &__date {
+      position: initial;
+      margin-bottom: 1em;
+    }
   }
 }

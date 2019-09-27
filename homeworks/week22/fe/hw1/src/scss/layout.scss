@@ -2,6 +2,9 @@ body {
   background: #eee;
 }
 
+.wrapper {
+  padding: 60px 0 20px;  
+}
 
 .container {
   max-width: $width-m;
@@ -12,5 +15,18 @@ body {
   min-height: calc(100vh - 290px);
 }
 
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .header {
+    text-align: center;
+  }
 
+  .wrapper {
+    padding-top: 20px;
+  }
+
+  .container {
+    padding: 20px 15px;
+  }
+}
 

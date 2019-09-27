@@ -4,7 +4,7 @@ import Logo from './../logo/Logo';
 
 class Nav extends Component {
   state = {
-    prevScrollpos: window.pageYOffset,
+    prevScrollPos: window.pageYOffset, // => 儲存 scroll 位置
     isFixed: false,
   };
 
@@ -16,13 +16,14 @@ class Nav extends Component {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
+  // 往上滑才 fixed ( 到最上面取消 fixed )
   handleScroll = () => {
-    const { prevScrollpos } = this.state;
+    const { prevScrollPos } = this.state;
     const currentScrollPos = window.pageYOffset;
-    const isFixed = prevScrollpos < currentScrollPos;
+    const isFixed = prevScrollPos > currentScrollPos && currentScrollPos;
 
     this.setState({
-      prevScrollpos: currentScrollPos,
+      prevScrollPos: currentScrollPos,
       isFixed
     });
   };

@@ -1,25 +1,58 @@
-import React from 'react';
-import pic_cover from './../../img/img_01.jpg';
+import React, { Component } from 'react';
+import Spinner from '../spinner/Spinner';
+import getHomeData from './home-list';
 
-const Home = () => (
-  <div className="home-list">
-    <section className="list-item cover">
-      <div className="pic">
-        <img src={pic_cover} alt="" />
-      </div>
-      <div className="list-item__inner">
-        <div className="list-item__title">
-          <span>2019/09/03</span>
-          <h3>React 學習筆記第一篇 </h3>
-        </div>
-        <div className="list-item__description">
-          <p>
-            一本給初學者的 React 中文入門教學書，由淺入深學習 ReactJS 生態系 (Flux, Redux, React Router, ImmutableJS, React Native, Relay/GraphQL etc.)，打造跨平台應用程式。
-            </p>
-        </div>
-      </div>
-    </section>
+const ListImg = ({ item, handleLoad }) => (
+  <div className="pic">
+    {!item.isLoaded ? <Spinner /> : null}
+    <img
+      src={item.pic}
+      className={`${item.isLoaded ? 'show' : ''}`}
+      onLoad={handleLoad} alt="" />
   </div>
-);
+)
+
+const ListContent = ({ item }) => (
+  <div className="home-list__item-inner">
+    <div className="home-list__title">
+      <span>{item.date}</span>
+      <h3>{item.title}</h3>
+    </div>
+    <p className="home-list__description"> {item.description} </p>
+  </div>
+)
+
+class Home extends Component {
+  state = getHomeData();
+
+  handleImgLoad = (id) => {
+    const { lists } = this.state;
+    this.setState({
+      lists: lists.map((item, index) => (id !== index ? item : {
+        ...item,
+        isLoaded: true,
+      }))
+    })
+  }
+
+  render() {
+    const { lists } = this.state;
+    return (
+      <div className="home-list">
+        {
+          lists.map((item, id) => (
+            <section key={id} className="home-list__item">
+              <ListImg
+                item={item}
+                handleLoad={() => this.handleImgLoad(id)}
+              />
+              <ListContent item={item} />
+            </section>
+          ))
+        }
+      </div>
+    )
+  }
+}
 
 export default Home;

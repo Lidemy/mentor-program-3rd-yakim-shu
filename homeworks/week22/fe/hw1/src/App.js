@@ -1,5 +1,3 @@
-import './scss/index.scss';
-
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from './components/header/Header'
@@ -9,7 +7,7 @@ import Post from './components/post/Post';
 import PostList from './components/post-list/PostList';
 import Home from './components/home/Home';
 
-
+import './scss/index.scss';
 
 class App extends Component {
   render() {

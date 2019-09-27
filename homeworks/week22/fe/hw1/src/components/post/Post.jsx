@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../spinner/Spinner'
 import axios from 'axios';
+import getDate from './../../utils';
 
 class Post extends Component {
   state = {
@@ -21,16 +22,21 @@ class Post extends Component {
   render() {
     const { post } = this.state;
     return (
-      !(post.title && post.body) ? <Spinner /> :
-        (
-          <section className="article">
-            <h2 className="article__title show">{post.title}</h2>
+      <section className="article">
+        <h2 className="article__title">{post.title}</h2>
+        {
+          !post.body ? <Spinner /> : (
             <div className="article__body">
               <p>{post.body}</p>
             </div>
-            <Link className="btn active" to="/posts">Back</Link>
-          </section>
-        )
+          )
+        }
+        <div className="article__info">
+          <p className="article__author">{post.author}</p>
+          <p className="article__date">{getDate(post.createdAt)}</p>
+        </div>
+        <Link className="btn active" to="/posts">Back</Link>
+      </section>
     )
   }
 };

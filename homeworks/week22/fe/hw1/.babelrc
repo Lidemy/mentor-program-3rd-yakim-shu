@@ -4,6 +4,14 @@
     "@babel/preset-env"
   ],
   "plugins": [
-    "emotion"
+    "emotion",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "~"
+        ]
+      }
+    ]
   ]
 }

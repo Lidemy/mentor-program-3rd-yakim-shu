@@ -28,6 +28,20 @@
     @include position(relative, $args...);
 }
 
+/* ------- media query ------- */
+$breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 768px, "desktop": 1024px, "desktop-l": 1200px);
+
+@mixin mq($width) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+
+        @media screen and (max-width: $width) {
+            @content;
+        }
+    }
+}
+
+
 /* icon */
 @mixin icon ($icon-color, $icon-url, $icon-type: inline-block) {
     display: $icon-type;

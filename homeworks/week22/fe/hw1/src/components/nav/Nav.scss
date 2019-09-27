@@ -1,77 +1,152 @@
 .navbar {
   @extend %transition;
-  padding: 20px;
-  position: sticky;
+  width: 100%;
+  padding: 30px 10px 0;
+  position: fixed;
   left: 0;
   top:0;
-  background: #eee;
   z-index:20;
   
 }
 
+/* list - li */
 .navbar__list {
   @extend %transition;
-  max-width: $width-m;
-  
+  max-width: $width-l;
   margin:0 auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 
-  .main-logo {
-    @extend %transition;
-    visibility: hidden;
-    min-height:0;
-    margin: 0;
-    height: 0;
-    overflow: hidden;
-  }
-
   li {
     overflow: hidden;
     cursor: pointer;
 
-    a:not(.main-logo) {
-      @extend %btn--theme-1;
-      &.active {
-        color: #333;
-        &::before {
-          left: 50%;
-        }
-      }
-    }
-
     & ~ li {
     margin-left: 20px;
+    }
+
+    &:nth-of-type(1) {
+      flex-grow: 1; 
+      .main-logo {
+        visibility: hidden;
+        height:0;
+        overflow: hidden;
+        transform: scale(0.5) translateX(-40%);
+      }
+    }
+  }
+}
+
+/* list - a */
+.navbar__list li a {
+  @extend %transition;
+  transition-delay: .3s;
+  border-right: 1px solid rgba(0,0,0,0.1);
+  
+
+  &:not(.main-logo) {
+    @extend %btn--theme-1;
+    
+    &.active {
+      color: #333;
+      &::before {
+        left: 50%;
+      }
     }
   }
 }
 
 
+/* navbar -- fixed */
 .navbar.fixed {
   background: #333;
-  padding: 30px 10px 10px;
-  top: -20px;
-}
+  padding: 5px 10px;
 
-.navbar.fixed .navbar__list {
-  justify-content: flex-end;
-  height: 50px;
+  .navbar__list {
+    justify-content: flex-end;
+    height: 50px;
 
-  li {
-    a {
-      color: #fff;
-    }
-    &:nth-of-type(1) {
-      justify-self: flex-start;
-      flex-grow: 1;
-
-      .main-logo {
-        visibility: visible;
-        height: auto;
-        transform: scale(0.5);
+    li {
+      a {
+        color: #fff;
       }
     }
-    
+  }
+}
+
+
+/* navbar -- fixed -- logo */
+.navbar.fixed .navbar__list li {
+  &:nth-of-type(1) {
+    .main-logo {
+      visibility: visible;
+      height: auto;
+      
+
+      &::before, &::after {
+        color: #999;
+      }
+    }
+  }
+}
+
+
+
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .navbar {
+    opacity: 0;
+
+    &__list {
+      height: 40px;
+    }
+
+    li {
+      flex-basis: 60px;
+      
+      &:nth-of-type(1) {
+        flex-grow: 5;
+      }
+
+      & ~ li {
+        margin-left: 0;
+        flex-grow: 1;
+      }
+
+      a:not(.main-logo) {
+        padding:10px 5px;
+      }
+      
+    }
+
+  }
+}
+
+@include mq('tablet-s') {
+.navbar li:nth-of-type(1) {
+    .main-logo {
+      transform: scale(0.8) translateX(-20%);
+      padding-right: 60px;
+      text-align: left;
+
+      &::before, span {
+        display: none;
+      }
+
+      &::after {
+        content: '';
+        @include size(26px);
+        @include absolute($right: 20px, $top: 0);
+        background: url("./../../img/logo192.png") no-repeat center center;
+        background-size: contain;
+      }
+    }
+  }
+}
+
+@include mq('tablet-s') {
+  .navbar.fixed {
+    opacity: 1;
   }
 }

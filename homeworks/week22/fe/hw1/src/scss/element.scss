@@ -12,7 +12,7 @@
     @include pseudo;
     @include absolute($left: -100%, $bottom: 20%);
     @include size(100%, 10px);
-    z-index: 0;
+    z-index: -1;
     background-color: rgba($main-color, 0.7);
     transition: left 1s cubic-bezier(0.1, 0.86, 0.2, 1.23);
   }

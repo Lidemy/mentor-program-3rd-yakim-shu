@@ -1,0 +1,60 @@
+.post-list {
+
+}
+
+.post-list .post {
+  @include relative;
+  border-bottom: 1px solid #eee;
+  padding: 2rem 0;
+  cursor: pointer;
+
+  &__title {
+    @extend %transition;
+    display: block;
+    color: #333;
+    font-size: 17px;
+    margin-bottom: 20px;
+    font-weight: normal;
+    
+  }
+
+  &__description {
+    @extend %transition;
+    padding-left: 1em;
+    font-size: 14px;
+    color: #999;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__date {
+    @include absolute($right: 0, $top: 2rem);
+    color: #ccc;
+    font-size: 13px;
+  }
+
+  &:hover {
+    .post__title {
+      color: $main-color;
+    }
+    
+    .post__description {
+      color: #333;
+    }
+  }
+}
+
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .post-list .post {
+    &__description {
+      padding-left: 0;
+    }
+
+    &__date {
+      position: initial;
+      margin-bottom: 1em;
+    }
+  }
+}

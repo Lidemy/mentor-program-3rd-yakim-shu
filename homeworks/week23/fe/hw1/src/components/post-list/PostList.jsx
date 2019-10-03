@@ -26,8 +26,7 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    // axios.get('https://qootest.com/posts?_sort=id&_order=desc')
-    axios.get('https://yakim-blog-api.herokuapp.com/posts?_sort=id&_order=desc')
+    axios.get('http://blog-api.yakim.tw/posts?_sort=id&_order=desc')
       .then(res => {
         console.log(res);
         this.setState({

@@ -29,7 +29,7 @@ class PostEdit extends Component {
   constructor(props) {
     super(props);
     this.id = this.props.match.params.id;
-    this.url = 'https://yakim-blog-api.herokuapp.com/posts';
+    this.url = 'http://blog-api.yakim.tw/posts';
   }
 
   state = {

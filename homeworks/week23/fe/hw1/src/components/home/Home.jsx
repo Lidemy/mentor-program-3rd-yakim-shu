@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner/Spinner';
-// import getHomeData from './home-list';
 import { withRouter } from 'react-router-dom';
 import getDate from './../../utils';
 import axios from 'axios';
@@ -31,7 +30,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    axios.get('https://yakim-blog-api.herokuapp.com/posts?_limit=5')
+    axios.get('http://blog-api.yakim.tw/posts?_limit=5')
       .then(res => {
         this.setState({
           lists: res.data,
@@ -52,7 +51,6 @@ class Home extends Component {
   render() {
     const { lists } = this.state;
     const { history } = this.props;
-    console.log(lists);
     return (
       <div className="home-list">
         {

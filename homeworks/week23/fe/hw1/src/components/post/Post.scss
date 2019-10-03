@@ -90,12 +90,15 @@
     font-weight: 400;
 
     code {
+      font-size: 14px;
+    }
+  }
+
+  *:not(pre) code {
     padding: 2px 5px;
     border-radius: 3px;
-    background: #e8e5fea6;
+    background: #d8e0f09c;
     margin:0 5px;
-    font-size: 14px;
-  }
   }
 
   h1, h2, h3 {

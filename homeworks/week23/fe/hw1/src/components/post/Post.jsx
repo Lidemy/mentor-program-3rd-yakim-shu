@@ -29,8 +29,7 @@ class Article extends Component {
 
   componentWillMount() {
     const postId = this.props.match.params.id;
-    // axios.get(`https://qootest.com/posts/${postId}`)
-    axios.get(`https://yakim-blog-api.herokuapp.com/posts/${postId}`)
+    axios.get(`http://blog-api.yakim.tw/posts/${postId}`)
       .then(res => {
         this.setState({
           post: res.data,
@@ -43,8 +42,7 @@ class Article extends Component {
     const { history } = this.props;
     axios({
       method: 'delete',
-      // url: `https://qootest.com/posts/${id}`
-      url: `https://yakim-blog-api.herokuapp.com/posts/${id}`
+      url: `http://blog-api.yakim.tw/posts/${id}`
     })
       .then(() => {
         history.push('/posts');

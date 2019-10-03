@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner/Spinner';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import getDate from './../../utils';
 
 const Item = ({ post, history }) => {
@@ -19,29 +18,25 @@ const Item = ({ post, history }) => {
   )
 };
 
-
 class PostList extends Component {
-  state = {
-    postList: null,
+  componentWillMount() {
+    const { getAllPosts } = this.props;
+    getAllPosts();
   }
 
-  componentDidMount() {
-    axios.get('http://blog-api.yakim.tw/posts?_sort=id&_order=desc')
-      .then(res => {
-        console.log(res);
-        this.setState({
-          postList: res.data,
-        })
-      })
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps.posts !== this.posts) return true;
+  //   return false;
+  // }
 
   render() {
-    const { postList } = this.state;
+    const { postList } = this.props;
     const { history } = this.props;
+    console.log('list: ', postList);
     return (
       <div className="post-list">
         {
-          !postList ? <Spinner /> : (
+          !postList.length ? <Spinner /> : (
             postList.map(post => (
               <Item post={post} key={post.id} history={history} />
             ))

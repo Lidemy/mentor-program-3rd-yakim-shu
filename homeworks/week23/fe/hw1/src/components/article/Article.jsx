@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../spinner/Spinner'
 import axios from 'axios';
-import getDate from './../../utils';
+import getDate from '../../utils';
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "./CodeBlock";
 
@@ -23,18 +23,11 @@ const ArticleOperate = ({ id, handleDelete }) => (
 )
 
 class Article extends Component {
-  state = {
-    post: {},
-  }
 
   componentWillMount() {
+    const { getPost } = this.props;
     const postId = this.props.match.params.id;
-    axios.get(`http://blog-api.yakim.tw/posts/${postId}`)
-      .then(res => {
-        this.setState({
-          post: res.data,
-        })
-      })
+    getPost(postId);
   }
 
   handleDelete = () => {
@@ -53,7 +46,7 @@ class Article extends Component {
   }
 
   render() {
-    const { post } = this.state;
+    const { post } = this.props;
     return (
       <section className="article">
         <h2 className="article__title">{post.title}</h2>

@@ -2,12 +2,20 @@ import axios from 'axios';
 
 // action types
 const GET_ALL_POSTS = 'GET_ALL_POSTS'
+const GET_LIMIT_POSTS = 'GET_LIMIT_POSTS'
 const ADD_POST = 'ADD_POST'
 const DELETE_POST = 'DELETE_POST'
 const GET_POST = 'GET_POST'
 const UPDATE_POST = 'UPDATE_POST'
 
+// url parameters
 const baseUrl = 'http://blog-api.yakim.tw/posts';
+const sort = '_sort=id';
+const sortASC = sort + '&_order=asc';
+const sortDESC = sort + '&_order=desc';
+
+const LIMIT_NUM = 5;
+const limit = '_limit=' + LIMIT_NUM;
 
 // reducer
 export default function (state, action) {
@@ -19,6 +27,12 @@ export default function (state, action) {
   }
   switch (action.type) {
     case GET_ALL_POSTS:
+      return {
+        ...state,
+        postList: action.payload.data
+      }
+
+    case GET_LIMIT_POSTS:
       return {
         ...state,
         postList: action.payload.data
@@ -39,7 +53,14 @@ export default function (state, action) {
 export const getAllPosts = () => {
   return {
     type: GET_ALL_POSTS,
-    payload: axios.get(`${baseUrl}?_sort=id&_order=desc`)
+    payload: axios.get(`${baseUrl}?${sortDESC}`)
+  }
+}
+
+export const getLimitPosts = () => {
+  return {
+    type: GET_LIMIT_POSTS,
+    payload: axios.get(`${baseUrl}?${sortASC}&${limit}`)
   }
 }
 

@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
-import Spinner from '../spinner/Spinner';
 import getDate from './../../utils';
-
-const ListImg = ({ item, handleLoad }) => (
-  <div className="pic">
-    {!item.isLoaded ? <Spinner /> : null}
-    <img
-      src={item.pic}
-      className={`${item.isLoaded ? 'show' : ''}`}
-      onLoad={handleLoad} alt="" />
-  </div>
-)
+import Spinner from '../spinner/Spinner';
+import Img from 'react-image';
 
 const ListContent = ({ item }) => (
   <div className="home-list__item-inner">
@@ -24,47 +14,30 @@ const ListContent = ({ item }) => (
   </div>
 )
 
+const ListImg = ({ src }) => (
+  <div className="pic">
+    <Img src={src} loader={<Spinner />} />
+  </div>
+);
+
+
 class Home extends Component {
-  state = {
-    lists: []
-  };
-
-  componentDidMount() {
-    axios.get('http://blog-api.yakim.tw/posts?_limit=5')
-      .then(res => {
-        this.setState({
-          lists: res.data,
-        })
-      })
-  }
-
-  handleImgLoad = (id) => {
-    const { lists } = this.state;
-    this.setState({
-      lists: lists.map((item, index) => (id !== index ? item : {
-        ...item,
-        isLoaded: true,
-      }))
-    })
+  componentWillMount() {
+    const { getLimitPosts } = this.props;
+    getLimitPosts();
   }
 
   render() {
-    const { lists } = this.state;
-    const { history } = this.props;
+    const { postList, history } = this.props;
     return (
       <div className="home-list">
         {
-          lists.map((item, id) => (
-            <section
-              key={id}
-              className="home-list__item"
+          postList.map((item, id) => (
+            <section key={id} className="home-list__item"
               onClick={() => {
                 history.push('/posts/' + item.id)
               }}>
-              <ListImg
-                item={item}
-                handleLoad={() => this.handleImgLoad(id)}
-              />
+              <ListImg src={item.pic} />
               <ListContent item={item} />
             </section>
           ))

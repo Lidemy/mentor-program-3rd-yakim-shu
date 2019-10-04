@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from './../components/header/Header'
 import Nav from './../components/nav/Nav';
 import About from './../components/about/About';
-import Home from './../components/home/Home';
 
+import Home from './Home';
 import PostEdit from './PostEdit';
 import PostList from './PostList';
 import Article from './Article';

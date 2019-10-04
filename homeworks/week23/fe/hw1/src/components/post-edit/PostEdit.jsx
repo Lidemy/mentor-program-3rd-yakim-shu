@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 
 const PostEditBtn = ({ id }) => (
   <>
@@ -9,21 +7,6 @@ const PostEditBtn = ({ id }) => (
     {id && <Link className="btn-back" to="/posts">Back</Link>}
   </>
 );
-
-
-const InputText = ({ value, type, label, onChange }) => {
-  return (
-    <>
-      <input
-        type="text"
-        defaultValue={value}
-        name={type}
-        onChange={onChange}
-        required />
-      <label>{label}</label>
-    </>
-  )
-}
 
 class PostEdit extends Component {
   constructor(props) {
@@ -38,50 +21,30 @@ class PostEdit extends Component {
     body: '',
   }
 
+  // 編輯文章頁面，把 store.post 當成 state 預設值
   componentWillMount() {
     if (this.id) {
-      axios.get(`${this.url}/${this.id}`)
-        .then(res => {
-          this.setState(res.data);
-        })
+      const { getPost, post } = this.props;
+      getPost(this.id);
+      this.setState(post);
     }
   }
 
   handleChange = e => {
-    console.log(this.state);
     this.setState({
       [e.target.name]: e.target.value,
     })
   }
 
-  sendRequest = () => {
-    const { history } = this.props;
-
-    if (this.id) {
-      return axios({
-        method: 'PUT',
-        url: `${this.url}/${this.id}`,
-        data: this.state,
-      })
-        .then((res) => {
-          console.log(res);
-          history.push(`/posts/${this.id}`);
-        })
-    }
-
-    return axios.post(this.url, this.state)
-      .then(() => {
-        history.push('/posts');
-      })
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
-    this.sendRequest()
-      .catch(error => {
-        console.log(error);
-        alert('失敗惹: ', error);
-      });
+    const { history, addPost, updatePost } = this.props;
+
+    if (!this.id) {
+      addPost(this.state, history);
+    } else {
+      updatePost(this.id, this.state, history);
+    }
   }
 
   render() {
@@ -89,15 +52,18 @@ class PostEdit extends Component {
     return (
       <section className="add-post">
         <h2>{this.id ? '編輯文章' : '新增文章'}</h2>
+
         <form onSubmit={this.handleSubmit}>
           <ul>
             <li className="add-post__author">
-              <InputText type={'author'} value={author} label={'文章作者'}
-                onChange={this.handleChange} />
+              <input type="text" name='author'
+                defaultValue={author} onChange={this.handleChange} required />
+              <label>文章作者</label>
             </li>
             <li className="add-post__title">
-              <InputText type={'title'} value={title} label={'文章標題'}
-                onChange={this.handleChange} />
+              <input type="text" name='title'
+                defaultValue={title} onChange={this.handleChange} required />
+              <label>文章標題</label>
             </li>
             <li className="add-post__content">
               <label>文章內容</label>

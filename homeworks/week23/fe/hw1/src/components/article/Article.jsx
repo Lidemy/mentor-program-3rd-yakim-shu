@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../spinner/Spinner'
-import axios from 'axios';
 import getDate from '../../utils';
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "./CodeBlock";
@@ -14,15 +13,35 @@ const ArticleInfo = ({ post }) => (
   </div>
 )
 
-const ArticleOperate = ({ id, handleDelete }) => (
+const ArticleImg = ({ post }) => (
+  !post.pic ? null : (
+    <div className="pic article__cover">
+      <img src={post.pic} alt="" />
+    </div>
+  )
+)
+
+const ArticleOperate = ({ post, handleDelete }) => (
   <div className="article__operate">
     <Link className="btn btn-back active" to="/posts">Back</Link>
-    <Link className="btn btn-edit" to={`/edit-post/${id}`}>Edit</Link>
+    <Link className="btn btn-edit" to={`/edit-post/${post.id}`}>Edit</Link>
     <button className="btn btn-delete" onClick={handleDelete}>Delete</button>
   </div>
 )
 
+const ArticleBody = ({ post }) => (
+  <div className="article__body">
+    <ReactMarkdown
+      source={post.body}
+      renderers={{ code: CodeBlock }}
+    />
+  </div>
+)
+
 class Article extends Component {
+  state = {
+    isLoaded: false
+  }
 
   componentWillMount() {
     const { getPost } = this.props;
@@ -30,42 +49,30 @@ class Article extends Component {
     getPost(postId);
   }
 
+  componentDidUpdate() {
+    const { isLoaded } = this.state;
+    if (isLoaded) return;
+    this.setState({ isLoaded: true })
+  }
+
   handleDelete = () => {
-    const { id } = this.state.post;
-    const { history } = this.props;
-    axios({
-      method: 'delete',
-      url: `http://blog-api.yakim.tw/posts/${id}`
-    })
-      .then(() => {
-        history.push('/posts');
-      })
-      .catch(error => {
-        alert('失敗惹: ', error);
-      });
+    const { post, deletePost, history } = this.props;
+    deletePost(post.id, history);
   }
 
   render() {
     const { post } = this.props;
+    const { isLoaded } = this.state;
     return (
-      <section className="article">
-        <h2 className="article__title">{post.title}</h2>
-        {post.pic && (
-          <div className="pic article__cover">
-            <img src={post.pic} alt="" />
-          </div>
-        )}
-        {!post.body ? <Spinner /> : (
-          <div className="article__body">
-            <ReactMarkdown
-              source={post.body}
-              renderers={{ code: CodeBlock }}
-            />
-          </div>
-        )}
-        <ArticleInfo post={post} />
-        <ArticleOperate id={post.id} handleDelete={this.handleDelete} />
-      </section>
+      !isLoaded ? <Spinner /> : (
+        <section className="article">
+          <h2 className="article__title">{post.title}</h2>
+          <ArticleImg {...this.props} />
+          <ArticleBody {...this.props} />
+          <ArticleInfo {...this.props} />
+          <ArticleOperate {...this.props} handleDelete={this.handleDelete} />
+        </section>
+      )
     )
   }
 };

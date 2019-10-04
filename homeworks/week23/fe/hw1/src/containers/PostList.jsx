@@ -1,26 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PostList from './../components/post-list/PostList';
-import { getAllPosts } from './../reducers/post-list';
+import { getAllPosts } from '../reducers/post';
 
 
 const PostListContainer = props => (<PostList {...props} />);
 
-const mapStateToProps = (state) => {
-  return {
-    postList: state.postList
-  }
-}
+const mapStateToProps = ({ postList }) => { return { postList } }
+const mapDispatchToProps = { getAllPosts };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAllPosts: () => {
-      dispatch(getAllPosts())
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostListContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer)

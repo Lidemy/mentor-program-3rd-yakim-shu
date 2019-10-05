@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../spinner/Spinner'
-import getDate from '../../utils';
+import { getDate } from './../../utils';
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "./CodeBlock";
 
@@ -23,7 +23,7 @@ const ArticleImg = ({ post }) => (
 
 const ArticleOperate = ({ post, handleDelete }) => (
   <div className="article__operate">
-    <Link className="btn btn-back active" to="/posts">Back</Link>
+    <Link className="btn btn-back active" to='/posts'>Back</Link>
     <Link className="btn btn-edit" to={`/edit-post/${post.id}`}>Edit</Link>
     <button className="btn btn-delete" onClick={handleDelete}>Delete</button>
   </div>
@@ -56,8 +56,8 @@ class Article extends Component {
   }
 
   handleDelete = () => {
-    const { post, deletePost, history } = this.props;
-    deletePost(post.id, history);
+    const { post, deletePost, history, showMsg } = this.props;
+    deletePost(post.id, history, showMsg)
   }
 
   render() {

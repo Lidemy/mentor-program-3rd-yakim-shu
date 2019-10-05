@@ -12,6 +12,7 @@
 
   &:hover img {
     transform: scale(1.05);
+    
   }
 
   &-inner {
@@ -30,12 +31,7 @@
 
     img {
       transition: all 0.8s;
-      // filter: grayscale(0.8);
-      // opacity: 0;
-
-      &.show {
-        opacity: 1;
-      }
+      animation: fadeIn 2s;
     }
   }
 }
@@ -81,6 +77,7 @@
   }
 
   .pic {
+    min-height: 200px;
     height: auto;
   }
 
@@ -106,6 +103,10 @@
 
     &:nth-of-type(1) {
       margin-bottom: 0;
+      
+      .pic {
+        min-height: auto;
+      }
 
       .home-list__item-inner {
         top: 0;

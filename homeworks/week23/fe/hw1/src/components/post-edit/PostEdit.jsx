@@ -12,7 +12,6 @@ class PostEdit extends Component {
   constructor(props) {
     super(props);
     this.id = this.props.match.params.id;
-    this.url = 'http://blog-api.yakim.tw/posts';
   }
 
   state = {
@@ -38,12 +37,12 @@ class PostEdit extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { history, addPost, updatePost } = this.props;
+    const { history, addPost, updatePost, showMsg } = this.props;
 
     if (!this.id) {
-      addPost(this.state, history);
+      addPost(this.state, history, showMsg);
     } else {
-      updatePost(this.id, this.state, history);
+      updatePost(this.id, this.state, history, showMsg);
     }
   }
 

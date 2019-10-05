@@ -1,6 +1,7 @@
 .article {
   line-height: 1.8rem;
   letter-spacing: 0.05rem;
+  animation: fadeIn 1s;
 
   &__title {
     margin-bottom: 2rem;
@@ -19,6 +20,7 @@
 
     img {
       max-width: 100%;
+      
     }
   }
 
@@ -26,6 +28,7 @@
     color: #666;
     white-space: pre-wrap;
     margin-bottom: 3rem;
+    
   }
 
   &__operate {

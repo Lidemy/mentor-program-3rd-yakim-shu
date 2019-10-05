@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import getDate from './../../utils';
+import { withRouter, Link } from 'react-router-dom';
+import { getDate } from './../../utils';
 import Spinner from '../spinner/Spinner';
 import Img from 'react-image';
 
@@ -28,17 +28,16 @@ class Home extends Component {
   }
 
   render() {
-    const { postList, history } = this.props;
+    const { postList } = this.props;
     return (
       <div className="home-list">
         {
           postList.map((item, id) => (
-            <section key={id} className="home-list__item"
-              onClick={() => {
-                history.push('/posts/' + item.id)
-              }}>
-              <ListImg src={item.pic} />
-              <ListContent item={item} />
+            <section key={id} className="home-list__item">
+              <Link to={`/posts/${item.id}`}>
+                <ListImg src={item.pic} />
+                <ListContent item={item} />
+              </Link>
             </section>
           ))
         }

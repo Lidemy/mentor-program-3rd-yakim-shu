@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner/Spinner';
 import { withRouter } from 'react-router-dom';
-import getDate from './../../utils';
+import { getDate, getYear } from './../../utils';
+import { Link } from 'react-router-dom';
 
-const Item = ({ post, history }) => {
+const Item = ({ post }) => {
   return (
-    <div
-      className="post"
-      key={post.id}
-      onClick={() => {
-        history.push('/posts/' + post.id)
-      }}>
-      <p className="post__date">{getDate(post.createdAt)}</p>
+    <Link to={`/posts/${post.id}`} className='post'>
+      <p className="post__date">
+        <span>{getDate(post.createdAt)}</span>
+        {getYear(post.createdAt)}
+      </p>
       <h4 className="post__title">{post.title}</h4>
       <p className="post__description">{post.body}</p>
-    </div>
+    </Link>
   )
 };
 
@@ -24,21 +23,14 @@ class PostList extends Component {
     getAllPosts();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextProps.posts !== this.posts) return true;
-  //   return false;
-  // }
-
   render() {
     const { postList } = this.props;
-    const { history } = this.props;
-    console.log('list: ', postList);
     return (
       <div className="post-list">
         {
           !postList.length ? <Spinner /> : (
             postList.map(post => (
-              <Item post={post} key={post.id} history={history} />
+              <Item post={post} key={post.id} />
             ))
           )
         }

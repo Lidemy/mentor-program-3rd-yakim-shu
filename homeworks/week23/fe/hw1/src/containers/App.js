@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from './../components/header/Header'
-import Nav from './../components/nav/Nav';
 import About from './../components/about/About';
+import Nav from './../components/nav/Nav';
 
+import Msg from './Msg';
 import Home from './Home';
 import PostEdit from './PostEdit';
 import PostList from './PostList';
@@ -21,7 +22,8 @@ class App extends Component {
           <Nav />
           <Header />
           <main className="container">
-            <Route exact path="/" component={Home} />
+            <Msg />
+            <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
             <Route exact path="/posts" component={PostList} />
             <Route path="/posts/:id" component={Article} />

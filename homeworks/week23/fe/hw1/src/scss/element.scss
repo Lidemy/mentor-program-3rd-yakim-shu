@@ -12,6 +12,7 @@
   font-family: 'Open Sans', serif;
   overflow: hidden;
   z-index:10;
+  border: none;
 
   &::before {
     @include pseudo;

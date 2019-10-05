@@ -5,12 +5,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import promise from 'redux-promise';
 import App from './containers/App';
-import postsReducer from './reducers/post';
+import reducer from './reducers';
+import logger from 'redux-logger'
 
-const storeWithMiddleware = applyMiddleware(promise)(createStore);
+const storeWithMiddleware = applyMiddleware(
+  promise,
+  logger // => logger must be the last one
+)(createStore);
 
 ReactDOM.render(
-  <Provider store={storeWithMiddleware(postsReducer)}>
+  <Provider store={storeWithMiddleware(reducer)}>
     <App />
   </Provider>,
   document.getElementById('root')

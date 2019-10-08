@@ -1,0 +1,85 @@
+.post-list {
+  border-left: 1px solid #5a9db24a;
+  padding-left: 50px;
+  margin-left: 15px;
+}
+
+.post-list .post {
+  @include relative;
+  display: block;
+  padding: 2rem 0;
+
+  &__title {
+    @extend %transition;
+    display: block;
+    color: #666;
+    font-size: 17px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  &__description {
+    @extend %transition;
+    font-size: 14px;
+    color: #999;
+    overflow: hidden;
+    line-height: 1.6rem;
+    height: 50px;
+    letter-spacing: 0.05rem;
+  }
+
+  &__date {
+    @include absolute($left: -77px, $top: 18px);
+    color: #5a9db2;
+    font-size: 14px;
+    background: white;
+    padding: 5px;
+    padding: 10px 5px;
+    white-space: pre-line;
+    text-align: center;
+    letter-spacing: 0.05rem;
+    span {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+  &:hover {
+    .post__title {
+      color: #5a9db2;
+    }
+    
+    .post__description {
+      // color: #333;
+    }
+  }
+}
+
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .post-list {
+    padding: 10px;
+    margin: 0;
+    border: none;
+
+    .post {
+      padding: 1rem 0;
+      border-bottom: 1px solid #eee;
+      
+      &__date {
+        position: initial;
+        text-align: left;
+
+        span {
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+
+      &__description {
+        height: 50px;
+      }
+    }
+  }
+}

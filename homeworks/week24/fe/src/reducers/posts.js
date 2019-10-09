@@ -1,5 +1,15 @@
 import { ActionTypes } from "./../actions";
 
+// function actu(actionStatus, actionName) {
+//   switch (actionStatus) {
+//     case 'pedding':
+//       return `${ActionTypes.actionName}_PENDING`;
+
+//     default:
+//       return actionName;
+//   }
+// }
+
 const initState = {
   postList: [],
   post: {},

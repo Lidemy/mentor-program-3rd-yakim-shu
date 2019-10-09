@@ -11,7 +11,7 @@
 
 /* list - li */
 .navbar__list {
-  @extend %transition;
+  transition: all 0.6s;
   max-width: $width-l;
   margin:0 auto;
   display: flex;
@@ -40,7 +40,7 @@
 
 /* list - a */
 .navbar__list li a {
-  @extend %transition;
+  transition: all 0.6s;
   border-right: 1px solid rgba(0,0,0,0.1);
   
 

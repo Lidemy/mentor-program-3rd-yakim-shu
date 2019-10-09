@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import Logo from './../logo/Logo';
+import debounce from 'lodash.debounce';
 
 class Nav extends Component {
   state = {
-    prevScrollPos: window.pageYOffset, // => 儲存 scroll 位置
     isFixed: false,
   };
 
+  // 加入 debounce 延遲
   componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", debounce(this.handleScroll, 50));
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", debounce(this.handleScroll, 50));
   }
 
-  // 往上滑才 fixed ( 到最上面取消 fixed )
   handleScroll = () => {
-    const { prevScrollPos } = this.state;
-    const currentScrollPos = window.pageYOffset;
-    const isFixed = prevScrollPos > currentScrollPos && currentScrollPos;
-
     this.setState({
-      prevScrollPos: currentScrollPos,
-      isFixed
-    });
+      isFixed: window.pageYOffset > 80
+    })
   };
 
   render() {

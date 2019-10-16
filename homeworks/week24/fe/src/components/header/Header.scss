@@ -12,6 +12,7 @@
 .header__description {
   color: #999;
   font-size: 14px;
+  line-height: 1.6rem;
 }
 
 @include mq('tablet-s') {

@@ -15,6 +15,8 @@ export const getAllPosts = () => axios.get(`${baseUrl}?${sortDESC}`)
 
 export const getLimitPosts = () => axios.get(`${baseUrl}?${sortASC}&${limit}`)
 
+export const getCategoryPosts = (category) => axios.get(`${baseUrl}?${sortASC}&category=${category}`)
+
 export const getPost = id => axios.get(`${baseUrl}/${id}`)
 
 export const addPost = post => axios.post(baseUrl, post)
@@ -22,3 +24,5 @@ export const addPost = post => axios.post(baseUrl, post)
 export const deletePost = id => axios.delete(`${baseUrl}/${id}`)
 
 export const updatePost = (id, post) => axios.put(`${baseUrl}/${id}`, post)
+
+export const getSearch = (query) => axios.get(`${baseUrl}?title_like=${query}`)

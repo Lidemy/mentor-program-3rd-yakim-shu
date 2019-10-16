@@ -8,17 +8,32 @@ const PostEditBtn = ({ id }) => (
   </>
 );
 
+const PostCategory = ({ category, handleChange, categoryList }) => (
+  <select
+    name='category'
+    className='select'
+    defaultValue={category}
+    onChange={handleChange}>
+    {
+      categoryList.map((category, index) => (
+        <option key={index} value={category}>{category}</option>
+      ))
+    }
+  </select>
+);
+
 class PostEdit extends Component {
   constructor(props) {
     super(props);
     this.id = this.props.match.params.id;
+    this.state = {
+      author: '',
+      title: '',
+      body: '',
+      category: this.props.categoryList[0],
+    }
   }
 
-  state = {
-    author: '',
-    title: '',
-    body: '',
-  }
 
   // 編輯文章頁面，把 store.post 當成 state 預設值
   componentWillMount() {
@@ -30,20 +45,32 @@ class PostEdit extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { history, isLoadingAddPost, isLoadingUpdatePost, addPostError, showMsg } = this.props;
+    const {
+      history,
+      isLoadingAddPost,
+      isLoadingUpdatePost,
+      addPostError,
+      updatePostError,
+      showMsg
+    } = this.props;
+
+    // addPost
     if (prevProps.isLoadingAddPost !== isLoadingAddPost && !isLoadingAddPost) {
-      // if (addPostError) {
-      //   showMsg('addPost', false);
-      // }
+      if (addPostError) {
+        showMsg('addPost', false);
+        return;
+      }
 
       showMsg('addPost', true);
       history.push('/posts');
     }
 
+    // updatePost
     else if (prevProps.isLoadingUpdatePost !== isLoadingUpdatePost && !isLoadingUpdatePost) {
-      // if (addPostError) {
-      //   showMsg('addPost', false);
-      // }
+      if (updatePostError) {
+        showMsg('updatePost', false);
+        return;
+      }
 
       showMsg('updatePost', true);
       history.push('/posts');
@@ -58,17 +85,18 @@ class PostEdit extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { history, addPost, updatePost, showMsg } = this.props;
+    const { addPost, updatePost } = this.props;
 
     if (!this.id) {
-      addPost(this.state, history, showMsg);
+      addPost(this.state);
     } else {
-      updatePost(this.id, this.state, history, showMsg);
+      updatePost(this.state, this.id);
     }
   }
 
   render() {
-    const { author, title, body } = this.state;
+    const { author, title, body, category } = this.state;
+    const { categoryList } = this.props;
     return (
       <section className="add-post">
         <h2>{this.id ? '編輯文章' : '新增文章'}</h2>
@@ -85,8 +113,15 @@ class PostEdit extends Component {
                 defaultValue={title} onChange={this.handleChange} required />
               <label>文章標題</label>
             </li>
+            <li className="add-post__category box">
+              <label>分類：</label>
+              <PostCategory
+                category={category}
+                handleChange={this.handleChange}
+                categoryList={categoryList} />
+            </li>
             <li className="add-post__content">
-              <label>文章內容</label>
+              <label className='theme--1'>文章內容</label>
               <textarea className="input-textarea" cols="30" rows="5"
                 name="body" onChange={this.handleChange}
                 value={body} required></textarea>

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Msg from './../components/msg/Msg';
 import { Actions } from './../actions';
-// import { hideMsg } from '../reducers/msg';
 
 const MsgContainer = props => (<Msg {...props} />);
 

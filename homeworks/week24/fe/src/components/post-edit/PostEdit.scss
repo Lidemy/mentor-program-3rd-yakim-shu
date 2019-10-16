@@ -45,6 +45,16 @@
   }
 }
 
+label.theme--1 {
+  display: block;
+  text-align: left;
+  color: #999;
+  margin-bottom: 1em;
+  font-weight:300;
+  border-left: 3px solid #999;
+  padding-left: 10px;
+}
+
 .add-post {
     .btn {
       &-submit, &-back {
@@ -71,20 +81,41 @@ form li:not(.add-post__content) label {
 
 form li.add-post__content{
   margin: 2rem 0;
-
-  label {
-    display: block;
-    text-align: left;
-    color: #999;
-    margin-bottom: 1em;
-    font-weight:300;
-    border-left: 3px solid #999;
-    padding-left: 10px;
-  }
 }
 
 form li input:valid + label, form li input:focus + label {
   color: #51A2DA;
   font-size: 14px;
   transform: translate3d(0, -5px, 0);
+}
+
+.box select {
+  background: #f9f9f9;
+  color: #03A9F4;
+  padding: 5px 10px;
+  appearance: button;
+  outline: none;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid #03A9F4;
+}
+
+
+form li.box {
+  display: flex;
+  align-items: center;
+
+  label {
+    position: initial;
+    margin-right: 10px;
+  }
+}
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+  padding: 30px;
 }

@@ -17,6 +17,13 @@ const { Actions, Constants } = EasyActions({
     };
   },
 
+  GET_CATEGORY_POSTS(type, name) {
+    return {
+      type,
+      payload: WebAPI.getCategoryPosts(name)
+    };
+  },
+
   GET_POST(type, id) {
     return {
       type,
@@ -38,7 +45,7 @@ const { Actions, Constants } = EasyActions({
     };
   },
 
-  UPDATE_POST(type, id, post) {
+  UPDATE_POST(type, post, id) {
     return {
       type,
       payload: WebAPI.updatePost(id, post)

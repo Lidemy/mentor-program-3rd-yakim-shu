@@ -13,20 +13,20 @@ const ArticleInfo = ({ post }) => (
   </div>
 )
 
+const ArticleCategory = ({ post }) => (
+  <p className="article__category">
+    category:
+    <Link to={`/category/${post.category}`}>{post.category}</Link>
+  </p>
+)
+
+
 const ArticleImg = ({ post }) => (
   !post.pic ? null : (
     <div className="pic article__cover">
       <img src={post.pic} alt="" />
     </div>
   )
-)
-
-const ArticleOperate = ({ post, handleDelete }) => (
-  <div className="article__operate">
-    <Link className="btn btn-back active" to='/posts'>Back</Link>
-    <Link className="btn btn-edit" to={`/edit-post/${post.id}`}>Edit</Link>
-    <button className="btn btn-delete" onClick={handleDelete}>Delete</button>
-  </div>
 )
 
 const ArticleBody = ({ post }) => (
@@ -38,23 +38,45 @@ const ArticleBody = ({ post }) => (
   </div>
 )
 
+const ArticleOperate = ({ post, handleDelete }) => (
+  <div className="article__operate">
+    <Link className="btn btn-back active" to='/posts'>Back</Link>
+    <Link className="btn btn-edit" to={`/edit-post/${post.id}`}>Edit</Link>
+    <button className="btn btn-delete" onClick={handleDelete}>Delete</button>
+  </div>
+)
+
 class Article extends Component {
-  state = {
-    isLoaded: false
+  constructor(props) {
+    super(props);
+    this.postId = this.props.match.params.id;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { getPost } = this.props;
-    const postId = this.props.match.params.id;
-    getPost(postId);
+    getPost(this.postId);
   }
 
   componentDidUpdate(prevProps) {
-    const { history, isLoadingDeletePost, showMsg } = this.props;
+    const {
+      history,
+      isLoadingDeletePost,
+      showMsg,
+      deletePostError,
+      getPost } = this.props;
+
+    const presentId = this.props.match.params.id;
+
+    if (Number(presentId) !== prevProps.post.id) {
+      getPost(presentId);
+      return;
+    }
+
     if (prevProps.isLoadingDeletePost !== isLoadingDeletePost && !isLoadingDeletePost) {
-      // if (addPostError) {
-      //   showMsg('addPost', false);
-      // }
+      if (deletePostError) {
+        showMsg('deletePost', false);
+        return;
+      }
 
       showMsg('deletePost', true);
       history.push('/posts');
@@ -68,18 +90,17 @@ class Article extends Component {
 
   render() {
     const { post, isLoadingGetPost } = this.props;
+
+    if (isLoadingGetPost) return <Spinner />;
     return (
-      isLoadingGetPost ? <Spinner /> :
-        (
-          <section className="article">
-            <h2 className="article__title">{post.title
-            }</h2 >
-            <ArticleImg {...this.props} />
-            <ArticleBody {...this.props} />
-            <ArticleInfo {...this.props} />
-            <ArticleOperate {...this.props} handleDelete={this.handleDelete} />
-          </section >
-        )
+      <section className="article">
+        <h2 className="article__title">{post.title}</h2>
+        <ArticleCategory {...this.props} />
+        <ArticleImg {...this.props} />
+        <ArticleBody {...this.props} />
+        <ArticleInfo {...this.props} />
+        <ArticleOperate {...this.props} handleDelete={this.handleDelete} />
+      </section>
     )
   }
 };

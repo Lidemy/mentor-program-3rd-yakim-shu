@@ -1,0 +1,36 @@
+.about {
+  line-height: 1.8rem;
+  letter-spacing: 0.05rem;
+  animation: fadeIn 1s;
+  color: #666;
+
+  a {
+    border-bottom: 2px solid $main-color;
+  }
+
+  span {
+    background: #666;
+    padding: 0px 5px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  p {
+    margin-bottom: 1em;
+
+    
+  }
+
+  ul {
+    list-style: initial;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  blockquote {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem;
+  }
+
+}

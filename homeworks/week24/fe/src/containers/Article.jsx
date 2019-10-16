@@ -9,6 +9,7 @@ const mapStateToProps = ({ posts }) => ({
   post: posts.post,
   isLoadingDeletePost: posts.isLoadingDeletePost,
   isLoadingGetPost: posts.isLoadingGetPost,
+  deletePostError: posts.deletePostError,
 });
 const mapDispatchToProps = {
   getPost: Actions.GET_POST,

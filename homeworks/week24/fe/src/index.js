@@ -10,7 +10,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 
 const storeWithMiddleware = applyMiddleware(
   promiseMiddleware,
-  logger // => logger must be the last one
+  // logger // => logger must be the last one
 )(createStore);
 
 

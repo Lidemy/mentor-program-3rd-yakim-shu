@@ -5,12 +5,14 @@ import { Actions } from './../actions';
 
 const PostListContainer = props => (<PostList {...props} />);
 
-const mapStateToProps = ({ posts }) => ({
+const mapStateToProps = ({ posts, category }) => ({
   postList: posts.postList,
   isLoading: posts.isLoading,
+  categoryList: category,
 });
 const mapDispatchToProps = {
-  getAllPosts: Actions.GET_ALL_POSTS
+  getAllPosts: Actions.GET_ALL_POSTS,
+  getCategoryPosts: Actions.GET_CATEGORY_POSTS,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer)

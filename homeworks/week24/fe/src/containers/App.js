@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from './../components/header/Header'
 import About from './../components/about/About';
-import Nav from './../components/nav/Nav';
 
+import Nav from './Nav';
 import Msg from './Msg';
 import Home from './Home';
 import PostEdit from './PostEdit';
@@ -26,6 +26,8 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
             <Route exact path="/posts" component={PostList} />
+            <Route exact path="/category" component={PostList} />
+            <Route exact path="/category/:category" component={PostList} />
             <Route path="/posts/:id" component={Article} />
             <Route path="/add-post" component={PostEdit} />
             <Route path="/edit-post/:id" component={PostEdit} />

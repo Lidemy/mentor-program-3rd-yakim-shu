@@ -1,15 +1,5 @@
 import { ActionTypes } from "./../actions";
 
-// function actu(actionStatus, actionName) {
-//   switch (actionStatus) {
-//     case 'pedding':
-//       return `${ActionTypes.actionName}_PENDING`;
-
-//     default:
-//       return actionName;
-//   }
-// }
-
 const initState = {
   postList: [],
   post: {},
@@ -19,6 +9,8 @@ const initState = {
   isLoadingDeletePost: false,
   isLoadingUpdatePost: false,
   addPostError: null,
+  updatePostError: null,
+  deletePostError: null,
 }
 
 // reducer
@@ -28,6 +20,7 @@ export default function postsReducer(state = initState, action) {
     /* get all ---------- */
     case `${ActionTypes.GET_ALL_POSTS}_PENDING`:
     case `${ActionTypes.GET_LIMIT_POSTS}_PENDING`:
+    case `${ActionTypes.GET_CATEGORY_POSTS}_PENDING`:
       return {
         ...state,
         isLoading: true,
@@ -35,10 +28,11 @@ export default function postsReducer(state = initState, action) {
 
     case `${ActionTypes.GET_ALL_POSTS}_FULFILLED`:
     case `${ActionTypes.GET_LIMIT_POSTS}_FULFILLED`:
+    case `${ActionTypes.GET_CATEGORY_POSTS}_FULFILLED`:
       return {
         ...state,
         isLoading: false,
-        postList: action.payload.data
+        postList: action.payload.data,
       }
 
     /* get ---------- */
@@ -69,6 +63,12 @@ export default function postsReducer(state = initState, action) {
         isLoadingAddPost: false,
       }
 
+    case `${ActionTypes.ADD_POST}_REJECTED`:
+      return {
+        ...state,
+        addPostError: true,
+      }
+
     /* delete ---------- */
     case `${ActionTypes.DELETE_POST}_PENDING`:
       return {
@@ -82,6 +82,12 @@ export default function postsReducer(state = initState, action) {
         isLoadingDeletePost: false,
       }
 
+    case `${ActionTypes.DELETE_POST}_REJECTED`:
+      return {
+        ...state,
+        deletePostError: true,
+      }
+
     /* update ---------- */
     case `${ActionTypes.UPDATE_POST}_PENDING`:
       return {
@@ -93,6 +99,12 @@ export default function postsReducer(state = initState, action) {
       return {
         ...state,
         isLoadingUpdatePost: false,
+      }
+
+    case `${ActionTypes.UPDATE_POST}_REJECTED`:
+      return {
+        ...state,
+        updatePostError: true,
       }
 
 

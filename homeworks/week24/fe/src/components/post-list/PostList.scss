@@ -2,12 +2,40 @@
   border-left: 1px solid #5a9db24a;
   padding-left: 50px;
   margin-left: 15px;
+  margin-bottom: 4rem;
+}
+
+.post-list__title {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-size: 24px;
+  margin-left: 2rem;
+  border-bottom: 5px solid $main-color;
+  display: inline-block;
+  padding-bottom: 5px;
+
+  &::before {
+    @include pseudo($content: '#');
+    color: $main-color;
+    font-size: 30px;
+    margin-right: 10px;
+  }
 }
 
 .post-list .post {
   @include relative;
   display: block;
   padding: 2rem 0;
+
+  &:nth-of-type(1) {
+    padding-top: 0;
+    margin-top: 2rem;
+
+    .post__date {
+      top: -10px;
+    }
+  }
 
   &__title {
     @extend %transition;
@@ -45,13 +73,14 @@
     }
   }
 
+  &__status {
+    padding: 2em 0;
+    color: #999;
+  }
+
   &:hover {
     .post__title {
       color: #5a9db2;
-    }
-    
-    .post__description {
-      // color: #333;
     }
   }
 }

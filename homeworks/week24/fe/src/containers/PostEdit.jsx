@@ -5,11 +5,13 @@ import { Actions } from './../actions';
 
 const PostEditContainer = props => (<PostEdit {...props} />);
 
-const mapStateToProps = ({ posts }) => ({
+const mapStateToProps = ({ posts, category }) => ({
   post: posts.post,
   isLoadingAddPost: posts.isLoadingAddPost,
   isLoadingUpdatePost: posts.isLoadingUpdatePost,
   addPostError: posts.addPostError,
+  upadatePostError: posts.updatePostError,
+  categoryList: category,
 });
 const mapDispatchToProps = {
   addPost: Actions.ADD_POST,

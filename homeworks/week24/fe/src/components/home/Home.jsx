@@ -4,13 +4,13 @@ import { getDate } from './../../utils';
 import Spinner from '../spinner/Spinner';
 import Img from 'react-image';
 
-const ListContent = ({ item }) => (
+const ListContent = ({ post }) => (
   <div className="home-list__item-inner">
     <div className="home-list__title">
-      <span>{getDate(item.createdAt)}</span>
-      <h3>{item.title}</h3>
+      <span>{getDate(post.createdAt)}</span>
+      <h3>{post.title}</h3>
     </div>
-    <p className="home-list__description"> {item.body} </p>
+    <p className="home-list__description">{post.body}</p>
   </div>
 )
 
@@ -29,14 +29,16 @@ class Home extends Component {
 
   render() {
     const { postList, isLoading } = this.props;
+
+    if (isLoading) return <Spinner />;
     return (
       <div className="home-list">
         {
-          !isLoading && postList.map((item, id) => (
-            <section key={id} className="home-list__item">
-              <Link to={`/posts/${item.id}`}>
-                <ListImg src={item.pic} />
-                <ListContent item={item} />
+          postList.map(post => (
+            <section key={post.id} className="home-list__item">
+              <Link to={`/posts/${post.id}`}>
+                <ListImg src={post.pic} />
+                <ListContent post={post} />
               </Link>
             </section>
           ))

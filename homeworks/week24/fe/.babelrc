@@ -4,12 +4,6 @@
     "@babel/preset-env"
   ],
   "plugins": [
-    "import",
-    {
-      "libraryName": "antd",
-      "libraryDirectory": "es",
-      "style": "css" // `style: true` for less
-    },
     "emotion",
     [
       "module-resolver",

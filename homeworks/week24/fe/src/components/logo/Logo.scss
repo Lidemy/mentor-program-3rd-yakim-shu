@@ -1,0 +1,45 @@
+.main-logo {
+  @include relative;
+  @extend %transition;
+  display: inline-block;
+  padding:0 40px;
+  text-align: center;
+  color: #999;
+  font-size: 34px;
+  font-family: 'Suranna', 'Open Sans', serif;
+  cursor: pointer;
+
+  span {
+    display: block;
+    color: $main-color;
+    font-size: 40px;
+  }
+
+  &::before, &::after {
+    @include pseudo($content: '{');
+    @include absolute($left: 0, $top: 20%);
+    font-size: 45px;
+    color: #fff;
+  }
+
+  &::after {
+    @include pseudo($content: '}');
+    @include absolute($left: auto, $right: 0);
+  }
+}
+
+/* ----- RWD ---- */
+@include mq('tablet-s') {
+  .main-logo {
+    font-size: 22px;
+    padding: 0 25px;
+
+    span {
+      font-size: 28px;
+    }
+
+    &::before, &::after {
+      font-size: 30px;
+    }
+  }
+}

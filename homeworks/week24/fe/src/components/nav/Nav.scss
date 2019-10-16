@@ -1,0 +1,253 @@
+.navbar {
+  @extend %transition;
+  width: 100%;
+  padding: 25px 10px 10px;
+  position: fixed;
+  left: 0;
+  top:0;
+  z-index:20;
+  background: rgba(#eee, 1);
+
+  &__inner {
+    max-width: $width-l;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+
+  .main-logo {
+    visibility: hidden;
+    height:0;
+    overflow: hidden;
+    transform: scale(0.4) translateX(-40%);
+  }
+}
+
+/* list - li */
+.navbar__list {
+  transition: all 0.6s;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  > li {
+    overflow: hidden;
+    cursor: pointer;
+
+    & ~ li {
+    margin-left: 20px;
+    }
+
+    &:nth-last-of-type(1) {
+      overflow: visible;
+    }
+  }
+}
+
+/* list - a */
+.navbar__list li a {
+  @extend %btn--theme-1;
+  transition: all 0.6s;
+  
+  &.active {
+    color: #333;
+    &::before {
+      left: 50%;
+    }
+  }
+}
+
+
+@mixin fixed {
+  background: #333;
+  padding: 5px 10px;
+
+  .navbar__list {
+    justify-content: flex-end;
+    height: 50px;
+
+    li {
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  .main-logo {
+    visibility: visible;
+    height: auto;
+    transform: scale(0.45) translateX(-60%);
+    text-align: left;
+    margin-right: auto;
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+      @include size(26px);
+      @include absolute($right: 20px, $top: 0);
+      background: url("./../../img/logo192.png") no-repeat center center;
+      background-size: contain;
+    }
+  }
+}
+
+
+/* navbar -- fixed */
+.navbar.fixed {
+  @include fixed;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(248, 197, 197, 0.2);
+  z-index: 20;
+  text-align: center;
+
+  a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 0.3rem;
+  }
+
+  .dropdown:hover & {
+    display: block;
+  }
+
+  .fixed & {
+    background: #333;
+  }
+}
+
+
+/* -------- menu --------- */
+.menu-btn,
+.menu-icon {
+  display: none;
+}
+
+/* menu icon */
+.navbar .menu-icon {
+  cursor: pointer;
+  display: none;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+
+  .navicon {
+    background: #fff;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background .2s ease-out;
+    width: 18px;
+
+    &::before, &::after {
+      background: #fff;
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      transition: all .2s ease-out;
+      width: 100%;
+    }
+
+    &::before {
+      top: 5px;
+    }
+
+    &::after {
+      top: -5px;
+    }
+  }
+}
+
+.navbar .menu-btn:checked ~ .navbar__list {
+  display: flex;
+  flex-flow: column;
+  background: #333;
+  width: 100%;
+  height:auto;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  padding: 10px 0;
+
+  li {
+    height: auto;
+    text-align: center;
+  }
+}
+
+.navbar .menu-btn:checked ~ .menu-icon {
+  .navicon {
+    background: transparent;
+
+    &::before {
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      transform: rotate(45deg);
+    }
+  }
+
+  &:not(.steps) .navicon:before,
+  &:not(.steps) .navicon:after {
+    top: 0;
+  }
+}
+
+/* ----- RWD ---- */
+@include mq('desktop') {
+  .navbar {
+    @include fixed;
+
+    &__inner {
+      justify-content: flex-end;
+    }
+
+    .menu-icon {
+      display: inline-block;
+    }
+  }
+
+  .navbar__list {
+    display: none;
+
+    li {
+      order: 2;
+    }
+
+    li:nth-last-of-type(1) {
+      order: 1; // 搜尋功能排到最上面
+    }
+
+    .search {
+      margin-bottom: 1rem;
+      input {
+        width: 220px;
+
+        &:focus {
+          width: 260px;
+        }
+      }
+    }
+
+    .search__result {
+      background: #000;
+      width: 320px;
+      left: calc(50% - 160px);
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.header {
+  letter-spacing: 0.02em;
+  max-width: $width-m;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  .main-logo {
+    margin-bottom: 1em;
+  }
+}
+
+.header__description {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.6rem;
+}
+
+@include mq('tablet-s') {
+  .navbar.fixed {
+    opacity: 1;
+  }
+}
